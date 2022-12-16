@@ -1,2 +1,46 @@
-# remix-kit
-remix development, streamlined
+# RemixKit
+
+[![stability-alpha](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/jrestall/remix-kit/releases)
+
+Remix development, streamlined with [Vite](https://vitejs.dev/). 
+
+An alternative compiler for the brilliant [Remix](https://remix.run/docs) web framework.
+
+### Features
+- [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for instant, precise updates on the browser and server without reloading the page or blowing away application state.
+- [Vite](https://vitejs.dev/) for development and build bundling. Includes [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node) for extremely fast targeted server code replacement such as for your actions and loaders.
+- View library agnostic, with existing plugins for [React](https://reactjs.org/) and [Vue](https://vuejs.org/).
+- An extensible compiler and hooks system gives you complete control. 
+  - Use [hooks](packages/remix-schema/src/types/hooks.ts) from custom modules to extend any part of the build process.
+  - Benefit from the large ecosystem of vite plugins.
+- Easy to use CLI for development, build and previews.
+
+#### Future Roadmap
+- Module federation support with built-in async entry points and [vite-module-federation](https://github.com/gioboa/vite-module-federation).
+- Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
+
+### Packages
+
+| Package                                                                     | Changelog                                                   |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------|
+| [@remix-kit/cli](packages/remix-cli)                                        | [Changelog](packages/remix-cli/CHANGELOG.md)                |
+| [@remix-kit/kit](packages/remix-kit)                                        | [Changelog](packages/remix-kit/CHANGELOG.md)                |
+| [@remix-kit/react](packages/remix-react)                                    | [Changelog](packages/remix-react/CHANGELOG.md)              |
+| [@remix-kit/schema](packages/remix-schema)                                  | [Changelog](packages/remix-schema/CHANGELOG.md)             | 
+| [@remix-kit/vite](packages/remix-vite)                                      | [Changelog](packages/remix-vite/CHANGELOG.md)               |
+| [@remix-kit/vue](packages/remix-vue)                                        | [Changelog](packages/remix-vue/CHANGELOG.md)                |
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop RemixKit locally.
+
+## Supporting RemixKit
+
+RemixKit is an MIT-licensed open source project with its ongoing development made possible entirely by volunteer time. If you'd like to support this effort, please consider:
+
+## Credit
+
+
+## License
+
+[MIT](https://github.com/sveltejs/kit/blob/master/LICENSE)
