@@ -1,10 +1,20 @@
-# RemixKit
+<p align="center">
+<img src="https://github.com/jrestall/remix-kit/blob/main/docs/assets/remix-kit.svg?raw=true" height="120">
+</p>
 
-[![stability-alpha](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/jrestall/remix-kit/releases)
-
-Remix development, streamlined with [Vite](https://vitejs.dev/). 
-
-An alternative compiler for the brilliant [Remix](https://remix.run/docs) web framework.
+<h1 align="center">
+RemixKit
+</h1>
+<p align="center">
+Remix development, streamlined with <a href="https://vitejs.dev/">Vite</a>. 
+</p>
+<p align="center">
+An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix</a> web framework.
+</p>
+<p align="center">
+  <a href="https://github.com/jrestall/remix-kit/releases"><img src="https://img.shields.io/badge/stability-alpha-f4d03f.svg"></a>
+  <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/@remix-kit/cli?color=FCC72B&label="></a>
+</p>
 
 ### Features
 - [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for instant, precise updates on the browser and server without reloading the page or blowing away application state.
@@ -13,10 +23,12 @@ An alternative compiler for the brilliant [Remix](https://remix.run/docs) web fr
 - An extensible compiler and hooks system gives you complete control. 
   - Use [hooks](packages/remix-schema/src/types/hooks.ts) from custom modules to extend any part of the build process.
   - Benefit from the large ecosystem of vite plugins.
-- Easy to use CLI for development, build and previews.
+- Easy to use CLI `remix-kit` for development, build, previews and more.
+- Top-level `await` support, hierarchy based `remix.config.js`, `.remixignore` and much more!.
 
 #### Future Roadmap
-- Module federation support with built-in async entry points and [vite-module-federation](https://github.com/gioboa/vite-module-federation).
+- Separate client/server development architecture using vite-node for better web worker support. 
+- Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
 - Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
 
 ### Packages
