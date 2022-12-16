@@ -1,5 +1,5 @@
-import { AssetsManifest, RemixOptions } from '@remix-kit/schema';
-import { ConfigRoute } from '@remix-run/dev/dist/config/routes';
+import type { AssetsManifest, RemixOptions } from '@remix-kit/schema';
+import type { ConfigRoute } from '@remix-run/dev/dist/config/routes';
 import { resolve } from 'pathe';
 
 export function createServerManifest(options: RemixOptions, manifest?: AssetsManifest): string {

@@ -8,16 +8,13 @@ type RouteExports = readonly [
 ];
 
 export async function getRouteExports(source: string): Promise<RouteExports> {
-  const start = performance.now();
   await init;
 
   let imports!: readonly ImportSpecifier[];
   let exports!: readonly ExportSpecifier[];
   try {
-    console.log(source);
+    // parseImports is super quick and takes ~0.4ms
     [imports, exports] = parseImports(source);
-    const time = Math.round((performance.now() - start) * 1000) / 1000;
-    console.log(`got exports in ${time}ms`);
   } catch (e: any) {
     logger.error(
       `Failed to parse source for development route tree-shaking analysis because the content ` +

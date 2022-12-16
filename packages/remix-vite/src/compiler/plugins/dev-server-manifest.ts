@@ -1,7 +1,7 @@
-import { AssetsManifest, Remix, RemixOptions } from '@remix-kit/schema';
+import type { AssetsManifest, Remix, RemixOptions } from '@remix-kit/schema';
 import { join, resolve } from 'pathe';
 import { getRouteExports, createServerManifest, createEntryRoute } from '@remix-kit/kit';
-import { ViteDevServer, Plugin } from 'vite';
+import type { ViteDevServer, Plugin } from 'vite';
 
 // Since @remix-run/dev/server-build looks like a normal non-virtual or '\0'
 // prefixed module, if we don't execute this plugin first as 'pre' to claim

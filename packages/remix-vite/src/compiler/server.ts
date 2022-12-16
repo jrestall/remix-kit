@@ -6,7 +6,7 @@ import type { ViteBuildContext, ViteOptions } from '../vite';
 import { initViteNodeServer } from '../vite-node';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import polyfillNode from 'rollup-plugin-polyfill-node';
-import { InputPluginOption } from 'rollup';
+import type { InputPluginOption } from 'rollup';
 import { devServerManifest, devServerManifestPre } from './plugins/dev-server-manifest';
 
 export async function buildServer(ctx: ViteBuildContext) {

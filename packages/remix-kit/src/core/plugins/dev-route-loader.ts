@@ -1,10 +1,11 @@
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 import { createUnplugin } from 'unplugin';
 import { getRouteExports, removeRouteExports } from '../../utils/route-exports';
 import { transform, formatMessages } from 'esbuild';
 import { logger } from '../..';
 import type { ImportSpecifier } from 'es-module-lexer';
-import { findStaticImports, parseStaticImport, ParsedStaticImport } from 'mlly';
+import type { ParsedStaticImport } from 'mlly';
+import { findStaticImports, parseStaticImport } from 'mlly';
 
 type ParsedImportSpecifier = {
   spec: ImportSpecifier;

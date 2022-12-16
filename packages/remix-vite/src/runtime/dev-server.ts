@@ -1,7 +1,7 @@
 import { createError } from 'h3';
 import { ViteNodeRunner } from 'vite-node/client';
 import consola from 'consola';
-import { ViteNodeServer } from 'vite-node/server';
+import type { ViteNodeServer } from 'vite-node/server';
 import { isRelative } from 'ufo';
 import { dirname, resolve } from 'pathe';
 

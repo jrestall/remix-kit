@@ -1,4 +1,4 @@
-import { ConfigSchema } from '../../schema/config';
+import type { ConfigSchema } from '../../schema/config';
 import type {
   ServerOptions as ViteServerOptions,
   UserConfig as ViteUserConfig,

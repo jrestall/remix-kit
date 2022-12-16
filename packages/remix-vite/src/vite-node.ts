@@ -1,15 +1,15 @@
 import { createApp, defineEventHandler, fromNodeMiddleware } from 'h3';
-import * as http from 'http';
+import type * as http from 'http';
 import { ViteNodeServer } from 'vite-node/server';
 import { resolve as resolveModule } from 'mlly';
 import type { ViteBuildContext } from './vite';
 import { createIsExternal } from './utils/external';
-import { Connect, ModuleNode, ViteDevServer } from 'vite';
+import type { Connect, ModuleNode, ViteDevServer } from 'vite';
 import { logger } from '@remix-kit/kit';
 import type { Application } from 'express';
-import { VitePlugin } from 'unplugin';
+import type { VitePlugin } from 'unplugin';
 import { resolve } from 'pathe';
-import { ViteNodeRunner } from 'vite-node/client';
+import type { ViteNodeRunner } from 'vite-node/client';
 import { createRunner } from './runtime/dev-server';
 import { createDevAssetsManifest } from './compiler/plugins/dev-server-manifest';
 

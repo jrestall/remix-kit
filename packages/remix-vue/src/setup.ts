@@ -1,4 +1,4 @@
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 import { bold, green } from 'colorette';
 import vuePlugin from '@vitejs/plugin-vue';
 import type { Options as VuePluginOptions } from '@vitejs/plugin-vue'

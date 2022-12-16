@@ -1,4 +1,4 @@
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 import { bold, green } from 'colorette';
 import reactPlugin from '@vitejs/plugin-react-swc';
 import { ReactRefresh } from './plugins/react-refresh';

@@ -1,7 +1,9 @@
 import { resolve } from 'pathe';
 import { applyDefaults } from 'untyped';
-import { loadConfig, LoadConfigOptions } from 'c12';
-import { RemixOptions, RemixConfig, RemixConfigSchema } from '@remix-kit/schema';
+import type { LoadConfigOptions } from 'c12';
+import { loadConfig } from 'c12';
+import type { RemixOptions, RemixConfig} from '@remix-kit/schema';
+import { RemixConfigSchema } from '@remix-kit/schema';
 import { readConfig } from '@remix-run/dev/dist/config.js';
 import type { RemixConfig as StandardRemixConfig } from '@remix-run/dev/dist/config';
 

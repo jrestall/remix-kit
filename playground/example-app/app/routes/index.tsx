@@ -1,9 +1,9 @@
 import { json } from '@remix-run/node';
-import { getServerData } from '../test.server';
+import { getServerData } from '../test';
 import { Link } from '@remix-run/react';
 
 export async function loader() {
-  const data = getServerData();
+  const data = await getServerData();
   return json(data);
 } 
 

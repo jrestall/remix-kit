@@ -6,7 +6,7 @@ import { getPort } from 'get-port-please';
 import { joinURL } from 'ufo';
 import defu from 'defu';
 import type { ViteBuildContext, ViteOptions } from '../vite';
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { viteNodePlugin } from '../vite-node';
 

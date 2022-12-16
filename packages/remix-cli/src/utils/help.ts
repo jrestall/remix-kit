@@ -1,5 +1,5 @@
 import { cyan, magenta } from 'colorette';
-import { RemixCommandMeta } from '../commands';
+import type { RemixCommandMeta } from '../commands';
 
 export function showHelp(meta?: Partial<RemixCommandMeta>) {
   const sections: string[] = [];

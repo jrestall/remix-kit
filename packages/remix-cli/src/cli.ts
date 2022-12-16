@@ -1,8 +1,10 @@
 import mri from 'mri';
 import { red } from 'colorette';
-import consola, { ConsolaReporter } from 'consola';
+import type { ConsolaReporter } from 'consola';
+import consola from 'consola';
 import { checkEngines } from './utils/engines';
-import { commands, Command, RemixCommand } from './commands';
+import type { Command, RemixCommand } from './commands';
+import { commands } from './commands';
 import { showHelp } from './utils/help';
 import { showBanner } from './utils/banner';
 

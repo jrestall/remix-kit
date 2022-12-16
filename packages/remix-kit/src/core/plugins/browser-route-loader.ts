@@ -1,4 +1,4 @@
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 import { createUnplugin } from 'unplugin';
 
 // Tree shakes server code out of the routes for the browser bundle by wrapping

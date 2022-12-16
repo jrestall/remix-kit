@@ -1,5 +1,5 @@
 import { getContext } from 'unctx';
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 
 /** Direct access to the Remix context - see https://github.com/unjs/unctx. */
 export const remixCtx = getContext<Remix>('remix');

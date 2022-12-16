@@ -1,5 +1,5 @@
-import { AssetsManifest as RemixAssetsManifest, Remix, RemixOptions } from '@remix-kit/schema';
-import { OutputBundle, RenderedModule } from 'rollup';
+import type { AssetsManifest as RemixAssetsManifest, Remix, RemixOptions } from '@remix-kit/schema';
+import type { OutputBundle, RenderedModule } from 'rollup';
 import { createUnplugin } from 'unplugin';
 import { createHash } from 'crypto';
 import * as path from 'path';

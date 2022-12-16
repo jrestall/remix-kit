@@ -1,4 +1,4 @@
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 import { createUnplugin } from 'unplugin';
 import { createServerManifest } from '../../utils/manifest';
 

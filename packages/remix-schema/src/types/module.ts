@@ -1,4 +1,4 @@
-import { RemixHooks } from './hooks';
+import type { RemixHooks } from './hooks';
 import type { Remix } from './remix';
 
 export interface ModuleMeta {
