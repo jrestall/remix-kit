@@ -1,7 +1,6 @@
 <p align="center">
-<img src="docs/assets/remix-kit.png?raw=true" height="120">
+<img src="docs/assets/remix-kit.png?raw=true" height="130">
 </p>
-
 <h1 align="center">
 RemixKit
 </h1>
