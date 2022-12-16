@@ -1,4 +1,4 @@
-import { Remix } from '@remix-kit/schema';
+import type { Remix } from '@remix-kit/schema';
 import { createRequestHandler } from '@remix-run/server-runtime';
 import { createServerAdapter } from '@whatwg-node/server';
 import type { Plugin } from 'vite';

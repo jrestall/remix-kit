@@ -14,6 +14,7 @@
     "prepack": "unbuild"
   },
   "devDependencies": {
+    "@remix-run/dev": "^1.8.2",
     "@types/lodash.template": "^4",
     "@types/semver": "^7",
     "@vitejs/plugin-react": "^3.0.0",
@@ -25,6 +26,9 @@
     "c12": "^1.0.1",
     "create-require": "^1.1.1",
     "defu": "^6.1.1",
+    "h3": "^1.0.2",
+    "hookable": "^5.4.2",
+    "ignore": "^5.2.1",
     "jiti": "^1.16.0",
     "pathe": "^1.0.0",
     "pkg-types": "^1.0.1",

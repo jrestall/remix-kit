@@ -17,6 +17,7 @@
     "@remix-run/dev": "^1.8.2",
     "@types/fs-extra": "^9.0.13",
     "c12": "^1.0.1",
+    "consola": "^2.15.3",
     "es-module-lexer": "^1.1.0",
     "esbuild": "^0.16.7",
     "untyped": "^1.0.0",

@@ -113,6 +113,7 @@ importers:
       '@types/fs-extra': ^9.0.13
       c12: ^1.0.1
       chokidar: ^3.5.3
+      consola: ^2.15.3
       es-module-lexer: ^1.1.0
       esbuild: ^0.16.7
       fs-extra: ^11.1.0
@@ -129,6 +130,7 @@ importers:
       '@types/fs-extra': 9.0.13
       c12: 1.1.0
       chokidar: 3.5.3
+      consola: 2.15.3
       es-module-lexer: 1.1.0
       esbuild: 0.16.7
       fs-extra: 11.1.0
@@ -147,22 +149,25 @@ importers:
       '@types/react-dom': 18.0.6
       '@vitejs/plugin-react-swc': ^3.0.1
       colorette: ^2.0.19
+      pathe: ^1.0.0
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
       unbuild: ^1.0.2
     dependencies:
       '@remix-kit/kit': link:../remix-kit
+      '@vitejs/plugin-react-swc': 3.0.1_vite@4.0.1
       colorette: 2.0.19
+      pathe: 1.0.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
-      '@vitejs/plugin-react-swc': 3.0.1_vite@4.0.1
       unbuild: 1.0.2
 
   packages/remix-schema:
     specifiers:
+      '@remix-run/dev': ^1.8.2
       '@types/lodash.template': ^4
       '@types/semver': ^7
       '@unhead/schema': ^1.0.7
@@ -170,6 +175,9 @@ importers:
       c12: ^1.0.1
       create-require: ^1.1.1
       defu: ^6.1.1
+      h3: ^1.0.2
+      hookable: ^5.4.2
+      ignore: ^5.2.1
       jiti: ^1.16.0
       pathe: ^1.0.0
       pkg-types: ^1.0.1
@@ -185,6 +193,9 @@ importers:
       c12: 1.1.0
       create-require: 1.1.1
       defu: 6.1.1
+      h3: 1.0.2
+      hookable: 5.4.2
+      ignore: 5.2.1
       jiti: 1.16.0
       pathe: 1.0.0
       pkg-types: 1.0.1
@@ -195,6 +206,7 @@ importers:
       unimport: 1.0.2_rollup@3.7.4
       untyped: 1.2.0
     devDependencies:
+      '@remix-run/dev': 1.8.2_biqbaboplfbrettd7655fr4n2y
       '@types/lodash.template': 4.5.1
       '@types/semver': 7.3.13
       '@unhead/schema': 1.0.13
@@ -207,13 +219,17 @@ importers:
       '@remix-kit/kit': workspace:*
       '@remix-kit/schema': workspace:*
       '@remix-run/express': ^1.8.2
+      '@remix-run/server-runtime': ^1.8.2
+      '@rollup/plugin-node-resolve': ^15.0.1
       '@rollup/plugin-replace': ^5.0.1
       '@types/cssnano': ^5
       '@whatwg-node/server': ^0.4.17
       autoprefixer: ^10.4.13
       chokidar: ^3.5.3
+      consola: ^2.15.3
       cssnano: ^5.1.14
       defu: ^6.1.1
+      esbuild: ^0.16.7
       escape-string-regexp: ^5.0.0
       estree-walker: ^3.0.1
       express: ^4.18.2
@@ -244,12 +260,16 @@ importers:
       vite-plugin-checker: ^0.5.1
     dependencies:
       '@remix-kit/kit': link:../remix-kit
+      '@remix-run/server-runtime': 1.8.2_biqbaboplfbrettd7655fr4n2y
+      '@rollup/plugin-node-resolve': 15.0.1_rollup@3.7.4
       '@rollup/plugin-replace': 5.0.1_rollup@3.7.4
       '@whatwg-node/server': 0.4.17_@types+node@18.11.15
       autoprefixer: 10.4.13_postcss@8.4.20
       chokidar: 3.5.3
+      consola: 2.15.3
       cssnano: 5.1.14_postcss@8.4.20
       defu: 6.1.1
+      esbuild: 0.16.7
       escape-string-regexp: 5.0.0
       estree-walker: 3.0.1
       express: 4.18.2
@@ -2697,7 +2717,6 @@ packages:
       is-module: 1.0.0
       resolve: 1.22.1
       rollup: 3.7.4
-    dev: true
 
   /@rollup/plugin-replace/5.0.1_rollup@3.7.4:
     resolution: {integrity: sha512-Z3MfsJ4CK17BfGrZgvrcp/l6WXoKb0kokULO+zt/7bmcyayokDaQ2K3eDJcRLCTAlp5FPI4/gz9MHAsosz4Rag==}
@@ -2765,7 +2784,7 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-darwin-x64/1.3.23:
@@ -2774,7 +2793,7 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-linux-arm-gnueabihf/1.3.23:
@@ -2783,7 +2802,7 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-linux-arm64-gnu/1.3.23:
@@ -2792,7 +2811,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-linux-arm64-musl/1.3.23:
@@ -2801,7 +2820,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-linux-x64-gnu/1.3.23:
@@ -2810,7 +2829,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-linux-x64-musl/1.3.23:
@@ -2819,7 +2838,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-win32-arm64-msvc/1.3.23:
@@ -2828,7 +2847,7 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-win32-ia32-msvc/1.3.23:
@@ -2837,7 +2856,7 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core-win32-x64-msvc/1.3.23:
@@ -2846,7 +2865,7 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
+    dev: false
     optional: true
 
   /@swc/core/1.3.23:
@@ -2865,7 +2884,7 @@ packages:
       '@swc/core-win32-arm64-msvc': 1.3.23
       '@swc/core-win32-ia32-msvc': 1.3.23
       '@swc/core-win32-x64-msvc': 1.3.23
-    dev: true
+    dev: false
 
   /@szmarczak/http-timer/4.0.6:
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
@@ -3118,7 +3137,6 @@ packages:
 
   /@types/resolve/1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
-    dev: true
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -3295,7 +3313,7 @@ packages:
     dependencies:
       '@swc/core': 1.3.23
       vite: 4.0.1
-    dev: true
+    dev: false
 
   /@vitejs/plugin-react/3.0.0_vite@4.0.1:
     resolution: {integrity: sha512-1mvyPc0xYW5G8CHQvJIJXLoMjl5Ct3q2g5Y2s6Ccfgwm45y48LBvsla7az+GkkAtYikWQ4Lxqcsq5RHLcZgtNQ==}
@@ -4052,7 +4070,6 @@ packages:
   /builtin-modules/3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
-    dev: true
 
   /busboy/1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
@@ -4439,7 +4456,6 @@ packages:
 
   /consola/2.15.3:
     resolution: {integrity: sha512-9vAdYbHj6x2fLKC4+oPH0kFzY/orMZyG2Aj+kNylHxKGJ/Ed4dpNyAQYwJOdqO4zdM7XpVHmyejQDcQHrnuXbw==}
-    dev: true
 
   /content-disposition/0.5.4:
     resolution: {integrity: sha512-FveZTNuGw04cxlAiWbzi6zTAL/lhehaWbTtgluJh4/E95DqMwTmha3KZN1aAWA8cFIhHzMZUvLevkw5Rqk+tSQ==}
@@ -4743,7 +4759,6 @@ packages:
   /deepmerge/4.2.2:
     resolution: {integrity: sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /defaults/1.0.4:
     resolution: {integrity: sha512-eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==}
@@ -6770,7 +6785,6 @@ packages:
 
   /hookable/5.4.2:
     resolution: {integrity: sha512-6rOvaUiNKy9lET1X0ECnyZ5O5kSV0PJbtA5yZUgdEF7fGJEVwSLSislltyt7nFwVVALYHQJtfGeAR2Y0A0uJkg==}
-    dev: true
 
   /hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
@@ -6866,7 +6880,6 @@ packages:
   /ignore/5.2.1:
     resolution: {integrity: sha512-d2qQLzTJ9WxQftPAuEQpSPmKqzxePjzVbpAVv62AQ64NTL+wR4JkrVqR/LqFsFEUsHDAiId52mJteHDFuDkElA==}
     engines: {node: '>= 4'}
-    dev: true
 
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -7021,7 +7034,6 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       builtin-modules: 3.3.0
-    dev: true
 
   /is-callable/1.2.7:
     resolution: {integrity: sha512-1BC0BVFhS/p0qtw6enp8e+8OD0UrK0oFLztSjNzhcKA3WDuJxxAPXzPuPtKkjEY9UUoEWlX/8fgKeu2S8i9JTA==}
@@ -7141,7 +7153,6 @@ packages:
 
   /is-module/1.0.0:
     resolution: {integrity: sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==}
-    dev: true
 
   /is-negative-zero/2.0.2:
     resolution: {integrity: sha512-dqJvarLawXsFbNDeJW7zAz8ItJ9cd28YufuuFzh0G8pNHjJMnY08Dv7sYX2uF5UpQOwieAeOExEYAWWfu7ZZUA==}
