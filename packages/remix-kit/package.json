@@ -1,0 +1,38 @@
+{
+  "name": "@remix-kit/kit",
+  "version": "0.0.1",
+  "repository": "https://github.com/jrestall/remix-kit",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "unbuild"
+  },
+  "devDependencies": {
+    "@remix-kit/schema": "workspace:*",
+    "@remix-run/dev": "^1.8.2",
+    "@types/fs-extra": "^9.0.13",
+    "c12": "^1.0.1",
+    "es-module-lexer": "^1.1.0",
+    "esbuild": "^0.16.7",
+    "untyped": "^1.0.0",
+    "pathe": "^1.0.0",
+    "unctx": "^2.1.1",
+    "hookable": "^5.4.2",
+    "fs-extra": "^11.1.0",
+    "ignore":"^5.2.1",
+    "chokidar":"^3.5.3",
+    "unplugin":"^1.0.1",
+    "mlly":"^1.0.0"
+  },
+  "optionalDependencies": {
+
+  },
+  "engines": {
+    "node": "^14.16.0 || ^16.10.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+  }
+}

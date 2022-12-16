@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/jrestall/remix-kit/blob/main/docs/assets/remix-kit.svg?raw=true" height="120">
+<img src="docs/assets/remix-kit.png?raw=true" height="120">
 </p>
 
 <h1 align="center">
@@ -13,7 +13,7 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
 </p>
 <p align="center">
   <a href="https://github.com/jrestall/remix-kit/releases"><img src="https://img.shields.io/badge/stability-alpha-f4d03f.svg"></a>
-  <a href="https://www.npmjs.com/package/vitest"><img src="https://img.shields.io/npm/v/@remix-kit/cli?color=FCC72B&label="></a>
+  <a href="https://www.npmjs.com/package/remix-kit"><img src="https://img.shields.io/npm/v/@remix-kit/cli?color=FCC72B&label="></a>
 </p>
 
 ### Features

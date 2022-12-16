@@ -1,0 +1,39 @@
+{
+  "name": "@remix-kit/react",
+  "version": "0.0.1",
+  "repository": "https://github.com/jrestall/remix-kit",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./setup": "./dist/setup.mjs"
+  },
+  "files": [
+    "dist",
+    "schema"
+  ],
+  "scripts": {
+    "prepack": "unbuild"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.21",
+		"@types/react-dom": "18.0.6",
+    "@vitejs/plugin-react": "^2.2.0",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "unbuild": "^1.0.2",
+    "vite": "~3.2.5"
+  },
+  "dependencies": {
+    "@remix-kit/kit": "workspace:*",
+    "colorette": "^2.0.19"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0" ,
+    "react-dom": ">=17.0.0"
+  },
+  "engines": {
+    "node": "^14.16.0 || ^16.10.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+  }
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Remix Issues
+    url: https://github.com/remix/remix-run/issues/new/choose
+    about: Remix related issues should be reported on the remix repository.
+  - name: Questions & Discussions
+    url: https://github.com/jrestall/remix-kit/discussions
+    about: Use GitHub discussions for message-board style questions and discussions.
