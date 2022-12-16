@@ -14,7 +14,6 @@ export function devServerManifestPre(remix: Remix): Plugin {
     enforce: 'pre',
     resolveId(id) {
       if (id === virtualServerBuildId) {
-        console.log('Claimed ' + virtualServerBuildId);
         return resolvedVirtualServerBuildId;
       }
       return null;
@@ -49,18 +48,13 @@ export function devServerManifest(remix: Remix): Plugin {
       server = _server;
     },
     async transform(code, id) {
-      console.log('transform: ' + id);
-
       let routes = Object.values(remix.options.routes);
       const route = routes.find((r) => id.endsWith(r.file));
       if (!route) return;
-      console.log('transform getRouteExports');
 
       const [_, exports] = await getRouteExports(code);
       if (!exports || !exports.length) return;
 
-      exports.map((e) => console.log(e.n));
-      console.log(id);
       const updatedExports = exports.map((e) => e.n);
       const existingRoute = remix._assetsManifest?.routes[route.id];
       const routeModule = existingRoute?.module ?? resolve(remix.options.appDirectory, route.file);
@@ -72,8 +66,6 @@ export function devServerManifest(remix: Remix): Plugin {
 
       const serverBuildModule = server.moduleGraph.getModuleById(resolvedVirtualServerBuildId);
 
-      console.log('invalidating server build');
-      //console.log(serverBuildModule);
       if (serverBuildModule) server.moduleGraph.invalidateModule(serverBuildModule);
     },
   };

@@ -14,11 +14,10 @@ export async function getRouteExports(source: string): Promise<RouteExports> {
   let imports!: readonly ImportSpecifier[];
   let exports!: readonly ExportSpecifier[];
   try {
-    console.log('Getting exports: ');
     console.log(source);
     [imports, exports] = parseImports(source);
-    console.log(exports);
-    console.log(JSON.stringify(exports));
+    const time = Math.round((performance.now() - start) * 1000) / 1000;
+    console.log(`got exports in ${time}ms`);
   } catch (e: any) {
     logger.error(
       `Failed to parse source for development route tree-shaking analysis because the content ` +
@@ -37,17 +36,14 @@ export async function removeRouteExports(
 ): Promise<string> {
     for (var i = exports.length - 1; i >= 0; i--) {
     const { s: start } = exports[i];
-    console.log('removeRouteExports' + start);
-    // Find the nearest export declaration and remove it
-    // Maybe this will be simpler in the future: https://github.com/guybedford/es-module-lexer/issues/112
 
+    // Find the nearest export declaration and remove it
     // TODO: Use https://www.npmjs.com/package/mlly findExports instead?
+    
     // export async function loader() {
     const exportIndex = source.lastIndexOf('export', start);
     if (exportIndex) {
       source = source.substring(0, exportIndex) + source.substring(exportIndex + 'export'.length);
-      //console.log("TRANSFORMED")
-      //console.log(source);
     }
 
     // export { action, headers, loader };

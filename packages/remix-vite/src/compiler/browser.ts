@@ -100,8 +100,6 @@ export async function buildClient(ctx: ViteBuildContext) {
   } else {
     // Build
     const start = Date.now();
-    console.log(clientConfig);
-    console.log(JSON.stringify(clientConfig));
     await vite.build(clientConfig);
     await ctx.remix.callHook('vite:compiled');
     logger.success(`Client built in ${Date.now() - start}ms`);

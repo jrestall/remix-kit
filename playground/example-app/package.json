@@ -23,6 +23,7 @@
   "devDependencies": {
     "@remix-kit/cli": "workspace:*",
     "@remix-kit/react": "workspace:*",
+    "@remix-kit/vite": "workspace:*",
     "@remix-run/eslint-config": "^1.8.2",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",

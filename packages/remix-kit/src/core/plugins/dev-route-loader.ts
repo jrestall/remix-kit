@@ -26,12 +26,11 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       const route = routes.find((r) => id.endsWith(r.file));
       if (!route) return;
 
-      console.log(`Optimizing route module for development: ${id}`);
+      console.debug(`Optimizing route module for development: ${id}`);
 
       // Use es-module-lexer to get all route module imports and exports
       const [imports, exports] = await getRouteExports(code);
       if (!exports || !exports.length) return;
-      exports.map((e) => console.log(e.n));
 
       // Get any server exports from the route module
       const serverExports = exports.filter((_export) => SERVER_EXPORTS.includes(_export.n));
@@ -58,8 +57,6 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       // Loop backwards through the imports so that their statement indexes remain accurate as we modify the source.
       for (var i = parsedImports.length - 1; i >= 0; i--) {
         const parsedImport = parsedImports[i];
-        console.log('removing import: ');
-        console.log(parsedImport);
         source = removeImport(source, parsedImport.spec);
       }
 
@@ -74,9 +71,6 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       // ['const Link = /* @__PURE__ */ _used("import { json } from "@remix-run/node";");']
       const noop = 'const _used = () => {}; \n';
       source += noop + expressions.join('\n');
-
-      console.log('Transform:');
-      console.log(source);
 
       // Use esbuild to tree shake the modified source
       const result = await transform(source, {
@@ -95,9 +89,6 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
         logger.warn(formatted);
       }
 
-      console.log('ESBuild Output:');
-      console.log(result.code);
-
       // Get the tree shaken expressions back out from the source, starting with the noop function.
       const expressionsStart = result.code.indexOf('const _used');
       const expressionsSource = result.code.substring(expressionsStart + noop.length);
@@ -106,15 +97,14 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       result.code = result.code.substring(0, expressionsStart);
 
       // Execute any remaining expressions to determine the used imports in this route module
-      console.log('executing eval: ');
       const usedImports: string[] = [];
       if (expressionsSource.length > 0) {
         // @ts-ignore - used in eval below
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _used = (_import) => {
           usedImports.push(_import);
-          console.log(`${_import}`);
         };
-        console.log(expressionsSource);
+        // eslint-disable-next-line no-eval
         eval(expressionsSource);
       }
 
@@ -127,8 +117,6 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       const searchString = 'import.meta.url).then((current) => {';
       transformed = transformed.replace(searchString, `/* @vite-ignore */ ${searchString}`);
 
-      console.log('Result:');
-      console.log(transformed);
       return { code: transformed, map: result.map };
     },
   };
@@ -161,7 +149,6 @@ function buildExpression(parsed: ParsedStaticImport): string {
 }
 
 function parseImport(source: string, importSpec: ImportSpecifier): ParsedStaticImport | null {
-  console.log(importSpec);
   const isDynamic = importSpec.d > -1;
   const isMeta = importSpec.d === -2;
   if (isDynamic || isMeta) {
