@@ -96,10 +96,6 @@ export async function buildServer(ctx: ViteBuildContext) {
     },
   } as ViteOptions);
 
-  if (options.dev) {
-    serverConfig.plugins?.push(devServerManifestPre(ctx.remix), devServerManifest(ctx.remix));
-  }
-
   if (options.serverPlatform !== 'node') {
     const plugins = serverConfig.build?.rollupOptions?.plugins as InputPluginOption[];
     plugins.push(polyfillNode);
@@ -131,6 +127,10 @@ export async function buildServer(ctx: ViteBuildContext) {
 
   await ctx.remix.callHook('vite:extendConfig', serverConfig, { isClient: false, isServer: true });
 
+  if (options.dev) {
+    serverConfig.plugins?.push(devServerManifestPre(ctx.remix), devServerManifest(ctx.remix));
+  }
+  
   const onBuild = () => ctx.remix.callHook('vite:compiled');
 
   // Production build

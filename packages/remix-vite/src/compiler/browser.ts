@@ -69,13 +69,13 @@ export async function buildClient(ctx: ViteBuildContext) {
       port: hmrPortDefault,
       ports: Array.from({ length: 20 }, (_, i) => hmrPortDefault + 1 + i),
     });
-    clientConfig.server = defu(clientConfig.server, <ServerOptions>{
+    clientConfig.server = defu(clientConfig.server, {
       https: ctx.remix.options.devServer.https,
       hmr: {
         protocol: ctx.remix.options.devServer.https ? 'wss' : 'ws',
         port: hmrPort,
       },
-    });
+    } as ServerOptions);
   }
 
   // Add analyze plugin if needed

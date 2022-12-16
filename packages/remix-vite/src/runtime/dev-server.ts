@@ -61,7 +61,7 @@ export function createRunner(node: ViteNodeServer, rootDir: string, base: string
   });
 }
 
-function formatViteError(errorData, id, importer) {
+function formatViteError(errorData: any, id: any, importer: any) {
   const errorCode = errorData.name || errorData.reasonCode || errorData.code;
   const frame = errorData.frame || errorData.source || errorData.pluginCode;
 

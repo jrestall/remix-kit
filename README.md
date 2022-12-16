@@ -17,13 +17,15 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
 
 ### Features
 - [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for instant, precise updates on the browser and server without reloading the page or blowing away application state.
+- Instant development server startup, no pre-bundling required, scales to any project size. 
 - [Vite](https://vitejs.dev/) for development and build bundling. Includes [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node) for extremely fast targeted server code replacement such as for your actions and loaders.
 - View library agnostic, with existing plugins for [React](https://reactjs.org/) and [Vue](https://vuejs.org/).
 - An extensible compiler and hooks system gives you complete control. 
-  - Use [hooks](packages/remix-schema/src/types/hooks.ts) from custom modules to extend any part of the build process.
+  - Use [hooks](packages/remix-schema/src/types/hooks.ts) from your own `plugin modules` to extend any part of the build process.
   - Benefit from the large ecosystem of vite plugins.
 - Easy to use CLI `remix-kit` for development, build, previews and more.
-- Top-level `await` support, hierarchy based `remix.config.js`, `.remixignore` and much more!.
+- Seamless integration of Tailwind CSS support with PostCSS. No need for multiple CLIs.
+- Top-level `await` support, integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!.
 
 #### Future Roadmap
 - Separate client/server development architecture using vite-node for better web worker support. 

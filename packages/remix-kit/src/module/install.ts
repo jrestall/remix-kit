@@ -9,6 +9,7 @@ export async function installModule(
   _inlineOptions?: any,
   _remix?: Remix
 ) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const remix = useRemix();
   const { remixModule, inlineOptions } = await normalizeModule(
     moduleToInstall,
@@ -38,6 +39,7 @@ async function normalizeModule(
   remixModule: string | RemixModule,
   inlineOptions?: any
 ) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const remix = useRemix();
 
   // Import if input is string
