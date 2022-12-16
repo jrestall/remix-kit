@@ -19,8 +19,7 @@
   },
   "devDependencies": {
     "@remix-kit/schema": "workspace:*",
-    "vue": "3.2.45",
-    "vite": "~3.2.5"
+    "vue": "3.2.45"
   },
   "dependencies": {
     "@remix-kit/kit": "workspace:*",

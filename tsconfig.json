@@ -40,6 +40,8 @@
         ],
     }
   },
-  "include": ["./src/**/*"],
-  "exclude": ["**/dist/**", "./dist"]
+  "exclude": [
+    "**/dist/**",
+    "**/docs/**",
+  ]
 }
