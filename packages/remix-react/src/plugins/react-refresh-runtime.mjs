@@ -6,6 +6,9 @@
 /**
  * Updated with wasMounted patch from https://github.com/facebook/react/commit/b831aec48f2d54913b836d2288b62b7eee9fbca1
  */
+/**
+ * Updated with Remix specific patch to ignore certain browser route module exports. See end of file for patch.
+ */
 
  const REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref");
  const REACT_MEMO_TYPE = Symbol.for("react.memo");
@@ -604,7 +607,8 @@
    prevExports,
    nextExports,
  ) {
-   if (!predicateOnExport(prevExports, (key) => !!nextExports[key])) {
+   // RemixKit Patch Original: if (!predicateOnExport(prevExports, (key) => ignoreRemixExport(!!nextExports[key])) {
+   if (!predicateOnExport(prevExports, (key) => ignoreRemixExport(key) || !!nextExports[key])) {
      return "Could not Fast Refresh (export removed)";
    }
  
@@ -613,6 +617,9 @@
      nextExports,
      (key, value) => {
        hasExports = true;
+       // RemixKit Patch Start ---
+       if (ignoreRemixExport(key)) return true;
+       // RemixKit Patch End ---
        if (isLikelyComponentType(value)) return true;
        if (!prevExports[key]) return false;
        return prevExports[key] === nextExports[key];
@@ -634,3 +641,19 @@
    }
    return true;
  }
+
+ // RemixKit Patch ---
+ // Makes ReactRefresh ignore browser route module exports that aren't React components.
+
+ const IGNORE_REMIX_EXPORTS = [
+  "handle",
+  "links",
+  "meta",
+  "shouldRevalidate",
+  "unstable_shouldReload",
+];
+
+function ignoreRemixExport(moduleExport) {
+  return IGNORE_REMIX_EXPORTS.includes(moduleExport);
+}
+// ----
