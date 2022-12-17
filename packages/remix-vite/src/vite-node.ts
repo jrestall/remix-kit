@@ -161,7 +161,6 @@ function createRemixHandler(
 
     // some apps may be created with a function returning a promise
     devServer = await devServer;
-    if(req.url?.includes("inspect")) return next();
     await requestHandler({ app: devServer, server, req, res, next });
   };
 

@@ -16,20 +16,21 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
 </p>
 
 ### Features
-- [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for instant, precise updates on the browser and server without reloading the page or blowing away application state.
-- Instant development server startup, no pre-bundling required, scales to any project size. 
-- [Vite](https://vitejs.dev/) for development and build bundling. Includes [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node) for extremely fast targeted server code replacement such as for your actions and loaders.
-- View library agnostic, with existing plugins for [React](https://reactjs.org/) and [Vue](https://vuejs.org/).
-- An extensible compiler and hooks system gives you complete control. 
+- [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for **instant, precise updates** on the browser and server without reloading the page or blowing away application state.
+- Instant development server startup, **no pre-bundling required**, scales to any project size. 
+- [Vite](https://vitejs.dev/) for development and build bundling. Includes [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node) for extremely fast targeted server code replacement. No purgeRequireCache needed, keep objects in-memory between requests to match production behavior.
+- View **library agnostic**, with existing plugin for [React](https://reactjs.org/).
+- Fully **configurable** & easily **extensible**
+  - An extensible compiler and hooks system gives you complete control. 
   - Use [hooks](packages/remix-schema/src/types/hooks.ts) from your own `plugin modules` to extend any part of the build process.
   - Benefit from the large ecosystem of vite plugins.
 - Easy to use CLI `remix-kit` for development, build, previews and more.
-- Seamless integration of Tailwind CSS support with PostCSS. No need for multiple CLIs.
+- **Seamless integration** of Tailwind CSS with PostCSS. No need for multiple CLIs.
 - Monorepo support, place your routes in libraries outside the main app to better separate your functionality amongst teams.
-- CSS Modules, Top-level `await` support, integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!.
+- CSS Modules, Top-level `await` support, integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!
 
 #### Future Roadmap
-- Separate client/server development architecture using vite-node for better web worker support. 
+- Use vite-node's separate client/server development server architecture for better web worker support. 
 - Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
 - Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
 

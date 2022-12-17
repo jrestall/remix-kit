@@ -3,7 +3,6 @@ import * as vite from 'vite';
 import type { ServerOptions } from 'vite';
 import { logger } from '@remix-kit/kit';
 import { getPort } from 'get-port-please';
-import { joinURL } from 'ufo';
 import defu from 'defu';
 import type { ViteBuildContext, ViteOptions } from '../vite';
 import type { Remix } from '@remix-kit/schema';
@@ -85,8 +84,8 @@ export async function buildClient(ctx: ViteBuildContext) {
     // Dev
     await ctx.remix.callHook('vite:serverCreating', clientConfig, { isClient: true, isServer: false });
     const viteServer = await vite.createServer(clientConfig);
-    ctx.clientServer = viteServer;
     await ctx.remix.callHook('vite:serverCreated', viteServer, { isClient: true, isServer: false });
+    ctx.clientServer = viteServer;
 
     ctx.remix.hook('close', async () => {
       await viteServer.close();

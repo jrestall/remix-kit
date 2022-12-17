@@ -61,7 +61,7 @@ export function devServerManifest(remix: Remix): Plugin {
       const updatedRoute = createEntryRoute(route, routeModule, updatedExports);
 
       remix._assetsManifest =
-        remix._assetsManifest ?? (await createDevAssetsManifest(remix.options));
+        remix._assetsManifest ?? createDevAssetsManifest(remix.options);
       remix._assetsManifest.routes[route.id] = updatedRoute;
 
       const serverBuildModule = server.moduleGraph.getModuleById(resolvedVirtualServerBuildId);

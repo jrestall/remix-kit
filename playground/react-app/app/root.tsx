@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node';
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
 import { ReactRefresh } from '@remix-kit/react';
 import React from 'react';
 import stylesUrl from "./styles/tailwind.css?url"
@@ -24,7 +24,6 @@ export default function App() {
       </head>
       <body>
         <Outlet />
-        <ScrollRestoration />
         <Scripts />
       </body>
     </html>
