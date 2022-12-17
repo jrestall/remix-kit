@@ -1,5 +1,5 @@
 <p align="center">
-<img src="docs/assets/remix-kit.png?raw=true" height="130">
+<img src="docs/assets/remix-kit.png?raw=true" height="150">
 </p>
 <h1 align="center">
 RemixKit
@@ -25,7 +25,8 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
   - Benefit from the large ecosystem of vite plugins.
 - Easy to use CLI `remix-kit` for development, build, previews and more.
 - Seamless integration of Tailwind CSS support with PostCSS. No need for multiple CLIs.
-- Top-level `await` support, integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!.
+- Monorepo support, place your routes in libraries outside the main app to better separate your functionality amongst teams.
+- CSS Modules, Top-level `await` support, integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!.
 
 #### Future Roadmap
 - Separate client/server development architecture using vite-node for better web worker support. 

@@ -16,7 +16,7 @@ type ParsedImportSpecifier = {
 
 // es-module-lexer is crazy fast for this purpose, 0ms impact.
 
-const SERVER_EXPORTS = ['action', 'loader'];
+const SERVER_EXPORTS = ['action', 'loader', 'headers'];
 
 export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
   return {

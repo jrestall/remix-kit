@@ -14,12 +14,6 @@ export async function buildClient(ctx: ViteBuildContext) {
   // TODO: async entry support for module federation
   const routes = getRemixRoutes(ctx.remix);
   const clientConfig: vite.InlineConfig = vite.mergeConfig(ctx.config, {
-    base: ctx.remix.options.dev
-      ? joinURL(
-          ctx.remix.options.app.baseURL.replace(/^\.\//, '/') || '/',
-          ctx.remix.options.app.buildAssetsDir
-        )
-      : './',
     define: {
       'process.server': false,
       'process.client': true,

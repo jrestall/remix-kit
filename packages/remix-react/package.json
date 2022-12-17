@@ -27,7 +27,9 @@
     "@remix-kit/kit": "workspace:*",
     "@vitejs/plugin-react-swc": "^3.0.1",
     "colorette": "^2.0.19",
-    "pathe": "^1.0.0"
+    "pathe": "^1.0.0",
+    "unplugin": "^1.0.1",
+    "fs-extra": "^11.1.0"
   },
   "peerDependencies": {
     "react": ">=17.0.0" ,

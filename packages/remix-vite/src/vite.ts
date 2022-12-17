@@ -43,7 +43,7 @@ export async function bundle(remix: Remix) {
             '#build': remix.options.buildDir,
           },
         },
-        css: resolveCSSOptions(remix),
+        css: await resolveCSSOptions(remix),
         build: {
           manifest: false,
           rollupOptions: {

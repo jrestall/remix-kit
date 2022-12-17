@@ -22,6 +22,8 @@ To contribute to RemixKit, you need to set up a local environment.
 
 6. Use the existing or setup your own website in the playground folder and execute CLI commands such as `remix-kit dev` or `remix-kit build` from there.
 
+*TIP:* Visiting the `/playground/example-app`'s url at `http://localhost:3000/__inspect/` is useful when testing plugin changes as it will show you the vite plugin inspector's output.
+
 ## Debugging
 
 To use breakpoints and explore code execution, you can use the ["Run and Debug"](https://code.visualstudio.com/docs/editor/debugging) feature from VS Code.

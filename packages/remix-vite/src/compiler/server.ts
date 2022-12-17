@@ -1,7 +1,6 @@
 import { resolve, dirname } from 'pathe';
 import * as vite from 'vite';
-import { logger, resolvePath } from '@remix-kit/kit';
-import { withoutLeadingSlash, withTrailingSlash } from 'ufo';
+import { logger } from '@remix-kit/kit';
 import type { ViteBuildContext, ViteOptions } from '../vite';
 import { initViteNodeServer } from '../vite-node';
 import nodeResolve from '@rollup/plugin-node-resolve';
@@ -11,10 +10,11 @@ import { devServerManifest, devServerManifestPre } from './plugins/dev-server-ma
 
 export async function buildServer(ctx: ViteBuildContext) {
   const options = ctx.remix.options;
-  const useAsyncEntry = options.experimental.asyncEntry || options.dev;
+  // TODO: async entry support
+  /*const useAsyncEntry = options.experimental.asyncEntry || options.dev;
   const serverEntry = await resolvePath(
     resolve(options.appDir, useAsyncEntry ? 'entry.async' : options.entryServerFile)
-  );
+  );*/
 
   let entryPoint: string | undefined;
   if (options.serverEntryPoint) {
@@ -26,27 +26,6 @@ export async function buildServer(ctx: ViteBuildContext) {
   }
   const serverConfig: vite.InlineConfig = vite.mergeConfig(ctx.config, {
     entry: ctx.serverEntry,
-    //base: options.dev
-    //  ? joinURL(options.app.baseURL.replace(/^\.\//, '/') || '/', options.app.buildAssetsDir)
-    //  : undefined,
-    experimental: {
-      renderBuiltUrl: (filename, { type, hostType }) => {
-        if (hostType !== 'js') {
-          // In CSS we only use relative paths until we craft a clever runtime CSS hack
-          return { relative: true };
-        }
-        if (type === 'public') {
-          return { runtime: `globalThis.__publicAssetsURL(${JSON.stringify(filename)})` };
-        }
-        if (type === 'asset') {
-          const relativeFilename = filename.replace(
-            withTrailingSlash(withoutLeadingSlash(options.app.buildAssetsDir)),
-            ''
-          );
-          return { runtime: `globalThis.__buildAssetsURL(${JSON.stringify(relativeFilename)})` };
-        }
-      },
-    },
     define: {
       'process.server': true,
       'process.client': false,
@@ -103,34 +82,12 @@ export async function buildServer(ctx: ViteBuildContext) {
     serverConfig.ssr!.target = 'webworker';
   }
 
-  if (options.experimental.inlineSSRStyles) {
-    /*const chunksWithInlinedCSS = new Set<string>()
-    serverConfig.plugins!.push(ssrStylesPlugin({
-      srcDir: options.srcDir,
-      chunksWithInlinedCSS,
-      shouldInline: typeof options.experimental.inlineSSRStyles === 'function'
-        ? options.experimental.inlineSSRStyles
-        : undefined
-    }))
-
-    // Remove CSS entries for files that will have inlined styles
-    ctx.remix.hook('build:manifest', (manifest) => {
-      for (const key in manifest) {
-        const entry = manifest[key]
-        const shouldRemoveCSS = chunksWithInlinedCSS.has(key)
-        if (shouldRemoveCSS) {
-          entry.css = []
-        }
-      }
-    })*/
-  }
-
   await ctx.remix.callHook('vite:extendConfig', serverConfig, { isClient: false, isServer: true });
 
   if (options.dev) {
     serverConfig.plugins?.push(devServerManifestPre(ctx.remix), devServerManifest(ctx.remix));
   }
-  
+
   const onBuild = () => ctx.remix.callHook('vite:compiled');
 
   // Production build

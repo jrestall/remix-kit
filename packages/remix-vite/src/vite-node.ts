@@ -11,7 +11,6 @@ import type { VitePlugin } from 'unplugin';
 import { resolve } from 'pathe';
 import type { ViteNodeRunner } from 'vite-node/client';
 import { createRunner } from './runtime/dev-server';
-import { createDevAssetsManifest } from './compiler/plugins/dev-server-manifest';
 
 export declare interface RequestAdapterParams<App> {
   app: App;
@@ -133,10 +132,11 @@ function createRemixHandler(
   runner: ViteNodeRunner,
   serverEntryPath: string
 ) {
-  let devServer;
+  let devServer: any;
   const requestHandler = ExpressHandler;
-  return async (req, res, next) => {
-    logger.info(`Document request (${req.url})`);
+  const remixHandler: Connect.NextHandleFunction = async (req, res, next) => {
+    logRequestInfo(req);
+
     const updates = runner.moduleCache.invalidateDepTree(invalidates);
 
     // Invalidate cache for files changed since last rendering
@@ -161,7 +161,20 @@ function createRemixHandler(
 
     // some apps may be created with a function returning a promise
     devServer = await devServer;
-
+    if(req.url?.includes("inspect")) return next();
     await requestHandler({ app: devServer, server, req, res, next });
   };
+
+  return remixHandler;
+}
+
+function logRequestInfo(req: Connect.IncomingMessage) {
+  if (!req.url || !req.headers.host) return;
+
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  if (url.searchParams.has('_data')) {
+    logger.info(`Loader request (${url.searchParams.get('_data')})`);
+  } else {
+    logger.info(`Document request (${req.url})`);
+  }
 }
