@@ -1,5 +1,5 @@
 import { createUnplugin } from 'unplugin';
-import { logger } from '../..';
+import { logger } from '../../logger';
 
 // Replaces a module with an empty module if its id includes the given target string.
 

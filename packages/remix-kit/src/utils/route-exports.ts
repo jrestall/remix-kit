@@ -43,7 +43,7 @@ export async function removeRouteExports(
       source = source.substring(0, exportIndex) + source.substring(exportIndex + 'export'.length);
     }
 
-    // export { action, headers, loader };
+    // TODO: export { action, headers, loader };
   }
   return source;
 }

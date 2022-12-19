@@ -20,8 +20,7 @@ export default defineUntypedSchema({
 
     /** The folder name for the built site assets, relative to `baseURL` (or `cdnURL` if set). This is set at build time and should not be customized at runtime. */
     buildAssetsDir: {
-      $resolve: async (val) =>
-        val || process.env.REMIX_APP_BUILD_ASSETS_DIR || '/build/',
+      $resolve: async (val) => val || process.env.REMIX_APP_BUILD_ASSETS_DIR || '/build/',
     },
 
     /**
@@ -37,16 +36,5 @@ export default defineUntypedSchema({
       $resolve: async (val, get) =>
         (await get('dev')) ? '' : (process.env.REMIX_APP_CDN_URL ?? val) || '',
     },
-
-    /**
-     * Customize Remix root element id.
-     */
-    rootId: '__remix',
-
-    /**
-     * Customize Remix root element tag.
-     *
-     */
-    rootTag: 'div',
   },
 });

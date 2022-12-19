@@ -28,7 +28,8 @@
     "ignore":"^5.2.1",
     "chokidar":"^3.5.3",
     "unplugin":"^1.0.1",
-    "mlly":"^1.0.0"
+    "mlly":"^1.0.0",
+    "rollup": "^3.7.5"
   },
   "optionalDependencies": {
 

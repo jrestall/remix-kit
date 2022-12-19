@@ -8,7 +8,7 @@ export function analyzePlugin(ctx: ViteBuildContext): Plugin[] {
     {
       name: 'remix:analyze-minify',
       async generateBundle(_opts, outputBundle) {
-        for (const [_bundleId, bundle] of Object.entries(outputBundle)) {
+        for (const [, bundle] of Object.entries(outputBundle)) {
           if (bundle.type !== 'chunk') {
             continue;
           }

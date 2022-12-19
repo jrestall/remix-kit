@@ -2,6 +2,9 @@ import type { Remix } from '@remix-kit/schema';
 import { createUnplugin } from 'unplugin';
 import { createServerManifest } from '../../utils/manifest';
 
+// Replaces the virtual @remix-run/dev/server-build import with the server manifest for use in
+// the server build bundle. Assets Manifest comes from the prior client bundle in assets-manifest.ts.
+
 export const ServerManifest = createUnplugin(function (remix: Remix) {
   let virtualServerBuildId = '@remix-run/dev/server-build';
   const resolvedVirtualServerBuildId = '\0' + virtualServerBuildId;

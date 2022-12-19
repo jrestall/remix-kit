@@ -8,29 +8,5 @@ export default defineUntypedSchema({
     asyncEntry: {
       $resolve: (val) => val ?? false,
     },
-
-    /**
-     * Inline styles when rendering HTML (currently vite only).
-     *
-     * @type {boolean}
-     */
-    inlineSSRStyles: {
-      async $resolve(val, get) {
-        if (
-          val === false ||
-          (await get('dev')) ||
-          (await get('ssr')) === false
-        ) {
-          return false;
-        }
-        // Enabled by default for vite prod with ssr
-        return val ?? true;
-      },
-    },
-
-    /**
-     * Turn off rendering of Remix scripts.
-     */
-    noScripts: false,
   },
 });

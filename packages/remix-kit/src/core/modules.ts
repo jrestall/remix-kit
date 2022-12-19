@@ -5,6 +5,7 @@ export interface AddModuleTranspilesOptions {
 }
 
 export const addModuleTranspiles = (opts: AddModuleTranspilesOptions = {}) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const remix = useRemix();
 
   const modules = [

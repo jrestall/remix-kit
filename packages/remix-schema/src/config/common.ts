@@ -1,9 +1,7 @@
 import { defineUntypedSchema } from 'untyped';
 import { join, resolve } from 'pathe';
 import { isDebug, isDevelopment } from 'std-env';
-import defu from 'defu';
 import { findWorkspaceDir } from 'pkg-types';
-import type { RuntimeConfig } from '../types/config';
 
 export default defineUntypedSchema({
   /**
@@ -135,12 +133,12 @@ export default defineUntypedSchema({
   },
 
   /**
-   * Modules are Remix extensions which can extend its core functionality and add endless integrations.
+   * Modules are RemixKit compiler extensions which can extend its core functionality and add endless integrations.
    *
    * Each module is either a string (which can refer to a package, or be a path to a file), a
    * tuple with the module as first string and the options as a second object, or an inline module function.
    *
-   * Remix tries to resolve each item in the modules array using node require path
+   * RemixKit tries to resolve each item in the modules array using node require path
    * (in `node_modules`) and then will be resolved from project `srcDir` if `~` alias is used.
    *
    * @note Modules are executed sequentially so the order is important.
@@ -171,11 +169,10 @@ export default defineUntypedSchema({
     /**
      * The assets directory (aliased as `~assets` in your build).
      */
-    assets: 'assets',
+    assets: '_assets',
 
     /**
-     * The directory containing your static files, which will be directly accessible via the Remix server
-     * and copied across into your `dist` folder when your app is generated.
+     * The directory containing your static files, which will be directly accessible via the Remix server.
      */
     public: {
       $resolve: async (val, get) =>
@@ -303,7 +300,7 @@ export default defineUntypedSchema({
   },
 
   /**
-   * Hooks are listeners to Remix events that are typically used in modules,
+   * Hooks are listeners to RemixKit events that are typically used in modules,
    * but are also available in `remix.config`.
    *
    * Internally, hooks follow a naming pattern using colons (e.g., build:done).
@@ -332,52 +329,4 @@ export default defineUntypedSchema({
    * @type {typeof import('../src/types/hooks').RemixHooks}
    */
   hooks: null,
-
-  /**
-   * Runtime config allows passing dynamic config and environment variables to the Remix app context.
-   *
-   * The value of this object is accessible from server only using `useRuntimeConfig`.
-   *
-   * It mainly should hold _private_ configuration which is not exposed on the frontend.
-   * This could include a reference to your API secret tokens.
-   *
-   * Anything under `public` and `app` will be exposed to the frontend as well.
-   *
-   * Values are automatically replaced by matching env variables at runtime, e.g. setting an environment
-   * variable `REMIX_API_KEY=my-api-key REMIX_PUBLIC_BASE_URL=/foo/` would overwrite the two values in the example below.
-   *
-   * @example
-   * ```js
-   * export default {
-   *  runtimeConfig: {
-   *     apiKey: '' // Default to an empty string, automatically set at runtime using process.env.REMIX_API_KEY
-   *     public: {
-   *        baseURL: '' // Exposed to the frontend as well.
-   *     }
-   *   }
-   * }
-   * ```
-   * @type {typeof import('../src/types/config').RuntimeConfig}
-   */
-  runtimeConfig: {
-    $resolve: async (val: RuntimeConfig, get) =>
-      defu(val, {
-        public: {},
-        app: {
-          baseURL: (await get('app')).baseURL,
-          buildAssetsDir: (await get('app')).buildAssetsDir,
-          cdnURL: (await get('app')).cdnURL,
-        },
-      }),
-  },
-
-  /**
-   * Additional app configuration
-   *
-   * For programmatic usage and type support, you can directly provide app config with this option.
-   * It will be merged with `app.config` file as default value.
-   *
-   * @type {typeof import('../src/types/config').AppConfig}
-   */
-  appConfig: {},
 });

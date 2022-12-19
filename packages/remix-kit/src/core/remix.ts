@@ -10,12 +10,12 @@ import { loadRemixConfig } from './config';
 import { remixCtx } from '../context';
 import { installModule } from '../module/install';
 import { addVitePlugin } from '../build';
-import { BrowserRouteLoader } from './plugins/browser-route-loader';
+import { BuildRouteLoader } from './plugins/build-route-loader';
+import { DevRouteLoader } from './plugins/dev-route-loader';
 import { EmptyModule } from './plugins/empty-module';
 import { AssetsManifest } from './plugins/assets-manifest';
 import { ServerManifest } from './plugins/server-manifest';
 import { loadRenderer } from './renderer';
-import { DevelopmentRouteLoader } from './plugins/dev-route-loader';
 
 export interface LoadRemixOptions extends LoadRemixConfigOptions {
   /** Load remix in development mode */
@@ -79,10 +79,10 @@ async function initRemix(remix: Remix) {
   addVitePlugin(EmptyModule.vite({ target: `.client.` }), { client: false });
 
   // Tree-shake routes for browser builds
-  addVitePlugin(BrowserRouteLoader.vite(remix), { server: false });
+  addVitePlugin(BuildRouteLoader.vite(remix), { server: false });
 
   // Tree-shake routes during development for browser requests
-  addVitePlugin(DevelopmentRouteLoader.vite(remix), { server: false });
+  addVitePlugin(DevRouteLoader.vite(remix), { server: false });
 
   // Generate browser asset manifest
   addVitePlugin(AssetsManifest.vite(remix), { server: false });

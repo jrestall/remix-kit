@@ -123,6 +123,7 @@ importers:
       ignore: ^5.2.1
       mlly: ^1.0.0
       pathe: ^1.0.0
+      rollup: ^3.7.5
       unctx: ^2.1.1
       unplugin: ^1.0.1
       untyped: ^1.0.0
@@ -140,6 +141,7 @@ importers:
       ignore: 5.2.1
       mlly: 1.0.0
       pathe: 1.0.0
+      rollup: 3.7.5
       unctx: 2.1.1
       unplugin: 1.0.1
       untyped: 1.2.0
@@ -147,6 +149,7 @@ importers:
   packages/remix-react:
     specifiers:
       '@remix-kit/kit': workspace:*
+      '@types/fs-extra': ^9.0.13
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       '@vitejs/plugin-react-swc': ^3.0.1
@@ -167,6 +170,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       unplugin: 1.0.1
     devDependencies:
+      '@types/fs-extra': 9.0.13
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       unbuild: 1.0.2
@@ -227,7 +231,6 @@ importers:
       '@remix-run/dev': ^1.8.2
       '@remix-run/express': ^1.8.2
       '@remix-run/server-runtime': ^1.8.2
-      '@remix-run/web-fetch': ^4.3.2
       '@rollup/plugin-node-resolve': ^15.0.1
       '@rollup/plugin-replace': ^5.0.1
       '@types/express': ^4.17.15
@@ -271,7 +274,6 @@ importers:
       '@remix-kit/kit': link:../remix-kit
       '@remix-run/dev': 1.8.2_biqbaboplfbrettd7655fr4n2y
       '@remix-run/server-runtime': 1.8.2_biqbaboplfbrettd7655fr4n2y
-      '@remix-run/web-fetch': 4.3.2
       '@rollup/plugin-node-resolve': 15.0.1_rollup@3.7.5
       '@rollup/plugin-replace': 5.0.1_rollup@3.7.5
       '@whatwg-node/server': 0.4.17_@types+node@18.11.15
@@ -10206,7 +10208,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: false
 
   /run-async/2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
@@ -11478,7 +11479,7 @@ packages:
       esbuild: 0.16.7
       postcss: 8.4.20
       resolve: 1.22.1
-      rollup: 3.7.4
+      rollup: 3.7.5
     optionalDependencies:
       fsevents: 2.3.2
 

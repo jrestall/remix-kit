@@ -11,16 +11,16 @@ type ParsedImportSpecifier = {
   spec: ImportSpecifier;
   parsed: ParsedStaticImport;
 };
+
 // Tree shakes server code out of the routes for the development browser bundle by
 // using es-module-lexer to rewrite server exports and esbuild to then tree shake.
-
-// es-module-lexer is crazy fast for this purpose, 0ms impact.
+// es-module-lexer is crazy fast for this purpose, <1ms impact.
 
 const SERVER_EXPORTS = ['action', 'loader', 'headers'];
 
-export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
+export const DevRouteLoader = createUnplugin(function (remix: Remix) {
   return {
-    name: 'remix:development-route-loader',
+    name: 'remix:dev-route-loader',
     async transform(code, id) {
       // Determine if this is a route module
       let routes = Object.values(remix.options.routes);
@@ -110,7 +110,7 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       // Add only the used imports back to the route module source
       let transformed = usedImports.join('\n') + result.code;
 
-      // esbuild transform strips out the /* @vite-ignore */ annotation.
+      // esbuild transform strips out the /* @vite-ignore */ comment annotation.
       // Here we add it back so that vite-analysis-plugin doesn't warn about dynamic imports.
       // https://github.com/evanw/esbuild/issues/221
       const searchString = 'import.meta.url).then((current) => {';
@@ -126,32 +126,31 @@ function removeImport(source: string, importSpec: ImportSpecifier): string {
 }
 
 function buildExpression(parsed: ParsedStaticImport): string {
-  let expressions = '';
+  let expressions = '\n';
   if (parsed.namespacedImport) {
-    const expression = `const ${parsed.namespacedImport} = /* @__PURE__ */ _used("import ${parsed.imports} from '${parsed.specifier}';");`;
-    expressions += expression + '\n';
+    expressions += createExpression(parsed.namespacedImport, parsed.imports, parsed.specifier);
   }
   if (parsed.defaultImport) {
-    const expression = `const ${parsed.defaultImport} = /* @__PURE__ */ _used("import ${parsed.defaultImport} from '${parsed.specifier}';");`;
-    expressions += expression + '\n';
+    expressions += createExpression(parsed.defaultImport, parsed.defaultImport, parsed.specifier);
   }
   if (parsed.namedImports) {
     for (const binding of Object.keys(parsed.namedImports)) {
-      //import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime"'
       const named = parsed.namedImports[binding];
-      // const Link = /* @__PURE__ */ _used("import { json } from "@remix-run/node";");
-      const expression = `const ${named} = /* @__PURE__ */ _used("import { ${binding} as ${named} } from '${parsed.specifier}';");`;
-      expressions += expression + '\n';
+      expressions += createExpression(named, `{ ${binding} as ${named} }`, parsed.specifier);
     }
   }
   return expressions;
+}
+
+function createExpression(name: string, imports: string, specifier: string) {
+  return `const ${name} = /* @__PURE__ */ _used("import ${imports} from '${specifier}';");\n`;
 }
 
 function parseImport(source: string, importSpec: ImportSpecifier): ParsedStaticImport | null {
   const isDynamic = importSpec.d > -1;
   const isMeta = importSpec.d === -2;
   if (isDynamic || isMeta) {
-    // this basically means the module will be impacted by any change in its dep
+    // we don't handle dynamic or meta imports
     return null;
   }
 

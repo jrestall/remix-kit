@@ -19,9 +19,9 @@ const BROWSER_EXPORTS = [
   'unstable_shouldReload',
 ] as const;
 
-export const BrowserRouteLoader = createUnplugin(function (remix: Remix) {
+export const BuildRouteLoader = createUnplugin(function (remix: Remix) {
   return {
-    name: 'remix:browser-route-loader',
+    name: 'remix:build-route-loader',
     enforce: 'pre',
     vite: {
       apply: 'build',

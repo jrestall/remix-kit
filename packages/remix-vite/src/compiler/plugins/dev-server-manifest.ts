@@ -52,7 +52,7 @@ export function devServerManifest(remix: Remix): Plugin {
       const route = routes.find((r) => id.endsWith(r.file));
       if (!route) return;
 
-      const [_, exports] = await getRouteExports(code);
+      const [, exports] = await getRouteExports(code);
       if (!exports || !exports.length) return;
 
       const updatedExports = exports.map((e) => e.n);
@@ -60,12 +60,10 @@ export function devServerManifest(remix: Remix): Plugin {
       const routeModule = existingRoute?.module ?? resolve(remix.options.appDirectory, route.file);
       const updatedRoute = createEntryRoute(route, routeModule, updatedExports);
 
-      remix._assetsManifest =
-        remix._assetsManifest ?? createDevAssetsManifest(remix.options);
+      remix._assetsManifest = remix._assetsManifest ?? createDevAssetsManifest(remix.options);
       remix._assetsManifest.routes[route.id] = updatedRoute;
 
       const serverBuildModule = server.moduleGraph.getModuleById(resolvedVirtualServerBuildId);
-
       if (serverBuildModule) server.moduleGraph.invalidateModule(serverBuildModule);
     },
   };

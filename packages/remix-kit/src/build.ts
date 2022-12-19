@@ -37,6 +37,7 @@ export function extendViteConfig(
   fn: (config: ViteConfig) => void,
   options: ExtendViteConfigOptions = {}
 ) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const remix = useRemix();
 
   if (options.dev === false && remix.options.dev) {

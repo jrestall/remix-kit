@@ -49,15 +49,3 @@ export interface ViteConfig extends ViteUserConfig {
    */
   server?: Omit<ViteServerOptions, 'port' | 'host'>;
 }
-
-// -- Runtime Config --
-
-type RuntimeConfigNamespace = Record<string, any>;
-
-export interface PublicRuntimeConfig extends RuntimeConfigNamespace {}
-
-export interface RuntimeConfig extends RuntimeConfigNamespace {
-  public: PublicRuntimeConfig;
-}
-
-export interface AppConfig { }
