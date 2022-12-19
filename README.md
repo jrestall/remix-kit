@@ -19,13 +19,13 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
 - [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for **instant, precise updates** on the browser and server without reloading the page or blowing away application state.
 - Instant development server startup, **no pre-bundling required**, scales to any project size. 
 - [Vite](https://vitejs.dev/) for development and build bundling. Includes [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node) for extremely fast targeted server code replacement. No purgeRequireCache needed, keep objects in-memory between requests to match production behavior.
-- View **library agnostic**, with existing plugin for [React](https://reactjs.org/).
 - Fully **configurable** & easily **extensible**
   - An extensible compiler and hooks system gives you complete control. 
   - Use [hooks](packages/remix-schema/src/types/hooks.ts) from your own `plugin modules` to extend any part of the build process.
   - Benefit from the large ecosystem of vite plugins.
 - Easy to use CLI `remix-kit` for development, build, previews and more.
 - **Seamless integration** of Tailwind CSS with PostCSS. No need for multiple CLIs.
+- View **library agnostic**, with existing plugin for [React](https://reactjs.org/).
 - Monorepo support, place your routes in libraries outside the main app to better separate your functionality amongst teams.
 - Integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!
 
@@ -53,6 +53,7 @@ RemixKit is an MIT-licensed open source project with its ongoing development mad
 
 ## Credit
 
+This project is based on and bootstrapped using code from [Nuxt](https://github.com/nuxt). Their MIT license can be found [here](./COPYRIGHTS.md). In addition it benefits greatly from a large number of libraries from the [UnJS](https://github.com/unjs) ecosystem. Vite and [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node#readme) provide most of the core functionality and their usage is based on the approach pioneered by [@pi0](https://github.com/pi0) and described in detail by [@antfu](https://github.com/antfu) at [antfu.me](https://antfu.me/posts/dev-ssr-on-nuxt#approach-3-vite-node).
 
 ## License
 
