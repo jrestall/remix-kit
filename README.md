@@ -42,7 +42,6 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
 | [@remix-kit/react](packages/remix-react)                                    | [Changelog](packages/remix-react/CHANGELOG.md)              |
 | [@remix-kit/schema](packages/remix-schema)                                  | [Changelog](packages/remix-schema/CHANGELOG.md)             | 
 | [@remix-kit/vite](packages/remix-vite)                                      | [Changelog](packages/remix-vite/CHANGELOG.md)               |
-| [@remix-kit/vue](packages/remix-vue)                                        | [Changelog](packages/remix-vue/CHANGELOG.md)                |
 
 ## Contributing
 
