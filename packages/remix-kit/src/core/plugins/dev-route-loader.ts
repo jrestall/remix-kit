@@ -37,8 +37,8 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       const serverExports = exports.filter((_export) => SERVER_EXPORTS.includes(_export.n));
       if (!serverExports || !serverExports.length) return;
 
-      // Rewrite the module exports to not export action and loader functions.
-      // This will cause these functions to be tree shaken by esbuild.
+      // Rewrite the module exports to not export server methods such as action and loader functions.
+      // This will cause these functions to be tree shaken out by esbuild.
       let source = `${code}`;
       source = await removeRouteExports(source, serverExports);
 
@@ -132,7 +132,7 @@ function buildExpression(parsed: ParsedStaticImport): string {
     expressions += expression + '\n';
   }
   if (parsed.defaultImport) {
-    const expression = `const ${parsed.namespacedImport} = /* @__PURE__ */ _used("import ${parsed.defaultImport} from '${parsed.specifier}';");`;
+    const expression = `const ${parsed.defaultImport} = /* @__PURE__ */ _used("import ${parsed.defaultImport} from '${parsed.specifier}';");`;
     expressions += expression + '\n';
   }
   if (parsed.namedImports) {

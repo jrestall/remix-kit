@@ -27,7 +27,7 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
 - Easy to use CLI `remix-kit` for development, build, previews and more.
 - **Seamless integration** of Tailwind CSS with PostCSS. No need for multiple CLIs.
 - Monorepo support, place your routes in libraries outside the main app to better separate your functionality amongst teams.
-- CSS Modules, Top-level `await` support, integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!
+- Integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!
 
 #### Future Roadmap
 - Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
