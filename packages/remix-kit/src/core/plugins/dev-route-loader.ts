@@ -14,7 +14,9 @@ type ParsedImportSpecifier = {
 
 // Tree shakes server code out of the routes for the development browser bundle by
 // using es-module-lexer to rewrite server exports and esbuild to then tree shake.
-// es-module-lexer is crazy fast for this purpose, <1ms impact.
+
+// On performance, es-module-lexer is crazy fast for this purpose, <1ms impact.
+// The overall tree shaking performance for each module request with esbuild is <20ms.
 
 const SERVER_EXPORTS = ['action', 'loader', 'headers'];
 
@@ -69,7 +71,7 @@ export const DevRouteLoader = createUnplugin(function (remix: Remix) {
       }
 
       // We now have an array of expressions that will be tree shaken.
-      // ['const Link = /* @__PURE__ */ _used("import { json } from "@remix-run/node";");']
+      // ['const json = /* @__PURE__ */ _used("import { json } from "@remix-run/node";");']
       const noop = 'const _used = () => {}; \n';
       source += noop + expressions.join('\n');
 
@@ -136,7 +138,8 @@ function buildExpression(parsed: ParsedStaticImport): string {
   if (parsed.namedImports) {
     for (const binding of Object.keys(parsed.namedImports)) {
       const named = parsed.namedImports[binding];
-      expressions += createExpression(named, `{ ${binding} as ${named} }`, parsed.specifier);
+      const imports = binding === named ? `{ ${named} }` : `{ ${binding} as ${named} }`;
+      expressions += createExpression(named, imports, parsed.specifier);
     }
   }
   return expressions;
