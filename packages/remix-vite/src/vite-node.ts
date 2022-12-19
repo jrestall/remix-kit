@@ -5,6 +5,7 @@ import { createIsExternal } from './utils/external';
 import type { Connect, ModuleNode, ViteDevServer } from 'vite';
 import { logger } from '@remix-kit/kit';
 import type { VitePlugin } from 'unplugin';
+import { removeExperimentalFetchWarnings } from './utils/node-patch';
 
 // Store the invalidates for the next rendering
 const invalidates = new Set<string>();
@@ -110,6 +111,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
   app.use(fromNodeMiddleware(ctx.clientServer!.middlewares));
 
   // Proxy all other requests through to the Remix application
+  removeExperimentalFetchWarnings();
   app.use(
     '/',
     defineEventHandler((event) => {
