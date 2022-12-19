@@ -1,3 +1,3 @@
 # Remix Kit Vue
 
-> Vue rendering library support
+> Vue server rendering library support (in progress/experimental)

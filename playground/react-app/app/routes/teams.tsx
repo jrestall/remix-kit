@@ -9,8 +9,8 @@ export async function loader() {
 export default function Index() {
   const data = useLoaderData<typeof loader>();
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <Link to="/">Back</Link>
+    <div className="text-md text-gray-800">
+      <Link to="/">Go Back</Link>
       <h1>Welcome to {data.name}</h1>
     </div>
   );

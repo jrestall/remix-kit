@@ -30,7 +30,6 @@ An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix
 - CSS Modules, Top-level `await` support, integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!
 
 #### Future Roadmap
-- Use vite-node's separate client/server development server architecture for better web worker support. 
 - Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
 - Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
 

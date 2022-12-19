@@ -2,7 +2,7 @@ import express from 'express';
 import compression from 'compression';
 import morgan from 'morgan';
 import { createRequestHandler } from '@remix-run/express';
-import * as build from '@remix-run/dev/server-build';
+import { RemixKitRunner } from '@remix-kit/vite';
 
 const app = express();
 
@@ -20,20 +20,18 @@ app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
-app.all('*', (req, res, next) => {
-  return createRequestHandler({
-    build,
-    mode: process.env.NODE_ENV,
-  })(req, res, next);
+let runner = new RemixKitRunner();
+app.all('*', async (req, res, next) => {
+  return await runner.execute((build) => {
+    if (!build) return;
+    const requestHandler = createRequestHandler({ build, mode: process.env.NODE_ENV });
+    return requestHandler(req, res, next);
+  });
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
-if (process.env.NODE_ENV === "production") {
-  console.log(`Express server starting...`);
-  app.listen(port, () => {
-    console.log(`Express server listening on port ${port}`);
-  });
-}
-
-export const devServer = app;
+console.log(`Express server starting...`);
+app.listen(port, () => {
+  console.log(`Express server listening on port ${port}`);
+});

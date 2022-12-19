@@ -1,32 +1,10 @@
-import { createApp, defineEventHandler, fromNodeMiddleware } from 'h3';
-import type * as http from 'http';
+import { createApp, createError, defineEventHandler, fromNodeMiddleware, proxyRequest } from 'h3';
 import { ViteNodeServer } from 'vite-node/server';
-import { resolve as resolveModule } from 'mlly';
 import type { ViteBuildContext } from './vite';
 import { createIsExternal } from './utils/external';
 import type { Connect, ModuleNode, ViteDevServer } from 'vite';
 import { logger } from '@remix-kit/kit';
-import type { Application } from 'express';
 import type { VitePlugin } from 'unplugin';
-import { resolve } from 'pathe';
-import type { ViteNodeRunner } from 'vite-node/client';
-import { createRunner } from './runtime/dev-server';
-
-export declare interface RequestAdapterParams<App> {
-  app: App;
-  server: ViteDevServer;
-  req: http.IncomingMessage;
-  res: http.ServerResponse;
-  next: Connect.NextFunction;
-}
-
-export declare type RequestAdapter<App = any> = (
-  params: RequestAdapterParams<App>
-) => void | Promise<void>;
-
-export const ExpressHandler: RequestAdapter<Application> = ({ app, req, res }) => {
-  app(req, res);
-};
 
 // Store the invalidates for the next rendering
 const invalidates = new Set<string>();
@@ -80,16 +58,7 @@ function createNodeServer(viteServer: ViteDevServer, ctx: ViteBuildContext) {
   const isExternal = createIsExternal(viteServer, ctx.remix.options.rootDir);
   node.shouldExternalize = async (id: string) => {
     let result = await isExternal(id);
-    console.debug(result);
-    if (id.includes('@remix-run')) {
-      console.debug(`isExternal2: (${id})`);
-      if (id.includes('@remix-run/dev/server-build')) return false;
-      return id;
-    }
     if (result?.external) {
-      console.debug(`resolving: (${result.id})`);
-      const module = await resolveModule(result.id, { url: ctx.remix.options.modulesDir });
-      console.debug(`resolve: (${result.id}) ` + module);
       return id;
     }
     return false;
@@ -98,82 +67,86 @@ function createNodeServer(viteServer: ViteDevServer, ctx: ViteBuildContext) {
   return node;
 }
 
-function createViteNodeApp(ctx: ViteBuildContext) {
+function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
   const app = createApp();
 
   app.use(
     '/build/manifest-dev.js',
     defineEventHandler(async (event) => {
       event.node.res.setHeader('Content-Type', 'application/javascript');
-      const response = `window.__remixManifest=${JSON.stringify(ctx.remix._assetsManifest)};`;
-      return response;
+      return `window.__remixManifest=${JSON.stringify(ctx.remix._assetsManifest)};`;
+    })
+  );
+
+  app.use(
+    '/__remix_dev_server__/invalidates',
+    defineEventHandler(() => {
+      const ids = Array.from(invalidates);
+      invalidates.clear();
+      return ids;
+    })
+  );
+
+  app.use(
+    '/__remix_dev_server__/module',
+    defineEventHandler(async (event) => {
+      const moduleId = decodeURI(event.node.req.url!).substring(1);
+      if (moduleId === '/') {
+        throw createError({ statusCode: 400 });
+      }
+      const module = await node.fetchModule(moduleId).catch((err) => {
+        const errorData = {
+          code: 'VITE_ERROR',
+          id: moduleId,
+          stack: '',
+          ...err,
+        };
+        throw createError({ data: errorData });
+      });
+      return module;
+    })
+  );
+
+  app.use(fromNodeMiddleware(ctx.clientServer!.middlewares));
+
+  // Proxy all other requests through to the Remix application
+  app.use(
+    '/',
+    defineEventHandler((event) => {
+      logRequestInfo(event.node.req);
+      return proxyRequest(event, 'http://localhost:3001' + event.path, {
+        fetch,
+        sendStream: true,
+      }).catch((err) => {
+        const errorData = {
+          code: 'VITE_ERROR',
+          path: event.path,
+          stack: '',
+          ...err,
+        };
+        throw createError({ data: errorData });
+      });
     })
   );
 
   return app;
 }
 
-export async function initViteNodeServer(ctx: ViteBuildContext) {
-  const node = createNodeServer(ctx.ssrServer!, ctx);
-  const nodeRunner = await createRunner(node, ctx.remix.options.srcDir, '/public/');
-
-  const serverEntryPath = resolve(ctx.remix.options.rootDir, ctx.remix.options.serverEntryPoint!);
-  const handler = createRemixHandler(ctx.ssrServer!, nodeRunner, serverEntryPath);
-
-  const app = createViteNodeApp(ctx);
-  ctx.clientServer?.middlewares.use(handler);
-  app.use(fromNodeMiddleware(ctx.clientServer!.middlewares));
-
-  ctx.remix.server = app;
-}
-
-function createRemixHandler(
-  server: ViteDevServer,
-  runner: ViteNodeRunner,
-  serverEntryPath: string
-) {
-  let devServer: any;
-  const requestHandler = ExpressHandler;
-  const remixHandler: Connect.NextHandleFunction = async (req, res, next) => {
-    logRequestInfo(req);
-
-    const updates = runner.moduleCache.invalidateDepTree(invalidates);
-
-    // Invalidate cache for files changed since last rendering
-    invalidates.clear();
-
-    // Execute SSR bundle on demand
-    // https://antfu.me/posts/dev-ssr-on-nuxt#approach-3-vite-node
-    const start = performance.now();
-    devServer =
-      !devServer || updates.size > 0
-        ? (await runner.executeFile(serverEntryPath)).devServer
-        : devServer;
-    if (updates.size) {
-      const time = Math.round((performance.now() - start) * 1000) / 1000;
-      logger.success(`Vite server hmr ${updates.size} files`, time ? `in ${time}ms` : '');
-    }
-
-    if (!devServer) {
-      logger.error(`Failed to find a named export 'devServer' from ${serverEntryPath}`);
-      process.exit(1);
-    }
-
-    // some apps may be created with a function returning a promise
-    devServer = await devServer;
-    await requestHandler({ app: devServer, server, req, res, next });
-  };
-
-  return remixHandler;
-}
-
 function logRequestInfo(req: Connect.IncomingMessage) {
   if (!req.url || !req.headers.host) return;
 
   const url = new URL(req.url, `http://${req.headers.host}`);
-  if (url.searchParams.has('_data')) {
+  if (req.method !== 'GET' && req.method !== 'OPTIONS' && req.method !== 'CONNECT') {
+    logger.info(`Action request (${req.url})`);
+  } else if (url.searchParams.has('_data')) {
     logger.info(`Loader request (${url.searchParams.get('_data')})`);
   } else {
     logger.info(`Document request (${req.url})`);
   }
+}
+
+export async function initViteNodeServer(ctx: ViteBuildContext) {
+  const node = createNodeServer(ctx.ssrServer!, ctx);
+  const app = createDevServerApp(ctx, node);
+  ctx.remix.server = app;
 }

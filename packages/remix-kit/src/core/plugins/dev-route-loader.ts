@@ -100,13 +100,11 @@ export const DevelopmentRouteLoader = createUnplugin(function (remix: Remix) {
       // Execute any remaining expressions to determine the used imports in this route module
       const usedImports: string[] = [];
       if (expressionsSource.length > 0) {
-        // @ts-ignore - used in eval below
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _used = (_import) => {
+        const _used = (_import: string) => {
           usedImports.push(_import);
         };
-        // eslint-disable-next-line no-eval
-        eval(expressionsSource);
+        // eslint-disable-next-line no-new-func
+        new Function('_used', expressionsSource)(_used);
       }
 
       // Add only the used imports back to the route module source

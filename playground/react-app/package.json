@@ -5,7 +5,10 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix-kit build",
-    "dev": "remix-kit dev",
+    "build:server": "npx unbuild --stub",
+    "dev": "run-p dev:*",
+    "dev:remix": "remix-kit dev",
+    "dev:server": "cross-env NODE_ENV=development node ./build/server.mjs",
     "start": "remix-kit preview"
   },
   "dependencies": {
@@ -24,7 +27,11 @@
     "@remix-kit/cli": "workspace:*",
     "@remix-kit/react": "workspace:*",
     "@remix-kit/vite": "workspace:*",
+    "@remix-run/dev": "^1.8.2",
     "@remix-run/eslint-config": "^1.8.2",
+    "@types/compression": "^1.7.2",
+    "@types/express": "^4.17.15",
+    "@types/morgan": "^1.9.3",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
     "autoprefixer": "^10.4.13",
