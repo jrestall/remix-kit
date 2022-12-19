@@ -20,11 +20,11 @@ app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
-let runner = new RemixKitRunner();
+let runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
 app.all('*', async (req, res, next) => {
-  return await runner.execute((build) => {
+  return await runner.execute((build, mode) => {
     if (!build) return;
-    const requestHandler = createRequestHandler({ build, mode: process.env.NODE_ENV });
+    const requestHandler = createRequestHandler({ build, mode });
     return requestHandler(req, res, next);
   });
 });

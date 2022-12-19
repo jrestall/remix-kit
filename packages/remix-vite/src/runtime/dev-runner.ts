@@ -5,6 +5,7 @@ import { resolve } from 'pathe';
 import type { ServerBuild } from '@remix-run/server-runtime';
 import { Agent as HTTPSAgent } from 'node:https';
 import { $fetch } from 'ofetch';
+import serverBuild from '@remix-run/dev/server-build';
 
 const viteNodeOptions = {
   root: '/Users/jrestall/Dev/remix-kit/playground/react-app',
@@ -12,31 +13,43 @@ const viteNodeOptions = {
   baseURL: 'http://localhost:3000',
 };
 
-const viteNodeFetch = $fetch.create({
-  baseURL: `${viteNodeOptions.baseURL}/__remix_dev_server__`,
-  // @ts-expect-error
-  agent: viteNodeOptions.baseURL.startsWith('https://')
-    ? new HTTPSAgent({ rejectUnauthorized: false })
-    : null,
-});
-
 export interface ExecuteFunction<T> {
-  (build?: ServerBuild, err?: string): Promise<T> | T;
+  (build?: ServerBuild, mode?: string, err?: string): Promise<T> | T;
 }
 
-export interface DevRunnerOptions {}
+export interface DevRunnerOptions {
+  mode: string;
+}
 
 export class RemixKitRunner {
+  options: DevRunnerOptions;
   runner: ViteNodeRunner;
   executor: any;
   entryPath: string;
+  viteNodeFetch: any;
 
-  constructor(public options?: DevRunnerOptions) {
+  constructor(options?: DevRunnerOptions) {
+    this.options = options ?? { mode: 'production' };
     this.runner = this.createRunner(viteNodeOptions.root, viteNodeOptions.base);
     this.entryPath = resolve(__dirname, 'dev-entry.ts');
+
+    if (this.options.mode !== 'production') {
+      this.viteNodeFetch = $fetch.create({
+        baseURL: `${viteNodeOptions.baseURL}/__remix_dev_server__`,
+        // @ts-expect-error
+        agent: viteNodeOptions.baseURL.startsWith('https://')
+          ? new HTTPSAgent({ rejectUnauthorized: false })
+          : null,
+      });
+    }
   }
 
   async execute<T>(execute: ExecuteFunction<T>): Promise<T> {
+    // In production, we bypass Vite and just run the given function.
+    if (this.options.mode === 'production') {
+      return execute(serverBuild, this.options.mode);
+    }
+
     try {
       // Invalidate cache for files changed since last rendering
       const invalidates = await viteNodeFetch('/invalidates');

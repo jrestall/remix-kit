@@ -53,7 +53,7 @@ RemixKit is an MIT-licensed open source project with its ongoing development mad
 
 ## Credit
 
-This project was bootstrapped using code from [Nuxt](https://github.com/nuxt). Their MIT license can be found [here](./COPYRIGHTS.md). In addition it benefits greatly from a large number of libraries from the [UnJS](https://github.com/unjs) ecosystem. Vite and [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node#readme) provide most of the core functionality and their usage is based on the approach pioneered by [@pi0](https://github.com/pi0) and described in detail by [@antfu](https://github.com/antfu) at [antfu.me](https://antfu.me/posts/dev-ssr-on-nuxt#approach-3-vite-node).
+This project was bootstrapped using code from [Nuxt](https://github.com/nuxt). Their MIT license can be found [here](./COPYRIGHTS.md). In addition it benefits greatly from a large number of libraries from the [UnJS](https://github.com/unjs) ecosystem. [Vite](https://vitejs.dev/) and [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node#readme) provide most of the core functionality and their usage is based on the approach pioneered by [@pi0](https://github.com/pi0) and described in detail by [@antfu](https://github.com/antfu) at [antfu.me](https://antfu.me/posts/dev-ssr-on-nuxt#approach-3-vite-node).
 
 ## License
 

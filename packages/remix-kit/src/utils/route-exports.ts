@@ -35,7 +35,6 @@ export async function removeRouteExports(
     const { s: start } = exports[i];
 
     // Find the nearest export declaration and remove it
-    // TODO: Use https://www.npmjs.com/package/mlly findExports instead?
     
     // export async function loader() {
     const exportIndex = source.lastIndexOf('export', start);
@@ -43,6 +42,7 @@ export async function removeRouteExports(
       source = source.substring(0, exportIndex) + source.substring(exportIndex + 'export'.length);
     }
 
+    // TODO: Use https://www.npmjs.com/package/mlly findExports instead?
     // TODO: export { action, headers, loader };
   }
   return source;
