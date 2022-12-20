@@ -8,7 +8,7 @@ RemixKit
 Remix development, streamlined with <a href="https://vitejs.dev/">Vite</a>. 
 </p>
 <p align="center">
-An alternative dev server and compiler for the brilliant <a href="https://remix.run/docs">Remix</a> web framework.
+An alternative dev server and compiler for the awesome <a href="https://remix.run/docs">Remix</a> web framework.
 </p>
 <p align="center">
   <a href="https://github.com/jrestall/remix-kit/releases"><img src="https://img.shields.io/badge/stability-alpha-f4d03f.svg"></a>
@@ -33,6 +33,9 @@ An alternative dev server and compiler for the brilliant <a href="https://remix.
 - Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
 - Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
 
+### Setup
+Please see the [getting started](./docs/getting_started.md) guide.
+
 ### Packages
 
 | Package                                                                     | Changelog                                                   |
@@ -45,11 +48,11 @@ An alternative dev server and compiler for the brilliant <a href="https://remix.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop RemixKit locally.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop Remix Kit locally.
 
 ## Supporting RemixKit
 
-RemixKit is an MIT-licensed open source project with its ongoing development made possible entirely by volunteer time. If you'd like to support this effort, please consider:
+Remix Kit is an MIT-licensed open source project with its ongoing development made possible entirely by volunteer time. If you'd like to support this effort, please consider [sponsoring](https://github.com/sponsors/jrestall). 
 
 ## Credit
 
