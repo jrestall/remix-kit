@@ -57,8 +57,8 @@ app.listen(port, async () => {
 ```
  - Please note the `await runner.ready('http://localhost:${port}');` on the last line which is important to notify the development server that your app has started and the host it should proxy requests to. 
  - Please remove any purgeRequireCache functions you may have as they are no longer necessary.
- - You can wrap the above code in `process.env.NODE_EMV === "development"` if you wish  to only use RemixKit in development, but it will work fine in production also.
- - Other nodejs based environments are also supported.
+ - You can wrap the above code in `process.env.NODE_ENV === "development"` if you wish  to only use Remix Kit in development, but it will work fine in production also.
+ - Other nodejs based environments are also supported, environments such as Cloudflare's wrangler are likely not to work.
 
 ## Root.tsx route setup
 
