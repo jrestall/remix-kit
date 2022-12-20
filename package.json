@@ -6,7 +6,7 @@
   "scripts": {
     "build": "pnpm -r run prepack",
     "build:stub": "pnpm -r --filter '@remix-kit/*' run prepack --stub",
-    "release": "git push --follow-tags && pnpm run -r publish --dry-run"
+    "release": "git push --follow-tags && pnpm run -r release --dry-run"
   },
   "private": true,
   "dependencies": {

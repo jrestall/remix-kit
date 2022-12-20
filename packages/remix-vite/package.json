@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "prepack": "unbuild",
-    "publish": "pnpm publish"
+    "release": "pnpm publish"
   },
   "devDependencies": {
     "@remix-run/express": "^1.8.2",
