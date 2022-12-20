@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "prepack": "unbuild",
-    "publish": "pnpm publish"
+    "release": "pnpm publish"
   },
   "devDependencies": {
     "@types/react": "18.0.21",
