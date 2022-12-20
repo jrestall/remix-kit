@@ -4,7 +4,6 @@
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
   "type": "module",
-  "types": "./dist/index.d.ts",
   "exports": "./dist/index.mjs",
   "files": [
     "dist"

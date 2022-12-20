@@ -3,14 +3,9 @@ import { defineBuildConfig } from 'unbuild';
 export default defineBuildConfig({
   declaration: false,
   entries: ['src/index'],
-  externals: [
-    'fsevents',
-    '@remix-kit/schema',
-    'vite', 
-    'h3'
-  ],
+  externals: ['fsevents', '@remix-kit/schema', 'vite'],
   rollup: {
-    inlineDependencies: true
+    emitCJS: true,
   },
-  failOnWarn: false
+  failOnWarn: false,
 });

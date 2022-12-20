@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "pnpm -r run prepack",
-    "build:stub": "pnpm -r --filter '@remix-kit/*' run prepack --stub"
+    "build:stub": "pnpm -r --filter '@remix-kit/*' run prepack --stub",
+    "release": "pnpm build && git push --follow-tags && pnpm publish --dry-run"
   },
   "private": true,
   "dependencies": {
