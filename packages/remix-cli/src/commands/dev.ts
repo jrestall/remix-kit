@@ -14,6 +14,7 @@ import { cleanupRemixDirs } from '../utils/remix';
 import { defineRemixCommand } from './index';
 import { writeTypes } from '../utils/prepare';
 import { startOriginServer } from '../utils/origin';
+import { loading as loadingTemplate } from '../templates/loading';
 
 export default defineRemixCommand({
   meta: {
@@ -31,13 +32,9 @@ export default defineRemixCommand({
     let currentHandler: RequestListener | undefined;
     let loadingMessage = 'Remix is starting...';
     const loadingHandler: RequestListener = async (_req, res) => {
-      // const { loading: loadingTemplate } = await importModule(
-      //   '@remix/ui-templates'
-      // );
       res.setHeader('Content-Type', 'text/html; charset=UTF-8');
       res.statusCode = 503; // Service Unavailable
-      //res.end(loadingTemplate({ loading: loadingMessage }));
-      res.end(loadingMessage);
+      res.end(loadingTemplate(loadingMessage));
     };
     const serverHandler: RequestListener = (req, res) => {
       return currentHandler ? currentHandler(req, res) : loadingHandler(req, res);
