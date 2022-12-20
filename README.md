@@ -12,7 +12,7 @@ An alternative dev server and compiler for the awesome <a href="https://remix.ru
 </p>
 <p align="center">
   <a href="https://github.com/jrestall/remix-kit/releases"><img src="https://img.shields.io/badge/stability-alpha-f4d03f.svg"></a>
-  <a href="https://www.npmjs.com/package/remix-kit"><img src="https://img.shields.io/npm/v/@remix-kit/cli?color=FCC72B&label="></a>
+  <a href="https://www.npmjs.com/package/@remix-kit/cli"><img src="https://img.shields.io/npm/v/@remix-kit/cli?color=FCC72B&label="></a>
 </p>
 
 ### Features
@@ -48,11 +48,11 @@ Please see the [getting started](./docs/getting_started.md) guide.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop Remix Kit locally.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop RemixKit locally.
 
 ## Supporting RemixKit
 
-Remix Kit is an MIT-licensed open source project with its ongoing development made possible entirely by volunteer time. If you'd like to support this effort, please consider [sponsoring](https://github.com/sponsors/jrestall). 
+RemixKit is an MIT-licensed open source project with its ongoing development made possible entirely by volunteer time. If you'd like to support this effort, please consider [sponsoring](https://github.com/sponsors/jrestall). 
 
 ## Credit
 
