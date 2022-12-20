@@ -37,9 +37,11 @@ export async function startOriginServer(rootDir: string) {
   const waitForConfig = new Promise<void>((resolve, reject) => {
     if (child.stdout && child.stderr) {
       child.stdout.on('data', (data: string) => {
-        const prefix = 'ℹ Runner started on ';
-        if (typeof data === 'string' && data.startsWith(prefix)) {
-          const origin_server = data.substring(prefix.length);
+        const prefix = 'Runner started on ';
+        const index = data.indexOf(prefix);
+        if (typeof data === 'string' && index >= 0) {
+          // Extracts the url from "Runner started on http://localhost:3001"
+          const origin_server = data.substring(index + prefix.length);
           process.env.ORIGIN_SERVER = origin_server;
           resolve();
         }
