@@ -1,11 +1,11 @@
 import { createError } from 'h3';
 import { ViteNodeRunner } from 'vite-node/client';
 import consola from 'consola';
-import { resolve } from 'pathe';
 import type { ServerBuild } from '@remix-run/server-runtime';
 import { Agent as HTTPSAgent } from 'node:https';
 import { $fetch } from 'ofetch';
-import { readConfig } from '@remix-run/dev/dist/config';
+import { readConfig } from '@remix-run/dev/dist/config.js';
+import { fileURLToPath } from "node:url";
 
 export interface ExecuteFunctionArgs {
   build?: ServerBuild;
@@ -36,7 +36,7 @@ export class RemixKitRunner {
       const devServerOptions = JSON.parse(process.env.REMIX_DEV_SERVER_OPTIONS || '{}');
 
       this.runner = this.createRunner(devServerOptions.root, devServerOptions.base);
-      this.entryPath = resolve(__dirname, 'dev-entry.ts');
+      this.entryPath = fileURLToPath(new URL('dev-entry.mjs', import.meta.url));
 
       this.devServerFetch = $fetch.create({
         baseURL: devServerOptions.baseURL,

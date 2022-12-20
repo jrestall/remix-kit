@@ -1,6 +1,6 @@
 {
   "name": "@remix-kit/kit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
   "type": "module",
@@ -13,7 +13,7 @@
     "prepack": "unbuild",
     "release": "pnpm publish"
   },
-  "devDependencies": {
+  "dependencies": {
     "@remix-kit/schema": "workspace:*",
     "@remix-run/dev": "^1.8.2",
     "@types/fs-extra": "^9.0.13",

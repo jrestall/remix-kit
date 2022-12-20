@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import fse from 'fs-extra';
 import ignore from 'ignore';
 import { join, relative } from 'pathe';
 import { tryUseRemix } from './context';
@@ -19,8 +19,8 @@ export function isIgnored(pathname: string): boolean {
     remix._ignore.add(remix.options.ignore);
 
     const remixignoreFile = join(remix.options.rootDir, '.remixignore');
-    if (existsSync(remixignoreFile)) {
-      remix._ignore.add(readFileSync(remixignoreFile, 'utf-8'));
+    if (fse.existsSync(remixignoreFile)) {
+      remix._ignore.add(fse.readFileSync(remixignoreFile, 'utf-8'));
     }
   }
 

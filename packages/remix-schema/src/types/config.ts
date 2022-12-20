@@ -4,7 +4,7 @@ import type {
   UserConfig as ViteUserConfig,
 } from 'vite';
 import type { Remix } from './remix';
-import type { RemixConfig as StandardRemixConfig } from "@remix-run/dev/dist/config";
+import type { RemixConfig as StandardRemixConfig } from "@remix-run/dev/dist/config.js";
 
 type DeepPartial<T> = T extends Function
   ? T

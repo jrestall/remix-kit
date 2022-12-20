@@ -7,6 +7,7 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import polyfillNode from 'rollup-plugin-polyfill-node';
 import type { InputPluginOption } from 'rollup';
 import { devServerManifest, devServerManifestPre } from './plugins/dev-server-manifest';
+import { fileURLToPath } from "node:url";
 
 export async function buildServer(ctx: ViteBuildContext) {
   const options = ctx.remix.options;
@@ -20,7 +21,7 @@ export async function buildServer(ctx: ViteBuildContext) {
   if (options.serverEntryPoint) {
     entryPoint = options.serverEntryPoint;
   } else {
-    const defaultsDirectory = resolve(__dirname, 'defaults');
+    const defaultsDirectory = fileURLToPath(new URL('defaults', import.meta.url));
     const defaultServerEntryPoint = resolve(defaultsDirectory, 'server-entry.ts');
     entryPoint = defaultServerEntryPoint;
   }

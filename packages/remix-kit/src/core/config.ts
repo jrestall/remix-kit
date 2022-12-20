@@ -5,7 +5,7 @@ import { loadConfig } from 'c12';
 import type { RemixOptions, RemixConfig} from '@remix-kit/schema';
 import { RemixConfigSchema } from '@remix-kit/schema';
 import { readConfig } from '@remix-run/dev/dist/config.js';
-import type { RemixConfig as StandardRemixConfig } from '@remix-run/dev/dist/config';
+import type { RemixConfig as StandardRemixConfig } from '@remix-run/dev/dist/config.js';
 
 export interface LoadRemixConfigOptions extends LoadConfigOptions<RemixConfig> {}
 
