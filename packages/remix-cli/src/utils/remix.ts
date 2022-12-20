@@ -3,7 +3,7 @@ import consola from 'consola';
 import { rmRecursive } from './fs';
 
 export async function cleanupRemixDirs(rootDir: string) {
-  consola.info('Cleaning up generated remix files and caches...');
+  consola.info('Cleaning up generated files and caches...');
 
   await rmRecursive(
     [

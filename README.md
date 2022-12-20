@@ -8,7 +8,7 @@ RemixKit
 Remix development, streamlined with <a href="https://vitejs.dev/">Vite</a>. 
 </p>
 <p align="center">
-An alternative compiler for the brilliant <a href="https://remix.run/docs">Remix</a> web framework.
+An alternative dev server and compiler for the brilliant <a href="https://remix.run/docs">Remix</a> web framework.
 </p>
 <p align="center">
   <a href="https://github.com/jrestall/remix-kit/releases"><img src="https://img.shields.io/badge/stability-alpha-f4d03f.svg"></a>

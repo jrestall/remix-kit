@@ -5,16 +5,16 @@ import { resolve } from 'pathe';
 import type { ServerBuild } from '@remix-run/server-runtime';
 import { Agent as HTTPSAgent } from 'node:https';
 import { $fetch } from 'ofetch';
-import serverBuild from '@remix-run/dev/server-build';
+import { readConfig } from '@remix-run/dev/dist/config';
 
-const viteNodeOptions = {
-  root: '/Users/jrestall/Dev/remix-kit/playground/react-app',
-  base: '',
-  baseURL: 'http://localhost:3000',
-};
+export interface ExecuteFunctionArgs {
+  build?: ServerBuild;
+  mode: string;
+  err?: string;
+}
 
 export interface ExecuteFunction<T> {
-  (build?: ServerBuild, mode?: string, err?: string): Promise<T> | T;
+  (args: ExecuteFunctionArgs): Promise<T> | T;
 }
 
 export interface DevRunnerOptions {
@@ -23,36 +23,61 @@ export interface DevRunnerOptions {
 
 export class RemixKitRunner {
   options: DevRunnerOptions;
-  runner: ViteNodeRunner;
   executor: any;
-  entryPath: string;
-  viteNodeFetch: any;
+  runner?: ViteNodeRunner;
+  serverBuildPath?: string;
+  entryPath?: string;
+  devServerFetch?: any;
 
-  constructor(options?: DevRunnerOptions) {
+  constructor(options: DevRunnerOptions) {
     this.options = options ?? { mode: 'production' };
-    this.runner = this.createRunner(viteNodeOptions.root, viteNodeOptions.base);
-    this.entryPath = resolve(__dirname, 'dev-entry.ts');
 
     if (this.options.mode !== 'production') {
-      this.viteNodeFetch = $fetch.create({
-        baseURL: `${viteNodeOptions.baseURL}/__remix_dev_server__`,
+      const devServerOptions = JSON.parse(process.env.REMIX_DEV_SERVER_OPTIONS || '{}');
+
+      this.runner = this.createRunner(devServerOptions.root, devServerOptions.base);
+      this.entryPath = resolve(__dirname, 'dev-entry.ts');
+
+      this.devServerFetch = $fetch.create({
+        baseURL: devServerOptions.baseURL,
         // @ts-expect-error
-        agent: viteNodeOptions.baseURL.startsWith('https://')
+        agent: devServerOptions.baseURL.startsWith('https://')
           ? new HTTPSAgent({ rejectUnauthorized: false })
           : null,
       });
     }
   }
 
+  async ready(origin: string) {
+    const config = await readConfig();
+    this.serverBuildPath = config.serverBuildPath;
+
+    if (this.options.mode === 'production') return;
+
+    // Dev server listens to the stdout of the child process and picks up the origin server url.
+    consola.log('');
+    consola.info(`Runner started on ${origin}`);
+  }
+
   async execute<T>(execute: ExecuteFunction<T>): Promise<T> {
     // In production, we bypass Vite and just run the given function.
+    // Remix server file no longer controls the build import as this is simpler but also
+    // lets us modify the build dynamically per request such as for lib support in the future.
     if (this.options.mode === 'production') {
-      return execute(serverBuild, this.options.mode);
+      if (!this.serverBuildPath) {
+        throw new Error("Can't get serverBuildPath. Did you forget to call runner.ready?");
+      }
+      let build = require(this.serverBuildPath);
+      return execute({build, mode: this.options.mode});
+    }
+
+    if (!this.runner || !this.entryPath) {
+      throw new Error('No development client runner setup.');
     }
 
     try {
       // Invalidate cache for files changed since last rendering
-      const invalidates = await viteNodeFetch('/invalidates');
+      const invalidates = await this.devServerFetch('/invalidates');
       const updates = this.runner.moduleCache.invalidateDepTree(invalidates);
 
       const start = performance.now();
@@ -67,9 +92,10 @@ export class RemixKitRunner {
         const time = Math.round((performance.now() - start) * 1000) / 1000;
         consola.success(`Vite server hmr ${updates.size} files`, time ? `in ${time}ms` : '');
       }
-      return this.executor(execute);
+      return this.executor(execute, this.options.mode);
     } catch (err) {
-      return execute(undefined, err.toString());
+      consola.error(err);
+      throw err;
     }
   }
 
@@ -93,7 +119,7 @@ export class RemixKitRunner {
   }
 
   async fetchModule(id: string, importer: any) {
-    return await viteNodeFetch('/module/' + encodeURI(id)).catch((err: any) => {
+    return await this.devServerFetch('/module/' + encodeURI(id)).catch((err: any) => {
       const errorData = err?.data?.data;
       if (!errorData) {
         throw err;

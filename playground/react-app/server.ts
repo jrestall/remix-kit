@@ -20,18 +20,18 @@ app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
+const port = process.env.PORT || 3001;
+
 let runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
 app.all('*', async (req, res, next) => {
-  return await runner.execute((build, mode) => {
-    if (!build) return;
-    const requestHandler = createRequestHandler({ build, mode });
-    return requestHandler(req, res, next);
+  await runner.execute(({ build, mode, err }) => {
+    if (err) res.end(err);
+    if (build) createRequestHandler({ build, mode })(req, res, next);
   });
 });
 
-const port = process.env.PORT || 3001;
-
 console.log(`Express server starting...`);
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Express server listening on port ${port}`);
+  await runner.ready(`http://localhost:${port}`);
 });

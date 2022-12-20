@@ -51,6 +51,7 @@ importers:
       '@types/flat': ^5.0.2
       '@types/mri': ^1.1.1
       '@types/semver': ^7
+      '@types/shelljs': ^0.8.11
       c12: ^1.0.1
       chokidar: ^3.5.3
       clear: ^0.1.0
@@ -58,6 +59,7 @@ importers:
       colorette: ^2.0.19
       consola: ^2.15.3
       deep-object-diff: ^1.1.9
+      defu: ^6.1.1
       destr: ^1.2.2
       execa: ^6.1.0
       flat: ^5.0.2
@@ -73,6 +75,7 @@ importers:
       pkg-types: ^1.0.1
       scule: ^1.0.0
       semver: ^7.3.8
+      shelljs: ^0.8.5
       ufo: ^1.0.1
       unbuild: latest
     optionalDependencies:
@@ -84,6 +87,7 @@ importers:
       '@types/flat': 5.0.2
       '@types/mri': 1.1.1
       '@types/semver': 7.3.13
+      '@types/shelljs': 0.8.11
       c12: 1.1.0
       chokidar: 3.5.3
       clear: 0.1.0
@@ -91,6 +95,7 @@ importers:
       colorette: 2.0.19
       consola: 2.15.3
       deep-object-diff: 1.1.9
+      defu: 6.1.1
       destr: 1.2.2
       execa: 6.1.0
       flat: 5.0.2
@@ -105,6 +110,7 @@ importers:
       pkg-types: 1.0.1
       scule: 1.0.0
       semver: 7.3.8
+      shelljs: 0.8.5
       ufo: 1.0.1
       unbuild: 1.0.2
 
@@ -3200,6 +3206,13 @@ packages:
     resolution: {integrity: sha512-z5xyF6uh8CbjAu9760KDKsH2FcDxZ2tFCsA4HIMWE6IkiYMXfVoa+4f9KX+FN0ZLsaMw1WNG2ETLA6N+/YA+cg==}
     dependencies:
       '@types/mime': 3.0.1
+      '@types/node': 18.11.15
+    dev: true
+
+  /@types/shelljs/0.8.11:
+    resolution: {integrity: sha512-x9yaMvEh5BEaZKeVQC4vp3l+QoFj3BXcd4aYfuKSzIIyihjdVARAadYy3SMNIz0WCCdS2vB9JL/U6GQk5PaxQw==}
+    dependencies:
+      '@types/glob': 7.2.0
       '@types/node': 18.11.15
     dev: true
 
@@ -6900,6 +6913,11 @@ packages:
       side-channel: 1.0.4
     dev: true
 
+  /interpret/1.4.0:
+    resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
+    engines: {node: '>= 0.10'}
+    dev: true
+
   /ip-regex/5.0.0:
     resolution: {integrity: sha512-fOCG6lhoKKakwv+C6KdsOnGvgXnmgfmp0myi3bcNwj3qfwPAxRKWEuFhvEFF7ceYIz6+1jRZ+yguLFAmUNPEfw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -9958,6 +9976,13 @@ packages:
       source-map: 0.6.1
       tslib: 2.4.1
 
+  /rechoir/0.6.2:
+    resolution: {integrity: sha512-HFM8rkZ+i3zrV+4LQjwQ0W+ez98pApMGM3HUrN04j3CqzPOzl9nmP15Y8YXNm8QHGv/eacOVEjqhmWpkRV0NAw==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      resolve: 1.22.1
+    dev: true
+
   /regenerate-unicode-properties/10.1.0:
     resolution: {integrity: sha512-d1VudCLoIGitcU/hEg2QqvyGZQmdC0Lf8BqdOMXGFSvJP4bNV1+XqbPQeHHLD51Jh4QJJ225dlIFvY4Ly6MXmQ==}
     engines: {node: '>=4'}
@@ -10370,6 +10395,16 @@ packages:
 
   /shell-quote/1.7.4:
     resolution: {integrity: sha512-8o/QEhSSRb1a5i7TFR0iM4G16Z0vYB2OQVs4G3aAFXjn3T6yEx8AZxy1PgDF7I00LZHYA3WxaSYIf5e5sAX8Rw==}
+    dev: true
+
+  /shelljs/0.8.5:
+    resolution: {integrity: sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==}
+    engines: {node: '>=4'}
+    hasBin: true
+    dependencies:
+      glob: 7.2.3
+      interpret: 1.4.0
+      rechoir: 0.6.2
     dev: true
 
   /side-channel/1.0.4:
@@ -11479,7 +11514,7 @@ packages:
       esbuild: 0.16.7
       postcss: 8.4.20
       resolve: 1.22.1
-      rollup: 3.7.5
+      rollup: 3.7.4
     optionalDependencies:
       fsevents: 2.3.2
 

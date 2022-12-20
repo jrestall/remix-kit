@@ -13,12 +13,13 @@ import { overrideEnv } from '../utils/env';
 import { cleanupRemixDirs } from '../utils/remix';
 import { defineRemixCommand } from './index';
 import { writeTypes } from '../utils/prepare';
+import { startOriginServer } from '../utils/origin';
 
 export default defineRemixCommand({
   meta: {
     name: 'dev',
     usage:
-      'npx remix dev [rootDir] [--dotenv] [--clipboard] [--open, -o] [--port, -p] [--host, -h] [--https] [--ssl-cert] [--ssl-key]',
+      'npx remix dev [rootDir] [--dotenv] [--clipboard] [--open, -o] [--port, -p] [--host, -h] [--https] [--ssl-cert] [--ssl-key] [--origin, -o]',
     description: 'Run remix development server',
   },
   async invoke(args) {
@@ -102,7 +103,6 @@ export default defineRemixCommand({
           buildRemix(currentRemix),
         ]);
 
-        currentHandler = toNodeListener(currentRemix.server);
         if (isRestart && args.clear !== false) {
           showBanner();
           showURL();
@@ -110,8 +110,14 @@ export default defineRemixCommand({
 
         if (!isRestart) {
           const time = Math.round((performance.now() - start) * 1000) / 1000;
-          logger.success(`Dev server ready`, time ? `in ${time}ms` : '');
+          logger.success(`Dev server ready`, time ? `in ${time}ms` : '', '\n');
+
+          process.env.ORIGIN_SERVER = args.origin || args.o || process.env.ORIGIN_SERVER;
+
+          await startOriginServer(currentRemix.options.rootDir);
         }
+
+        currentHandler = toNodeListener(currentRemix.server);
       } catch (err) {
         consola.error(`Cannot ${isRestart ? 'restart' : 'start'} Remix: `, err);
         currentHandler = undefined;

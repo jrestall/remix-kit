@@ -116,7 +116,14 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
     '/',
     defineEventHandler((event) => {
       logRequestInfo(event.node.req);
-      return proxyRequest(event, 'http://localhost:3001' + event.path, {
+
+      if (!process.env.ORIGIN_SERVER) {
+        throw createError(
+          "No --origin flag specified. Dev server can't proxy requests to Remix server without a configured origin server."
+        );
+      }
+
+      return proxyRequest(event, process.env.ORIGIN_SERVER + event.path, {
         fetch,
         sendStream: true,
       }).catch((err) => {
@@ -148,6 +155,15 @@ function logRequestInfo(req: Connect.IncomingMessage) {
 }
 
 export async function initViteNodeServer(ctx: ViteBuildContext) {
+  // Serialize and pass dev server options for the client runner
+  // These will be passed as environment variables when we create the child process.
+  const devServerOptions = {
+    baseURL: `${ctx.remix.options.devServer.url}__remix_dev_server__`,
+    root: ctx.remix.options.srcDir,
+    base: ctx.ssrServer!.config.base,
+  };
+  process.env.REMIX_DEV_SERVER_OPTIONS = JSON.stringify(devServerOptions);
+
   const node = createNodeServer(ctx.ssrServer!, ctx);
   const app = createDevServerApp(ctx, node);
   ctx.remix.server = app;
