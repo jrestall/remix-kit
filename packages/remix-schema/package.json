@@ -11,7 +11,8 @@
     "schema"
   ],
   "scripts": {
-    "prepack": "unbuild"
+    "prepack": "unbuild",
+    "publish": "pnpm publish"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.8.2",

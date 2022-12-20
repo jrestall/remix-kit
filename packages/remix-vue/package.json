@@ -14,7 +14,8 @@
     "schema"
   ],
   "scripts": {
-    "prepack": "unbuild"
+    "prepack": "unbuild",
+    "publish": "pnpm publish"
   },
   "devDependencies": {
     "@remix-kit/schema": "workspace:*",

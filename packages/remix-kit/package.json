@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "unbuild"
+    "prepack": "unbuild",
+    "publish": "pnpm publish"
   },
   "devDependencies": {
     "@remix-kit/schema": "workspace:*",
@@ -25,15 +26,13 @@
     "unctx": "^2.1.1",
     "hookable": "^5.4.2",
     "fs-extra": "^11.1.0",
-    "ignore":"^5.2.1",
-    "chokidar":"^3.5.3",
-    "unplugin":"^1.0.1",
-    "mlly":"^1.0.0",
+    "ignore": "^5.2.1",
+    "chokidar": "^3.5.3",
+    "unplugin": "^1.0.1",
+    "mlly": "^1.0.0",
     "rollup": "^3.7.5"
   },
-  "optionalDependencies": {
-
-  },
+  "optionalDependencies": {},
   "engines": {
     "node": "^14.16.0 || ^16.10.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   }
