@@ -7,7 +7,7 @@
     "build": "remix-kit build",
     "build:server": "npx unbuild --stub",
     "dev": "remix-kit dev",
-    "dev:server": "cross-env NODE_ENV=development node ./build/server.mjs",
+    "dev:server": "node ./build/server.mjs",
     "start": "remix-kit preview"
   },
   "dependencies": {

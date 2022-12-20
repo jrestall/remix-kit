@@ -117,10 +117,19 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
     defineEventHandler((event) => {
       logRequestInfo(event.node.req);
 
-      if (!process.env.ORIGIN_SERVER) {
-        throw createError(
-          "No --origin flag specified. Dev server can't proxy requests to Remix server without a configured origin server."
-        );
+      if (!process.env.ORIGIN_SERVER || process.env.ORIGIN_SERVER === 'undefined') {
+        const message =
+          "No 'dev:server' npm script found in package.json or --origin flag specified to 'remix-kit dev'. " +
+          "Dev server can't proxy requests to Remix server without a configured origin server.";
+        logger.error(message);
+
+        const errorData = {
+          code: 'VITE_ERROR',
+          path: event.path,
+          stack: '',
+          message,
+        };
+        throw createError({ data: errorData });
       }
 
       return proxyRequest(event, process.env.ORIGIN_SERVER + event.path, {

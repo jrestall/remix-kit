@@ -11,9 +11,9 @@ export async function startOriginServer(rootDir: string) {
 
   // Get "dev:server" script
   const command = scripts['dev:server'];
-  if (!scripts) {
+  if (!command) {
     // Just warn here as developer may want to start the remix server manually on a remote server.
-    logger.warn(`Dev server couldn't find a 'dev:server' npm script to automatically start the remix server in the package.json in ${rootDir}`);
+    logger.warn(`Dev server couldn't find a 'dev:server' npm script to automatically start the remix server in the package.json at ${rootDir}`);
     return null;
   }
 
