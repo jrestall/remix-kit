@@ -1,3 +1,3 @@
-# Remix CLI
+# Remix Kit CLI
 
-> Remix Command Line Interface
+> Remix Kit Command Line Interface

@@ -1,3 +1,3 @@
-# Remix Kit Schema
+# Remix Kit React
 
-> Cross-version Remix Kit typedefs and defaults
+> React compiler support and ReactRefresh component.
