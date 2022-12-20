@@ -2,10 +2,11 @@
   "name": "remix-kit",
   "version": "0.0.0",
   "license": "MIT",
+  "author": "James Restall",
   "scripts": {
     "build": "pnpm -r run prepack",
     "build:stub": "pnpm -r --filter '@remix-kit/*' run prepack --stub",
-    "release": "git push --follow-tags && pnpm -r publish --dry-run"
+    "release": "git push --follow-tags && pnpm -r publish --dry-run --access public --tag alpha"
   },
   "private": true,
   "dependencies": {
