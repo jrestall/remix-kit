@@ -36,8 +36,6 @@ export default defineBuildConfig({
     'json5',
     '@remix-run/dev',
     '@vue/compiler-core',
-    // Implicit
-    'untyped',
   ],
   rollup: {
     inlineDependencies: true,
