@@ -6,7 +6,7 @@ import type { Plugin } from 'vite';
 
 export async function previewServer(remix: Remix): Promise<Plugin> {
   const build = await import(remix.options.serverBuildPath);
-  if (!build) {
+  if (!build || !build.routes) {
     logger.error(
       `Couldn't find exported server build from ${remix.options.serverBuildPath}.\n` +
         `If using your own server file, you need to include "export * from '@remix-run/dev/server-build';".`
