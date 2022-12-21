@@ -7,7 +7,7 @@
     "build": "remix-kit build",
     "build:server": "npx unbuild",
     "dev": "remix-kit dev",
-    "dev:server": "node ./build/index.mjs",
+    "dev:server": "node ./build/server.dev.mjs",
     "start": "remix-kit preview"
   },
   "dependencies": {

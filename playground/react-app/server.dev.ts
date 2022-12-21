@@ -23,15 +23,15 @@ app.use(morgan('tiny'));
 const port = process.env.PORT || 3001;
 
 const runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
-app.all('*', async (req, res, next) => {
-  await runner.execute(({ build, mode, err }) => {
+app.all('*', (req, res, next) => {
+  runner.execute(({ build, mode, err }) => {
     if (err) res.end(err);
     if (build) createRequestHandler({ build, mode })(req, res, next);
   });
 });
 
 console.log(`Express server starting...`);
-app.listen(port, async () => {
+app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
-  await runner.ready(`http://localhost:${port}`);
+  runner.ready(`http://localhost:${port}`);
 });

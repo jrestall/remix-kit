@@ -46,7 +46,7 @@ export class RemixKitRunner {
     }
   }
 
-  async ready(origin: string) {
+  ready(origin: string) {
     if (this.options.mode !== 'development') return;
 
     // Dev server listens to the stdout of the child process and picks up the origin server url.
