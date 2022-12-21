@@ -23,6 +23,7 @@ const SERVER_EXPORTS = ['action', 'loader', 'headers'];
 export const DevRouteLoader = createUnplugin(function (remix: Remix) {
   return {
     name: 'remix:dev-route-loader',
+    apply: "serve",
     async transform(code, id) {
       // Determine if this is a route module
       let routes = Object.values(remix.options.routes);

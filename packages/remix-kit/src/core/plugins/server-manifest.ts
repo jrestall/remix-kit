@@ -20,7 +20,7 @@ export const ServerManifest = createUnplugin(function (remix: Remix) {
       }
       return null;
     },
-    async load(id) {
+    load(id) {
       if (id === resolvedVirtualServerBuildId) {
         return createServerManifest(remix.options, remix._assetsManifest);
       }

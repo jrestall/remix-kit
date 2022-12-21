@@ -1,9 +1,7 @@
 import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
-  entries: ['./server'],
+  entries: [{ input: 'server.ts', name: 'index', outDir: 'dist/', format: 'esm' }],
   outDir: 'build',
-  rollup: {
-    emitCJS: true,
-  },
+  externals: ['@remix-kit/vite', '@remix-run/dev', '@remix-run/dev/server-build'],
 });

@@ -15,7 +15,7 @@ To contribute to RemixKit, you need to set up a local environment.
 2. Run `pnpm install` to install the dependencies.
 - If you are adding a dependency, please use pnpm add. The pnpm-lock.yaml file is the source of truth for all RemixKit dependencies.
 
-4. Run pnpm build:stub to activate the passive development system. This uses [jiti](https://github.com/unjs/jiti) to execute your Typescript without the need for a build step.
+4. Run `pnpm build:stub` to activate the passive development system. This uses [jiti](https://github.com/unjs/jiti) to execute your Typescript without the need for a build step or file watcher. Stubbing needs to be done just once. More details [here](https://antfu.me/posts/publish-esm-and-cjs#stubbing).
 
 5. Check out a branch where you can work and commit your changes:
 `git checkout -b my-new-branch`

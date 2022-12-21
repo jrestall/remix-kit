@@ -5,5 +5,4 @@ export default defineBuildConfig({
   clean: true,
   entries: ['src/cli', 'src/index'],
   externals: ['fsevents'],
-  failOnWarn: false,
 });

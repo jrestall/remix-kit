@@ -113,7 +113,7 @@ export async function bundle(remix: Remix) {
 
 export async function preview(remix: Remix) {
   const previewDefaults: InlineConfig = {
-    plugins: [previewServer(remix)],
+    plugins: [await previewServer(remix)],
     build: {
       outDir: 'public/',
     },

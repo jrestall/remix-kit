@@ -3,7 +3,7 @@ import * as vite from 'vite';
 import type { ServerOptions } from 'vite';
 import { logger } from '@remix-kit/kit';
 import { getPort } from 'get-port-please';
-import defu from 'defu';
+import { defu } from 'defu';
 import type { ViteBuildContext, ViteOptions } from '../vite';
 import type { Remix } from '@remix-kit/schema';
 import nodeResolve from '@rollup/plugin-node-resolve';

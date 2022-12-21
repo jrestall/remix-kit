@@ -1,4 +1,4 @@
-import defu from 'defu';
+import { defu } from 'defu';
 import { applyDefaults } from 'untyped';
 import type {
   Remix,
@@ -7,7 +7,7 @@ import type {
   ModuleDefinition,
   RemixOptions,
 } from '@remix-kit/schema';
-import { useRemix, remixCtx, tryUseRemix } from '../context';
+import { useRemix, tryUseRemix } from '../context';
 
 /**
  * Define a Remix module, automatically merging defaults with user provided options, installing

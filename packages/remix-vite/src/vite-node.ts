@@ -167,7 +167,7 @@ export async function initViteNodeServer(ctx: ViteBuildContext) {
   // Serialize and pass dev server options for the client runner
   // These will be passed as environment variables when we create the child process.
   const devServerOptions = {
-    baseURL: `${ctx.remix.options.devServer.url}__remix_dev_server__`,
+    baseURL: `${ctx.remix.options.devServer.url}__remix_dev_server__/`,
     root: ctx.remix.options.srcDir,
     base: ctx.ssrServer!.config.base,
   };

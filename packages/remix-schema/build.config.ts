@@ -39,5 +39,6 @@ export default defineBuildConfig({
   ],
   rollup: {
     inlineDependencies: true,
+    emitCJS: true
   },
 });

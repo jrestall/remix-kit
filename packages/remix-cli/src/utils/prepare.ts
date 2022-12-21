@@ -1,7 +1,7 @@
 import { promises as fsp } from 'node:fs'
 import { isAbsolute, join, relative, resolve } from 'pathe'
 import type { Remix, TSReference } from '@remix-kit/schema'
-import defu from 'defu'
+import { defu } from 'defu'
 import type { TSConfig } from 'pkg-types'
 import { getModulePaths, getNearestPackage } from '@remix-kit/kit'
 

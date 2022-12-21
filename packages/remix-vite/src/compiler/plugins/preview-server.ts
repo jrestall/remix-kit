@@ -3,8 +3,8 @@ import { createRequestHandler } from '@remix-run/server-runtime';
 import { createServerAdapter } from '@whatwg-node/server';
 import type { Plugin } from 'vite';
 
-export function previewServer(remix: Remix): Plugin {
-  const build = require(remix.options.serverBuildPath);
+export async function previewServer(remix: Remix): Promise<Plugin> {
+  const build = await import(remix.options.serverBuildPath);
   const requestHandler = createRequestHandler(build, 'production');
   const nodeServerAdapter = createServerAdapter(requestHandler);
   return {

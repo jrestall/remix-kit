@@ -1,17 +1,24 @@
 {
   "name": "@remix-kit/react",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
+  "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "exports": {
-    ".": "./dist/index.mjs",
-    "./setup": "./dist/setup.mjs"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./setup": {
+      "import": "./dist/setup.mjs",
+      "require": "./dist/setup.cjs"
+    }
   },
   "files": [
-    "dist",
-    "schema"
+    "dist"
   ],
   "scripts": {
     "prepack": "unbuild",

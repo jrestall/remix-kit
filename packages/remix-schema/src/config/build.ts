@@ -1,5 +1,5 @@
 import { defineUntypedSchema } from 'untyped';
-import defu from 'defu';
+import { defu } from 'defu';
 import { join } from 'pathe';
 
 export default defineUntypedSchema({
@@ -14,7 +14,7 @@ export default defineUntypedSchema({
         return val;
       }
       const map: Record<string, string> = {
-        vite: '@remix-kit/vite',
+        vite: '@remix-kit/vite/setup',
       };
       return map[val] || val || map.vite;
     },

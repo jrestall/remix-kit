@@ -1,2 +1,1 @@
-export * from "./vite";
-export * from './runtime/dev-runner';
+export { RemixKitRunner } from './runtime/dev-runner';

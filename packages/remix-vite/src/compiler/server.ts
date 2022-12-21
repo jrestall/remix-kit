@@ -1,4 +1,4 @@
-import { resolve, dirname } from 'pathe';
+import { dirname, join } from 'pathe';
 import * as vite from 'vite';
 import { logger } from '@remix-kit/kit';
 import type { ViteBuildContext, ViteOptions } from '../vite';
@@ -7,7 +7,7 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import polyfillNode from 'rollup-plugin-polyfill-node';
 import type { InputPluginOption } from 'rollup';
 import { devServerManifest, devServerManifestPre } from './plugins/dev-server-manifest';
-import { fileURLToPath } from "node:url";
+import { distDir } from '../dirs';
 
 export async function buildServer(ctx: ViteBuildContext) {
   const options = ctx.remix.options;
@@ -21,12 +21,16 @@ export async function buildServer(ctx: ViteBuildContext) {
   if (options.serverEntryPoint) {
     entryPoint = options.serverEntryPoint;
   } else {
-    const defaultsDirectory = fileURLToPath(new URL('defaults', import.meta.url));
-    const defaultServerEntryPoint = resolve(defaultsDirectory, 'server-entry.ts');
+    const defaultServerEntryPoint = join(distDir, 'compiler', 'defaults', 'server-entry.mjs');
     entryPoint = defaultServerEntryPoint;
   }
+
+  let isCloudflareRuntime = ['cloudflare-pages', 'cloudflare-workers'].includes(
+    options.serverBuildTarget ?? ''
+  );
+  let isDenoRuntime = options.serverBuildTarget === 'deno';
+
   const serverConfig: vite.InlineConfig = vite.mergeConfig(ctx.config, {
-    entry: ctx.serverEntry,
     define: {
       'process.server': true,
       'process.client': false,
@@ -40,6 +44,19 @@ export async function buildServer(ctx: ViteBuildContext) {
         /\.(es|esm|esm-browser|esm-bundler).js$/,
         '#app',
       ],
+    },
+    resolve: {
+      mainFields: isCloudflareRuntime
+        ? ['browser', 'module', 'main']
+        : options.serverModuleFormat === 'esm'
+        ? ['module', 'main']
+        : ['main', 'module'],
+      conditions: isCloudflareRuntime ? ['worker'] : isDenoRuntime ? ['deno', 'worker'] : undefined,
+    },
+    esbuild: {
+      platform: options.serverPlatform,
+      format: "esm",
+      target: 'node14.8',
     },
     build: {
       ssr: true,
@@ -77,7 +94,7 @@ export async function buildServer(ctx: ViteBuildContext) {
 
   if (options.serverPlatform !== 'node') {
     const plugins = serverConfig.build?.rollupOptions?.plugins as InputPluginOption[];
-    plugins.push(polyfillNode);
+    plugins.unshift(polyfillNode());
     serverConfig.ssr!.noExternal = true;
     serverConfig.ssr!.target = 'webworker';
   }
@@ -101,10 +118,13 @@ export async function buildServer(ctx: ViteBuildContext) {
   }
 
   // Start development server
-  await ctx.remix.callHook('vite:serverCreating', serverConfig, { isClient: false, isServer: true });
+  await ctx.remix.callHook('vite:serverCreating', serverConfig, {
+    isClient: false,
+    isServer: true,
+  });
   const viteServer = await vite.createServer(serverConfig);
   await ctx.remix.callHook('vite:serverCreated', viteServer, { isClient: false, isServer: true });
-  
+
   ctx.ssrServer = viteServer;
 
   // Close server on exit

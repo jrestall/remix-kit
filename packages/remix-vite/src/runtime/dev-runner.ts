@@ -1,11 +1,11 @@
 import { createError } from 'h3';
+import destr from "destr";
 import { ViteNodeRunner } from 'vite-node/client';
 import consola from 'consola';
 import type { ServerBuild } from '@remix-run/server-runtime';
 import { Agent as HTTPSAgent } from 'node:https';
-import { $fetch } from 'ofetch';
-import { readConfig } from '@remix-run/dev/dist/config.js';
-import { fileURLToPath } from "node:url";
+import { fetch } from '@remix-run/web-fetch';
+import { fileURLToPath } from 'node:url';
 
 export interface ExecuteFunctionArgs {
   build?: ServerBuild;
@@ -17,42 +17,37 @@ export interface ExecuteFunction<T> {
   (args: ExecuteFunctionArgs): Promise<T> | T;
 }
 
-export interface DevRunnerOptions {
+export interface RunnerOptions {
   mode: string;
 }
 
 export class RemixKitRunner {
-  options: DevRunnerOptions;
+  options: RunnerOptions;
   executor: any;
   runner?: ViteNodeRunner;
-  serverBuildPath?: string;
   entryPath?: string;
-  devServerFetch?: any;
+  fetchOptions?: Parameters<typeof fetch>[1];
+  baseURL?: string;
 
-  constructor(options: DevRunnerOptions) {
+  constructor(options: RunnerOptions) {
     this.options = options ?? { mode: 'production' };
 
-    if (this.options.mode !== 'production') {
+    if (this.options.mode === 'development') {
       const devServerOptions = JSON.parse(process.env.REMIX_DEV_SERVER_OPTIONS || '{}');
 
       this.runner = this.createRunner(devServerOptions.root, devServerOptions.base);
       this.entryPath = fileURLToPath(new URL('dev-entry.mjs', import.meta.url));
-
-      this.devServerFetch = $fetch.create({
-        baseURL: devServerOptions.baseURL,
-        // @ts-expect-error
+      this.baseURL = devServerOptions.baseURL;
+      this.fetchOptions = {
         agent: devServerOptions.baseURL.startsWith('https://')
           ? new HTTPSAgent({ rejectUnauthorized: false })
-          : null,
-      });
+          : undefined,
+      };
     }
   }
 
   async ready(origin: string) {
-    const config = await readConfig();
-    this.serverBuildPath = config.serverBuildPath;
-
-    if (this.options.mode === 'production') return;
+    if (this.options.mode !== 'development') return;
 
     // Dev server listens to the stdout of the child process and picks up the origin server url.
     consola.log('');
@@ -63,12 +58,9 @@ export class RemixKitRunner {
     // In production, we bypass Vite and just run the given function.
     // Remix server file no longer controls the build import as this is simpler but also
     // lets us modify the build dynamically per request such as for lib support in the future.
-    if (this.options.mode === 'production') {
-      if (!this.serverBuildPath) {
-        throw new Error("Can't get serverBuildPath. Did you forget to call runner.ready?");
-      }
-      let build = require(this.serverBuildPath);
-      return execute({build, mode: this.options.mode});
+    if (this.options.mode !== 'development') {
+      let build = await import("@remix-run/dev/server-build");
+      return execute({ build, mode: this.options.mode });
     }
 
     if (!this.runner || !this.entryPath) {
@@ -77,7 +69,7 @@ export class RemixKitRunner {
 
     try {
       // Invalidate cache for files changed since last rendering
-      const invalidates = await this.devServerFetch('/invalidates');
+      const invalidates = await this.devServerFetch('invalidates');
       const updates = this.runner.moduleCache.invalidateDepTree(invalidates);
 
       const start = performance.now();
@@ -118,8 +110,15 @@ export class RemixKitRunner {
     });
   }
 
+  async devServerFetch(path: string): Promise<any> {
+    const url = new URL(path, this.baseURL).href;
+    const response = await fetch(url);
+    const data = await response.text();
+    return destr(data);
+  }
+
   async fetchModule(id: string, importer: any) {
-    return await this.devServerFetch('/module/' + encodeURI(id)).catch((err: any) => {
+    return await this.devServerFetch('module/' + encodeURI(id)).catch((err: any) => {
       const errorData = err?.data?.data;
       if (!errorData) {
         throw err;
