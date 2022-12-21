@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@remix-kit/schema": "workspace:*",
-    "@remix-run/dev": "^1.8.2",
     "@types/fs-extra": "^9.0.13",
     "c12": "^1.0.1",
     "consola": "^2.15.3",
@@ -38,6 +37,9 @@
     "unplugin": "^1.0.1",
     "mlly": "^1.0.0",
     "rollup": "^3.7.5"
+  },
+  "peerDependencies": {
+    "@remix-run/dev": ">=1.7.0"
   },
   "optionalDependencies": {},
   "engines": {

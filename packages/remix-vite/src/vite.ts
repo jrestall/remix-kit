@@ -12,6 +12,7 @@ import { buildClient } from './compiler/browser';
 import { buildServer } from './compiler/server';
 import { resolveCSSOptions } from './css';
 import { previewServer } from './compiler/plugins/preview-server';
+import tsConfigPaths from 'vite-tsconfig-paths';
 
 export interface ViteOptions extends InlineConfig {
   ssr?: SSROptions;
@@ -65,6 +66,7 @@ export async function bundle(remix: Remix) {
           },
         },
         plugins: [
+          tsConfigPaths(),
           replace({
             ...Object.fromEntries(
               [';', '(', '{', '}', ' ', '\t', '\n'].map((d) => [`${d}global.`, `${d}globalThis.`])
