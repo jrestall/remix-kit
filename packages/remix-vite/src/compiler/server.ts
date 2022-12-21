@@ -56,7 +56,7 @@ export async function buildServer(ctx: ViteBuildContext) {
     esbuild: {
       platform: options.serverPlatform,
       format: "esm",
-      target: 'node14.8',
+      target: 'node14',
     },
     build: {
       ssr: true,
@@ -69,6 +69,7 @@ export async function buildServer(ctx: ViteBuildContext) {
           generatedCode: {
             constBindings: true,
           },
+          entryFileNames: "[name].mjs"
         },
         onwarn(warning, rollupWarn) {
           if (warning.code && ['UNUSED_EXTERNAL_IMPORT'].includes(warning.code)) {

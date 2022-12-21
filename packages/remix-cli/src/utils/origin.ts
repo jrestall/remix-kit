@@ -21,7 +21,7 @@ export async function startOriginServer(rootDir: string) {
 
   // Execute the script
   const withTimeout = (millis: number | undefined, promise: any) => {
-    const timeout = new Promise((resolve, reject) =>
+    const timeout = new Promise((_resolve, reject) =>
       setTimeout(() => reject(`Timed out after ${millis} ms.`), millis)
     );
     return Promise.race([promise, timeout]);
@@ -52,7 +52,7 @@ export async function startOriginServer(rootDir: string) {
     }
   });
 
-  await withTimeout(45000, waitForConfig);
+  await withTimeout(30000, waitForConfig);
 
   const time = Math.round((performance.now() - start) * 1000) / 1000;
   logger.success(`Remix server ready`, time ? `in ${time}ms` : '', '\n');

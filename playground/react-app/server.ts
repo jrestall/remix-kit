@@ -22,7 +22,7 @@ app.use(morgan('tiny'));
 
 const port = process.env.PORT || 3001;
 
-let runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
+const runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
 app.all('*', async (req, res, next) => {
   await runner.execute(({ build, mode, err }) => {
     if (err) res.end(err);
