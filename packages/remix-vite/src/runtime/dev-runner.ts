@@ -5,7 +5,8 @@ import consola from 'consola';
 import type { ServerBuild } from '@remix-run/server-runtime';
 import { Agent as HTTPSAgent } from 'node:https';
 import { fetch } from '@remix-run/web-fetch';
-import { fileURLToPath } from 'node:url';
+import { distDir } from '../dirs';
+import { join } from 'pathe';
 
 export interface ExecuteFunctionArgs {
   build?: ServerBuild;
@@ -36,7 +37,7 @@ export class RemixKitRunner {
       const devServerOptions = JSON.parse(process.env.REMIX_DEV_SERVER_OPTIONS || '{}');
 
       this.runner = this.createRunner(devServerOptions.root, devServerOptions.base);
-      this.entryPath = fileURLToPath(new URL('dev-entry.mjs', import.meta.url));
+      this.entryPath = join(distDir, 'runtime', 'dev-entry.mjs');
       this.baseURL = devServerOptions.baseURL;
       this.fetchOptions = {
         agent: devServerOptions.baseURL.startsWith('https://')
