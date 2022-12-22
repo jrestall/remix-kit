@@ -1,5 +1,5 @@
 import { createError } from 'h3';
-import destr from "destr";
+import destr from 'destr';
 import { ViteNodeRunner } from 'vite-node/client';
 import consola from 'consola';
 import type { ServerBuild } from '@remix-run/server-runtime';
@@ -51,7 +51,7 @@ export class RemixKitRunner {
     if (this.options.mode !== 'development') return;
 
     // Dev server listens to the stdout of the child process and picks up the origin server url.
-    consola.log('');
+    consola.log(' ');
     consola.info(`Runner started on ${origin}`);
   }
 
@@ -60,7 +60,7 @@ export class RemixKitRunner {
     // Remix server file no longer controls the build import as this is simpler but also
     // lets us modify the build dynamically per request such as for lib support in the future.
     if (this.options.mode !== 'development') {
-      let build = await import("@remix-run/dev/server-build");
+      let build = await import('@remix-run/dev/server-build');
       return execute({ build, mode: this.options.mode });
     }
 

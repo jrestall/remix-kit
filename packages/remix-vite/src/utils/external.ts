@@ -7,6 +7,7 @@ export function createIsExternal (viteServer: ViteDevServer, rootDir: string) {
     inline: [
       /isbot/,
       /virtual:/,
+      /dev-entry.mjs/,
       /@remix-run\/dev\/server-build/,
       /\.ts$/,
       /\.tsx$/,
