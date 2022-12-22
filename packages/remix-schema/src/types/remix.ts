@@ -26,12 +26,12 @@ export interface Remix {
 }
 
 export interface RemixBuilder {
-  bundle(remix: Remix): Promise<void>;
-  preview(remix: Remix): Promise<void>;
+  bundle(remix: Remix): Promise<void> | void;
+  preview(remix: Remix): Promise<void> | void;
 }
 
 export interface RemixRenderer {
-  setup(remix: Remix): Promise<void>;
+  setup(remix: Remix): Promise<void> | void;
 }
 
 export interface RemixApp {
