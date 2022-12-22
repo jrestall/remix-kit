@@ -23,12 +23,12 @@ export interface RunnerOptions {
 }
 
 export class RemixKitRunner {
-  options: RunnerOptions;
-  executor: any;
-  runner?: ViteNodeRunner;
-  entryPath?: string;
-  fetchOptions?: Parameters<typeof fetch>[1];
-  baseURL?: string;
+  private options: RunnerOptions;
+  private executor: any;
+  private runner?: ViteNodeRunner;
+  private entryPath?: string;
+  private fetchOptions?: Parameters<typeof fetch>[1];
+  private baseURL?: string;
 
   constructor(options: RunnerOptions) {
     this.options = options ?? { mode: 'production' };
@@ -92,7 +92,7 @@ export class RemixKitRunner {
     }
   }
 
-  createRunner(rootDir: string, base: string) {
+  private createRunner(rootDir: string, base: string) {
     const runner = this;
     const _importers = new Map();
     return new ViteNodeRunner({
@@ -111,14 +111,14 @@ export class RemixKitRunner {
     });
   }
 
-  async devServerFetch(path: string): Promise<any> {
+  private async devServerFetch(path: string): Promise<any> {
     const url = new URL(path, this.baseURL).href;
-    const response = await fetch(url);
+    const response = await fetch(url, this.fetchOptions);
     const data = await response.text();
     return destr(data);
   }
 
-  async fetchModule(id: string, importer: any) {
+  private async fetchModule(id: string, importer: any) {
     return await this.devServerFetch('module/' + encodeURI(id)).catch((err: any) => {
       const errorData = err?.data?.data;
       if (!errorData) {

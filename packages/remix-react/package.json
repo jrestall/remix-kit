@@ -17,6 +17,7 @@
       "require": "./dist/setup.cjs"
     }
   },
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],

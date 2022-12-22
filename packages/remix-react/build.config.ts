@@ -1,9 +1,19 @@
 import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
-  declaration: false,
-  entries: ['src/index', 'src/setup', 'src/plugins/react-refresh-runtime'],
+  declaration: true,
+  entries: [
+    'src/index',
+    'src/setup',
+    {
+      builder: 'mkdist',
+      input: './src/plugins/',
+      outDir: './dist/',
+      format: 'esm',
+    },
+  ],
+  externals: ['@remix-kit/schema'],
   rollup: {
-    emitCJS: true
-  }
+    emitCJS: true,
+  },
 });
