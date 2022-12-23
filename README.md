@@ -15,6 +15,9 @@ An alternative dev server and compiler for the awesome <a href="https://remix.ru
   <a href="https://www.npmjs.com/package/@remix-kit/cli"><img src="https://img.shields.io/npm/v/@remix-kit/cli?color=FCC72B&label="></a>
 </p>
 
+### Setup
+Please see the [getting started](./docs/getting_started.md) guide.
+
 ### Features
 - [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for **instant, precise updates** on the browser and server without reloading the page or blowing away application state.
 - Instant development server startup, **no pre-bundling required**, scales to any project size. 
@@ -29,12 +32,17 @@ An alternative dev server and compiler for the awesome <a href="https://remix.ru
 - Monorepo support, place your routes in libraries outside the main app to better separate your functionality amongst teams.
 - Integrated dotenv, bundle analysis, hierarchy based `remix.config.js`, file ignore with `.remixignore` and much more!
 
+<p align="center">
+  <img src="./docs/assets/console.png" />
+</p>
+
 #### Future Roadmap
 - Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
 - Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
 
-### Setup
-Please see the [getting started](./docs/getting_started.md) guide.
+### Status
+- **Alpha.** Use to streamline your development but not recommended for production bundling use. Please help test and it can get there though.
+- **NodeJS server support only**. No Cloudflare workers.
 
 ### Packages
 

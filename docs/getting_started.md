@@ -41,24 +41,24 @@ An example for an express app would look like the below. Please see a full examp
 ```ts
 import { RemixKitRunner } from '@remix-kit/vite';
 
-let runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
-app.all('*', async (req, res, next) => {
-  await runner.execute(({ build, mode, err }) => {
+const runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
+app.all('*', (req, res, next) => {
+  runner.execute(({ build, mode, err }) => {
     if (err) res.end(err);
     if (build) createRequestHandler({ build, mode })(req, res, next);
   });
 });
 
 console.log(`Express server starting...`);
-app.listen(port, async () => {
+app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
-  await runner.ready(`http://localhost:${port}`);
+  runner.ready(`http://localhost:${port}`);
 });
 ```
- - Please note the `await runner.ready('http://localhost:${port}');` on the last line which is important to notify the development server that your app has started and the host it should proxy requests to. 
+ - Please note the `runner.ready('http://localhost:${port}');` on the last line which is important to notify the development server that your app has started and the host it should proxy requests to. 
  - Please remove any purgeRequireCache functions you may have as they are no longer necessary.
- - You can wrap the above code in `process.env.NODE_ENV === "development"` if you wish  to only use Remix Kit in development, but it will work fine in production also.
- - Other nodejs based environments are also supported, environments such as Cloudflare's wrangler are likely not to work.
+ - If you wish to only use Remix Kit in development (recommended during alpha), then please see the example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/) of having a prod and dev server file.
+ - Other nodejs based environments are also supported, environments such as Cloudflare's wrangler are unlikely to work.
 
 ## Root.tsx route setup
 
