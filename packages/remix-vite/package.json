@@ -1,10 +1,9 @@
 {
   "name": "@remix-kit/vite",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
   "sideEffects": false,
-  "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "exports": {
@@ -26,9 +25,11 @@
     "release": "pnpm publish"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
     "@remix-kit/schema": "workspace:*",
     "unbuild": "latest",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "fs-extra": "^11.1.0"
   },
   "dependencies": {
     "@whatwg-node/server": "^0.4.17",

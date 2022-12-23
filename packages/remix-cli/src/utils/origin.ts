@@ -59,7 +59,7 @@ export async function startOriginServer(rootDir: string): Promise<ChildProcess |
     });
   });
 
-  await withTimeout(30000, waitForConfig);
+  await withTimeout(40000, waitForConfig);
 
   const time = Math.round((performance.now() - start) * 1000) / 1000;
   logger.success(`Remix server ready`, time ? `in ${time}ms` : '', '\n');

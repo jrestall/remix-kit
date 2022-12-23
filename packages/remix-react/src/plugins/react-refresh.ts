@@ -1,6 +1,6 @@
 import { createUnplugin } from 'unplugin';
 import fse from 'fs-extra';
-import { fileURLToPath } from "node:url";
+import { join } from "pathe";
 
 // Vite is using an old version of react-refresh that doesn't include a fix we need.
 // This plugin loads a patched version with the below fix.
@@ -16,7 +16,7 @@ export const ReactRefresh = createUnplugin(function () {
       return id === runtimePublicPath;
     },
     load() {
-      const filePath = fileURLToPath(new URL("react-refresh-runtime.mjs", import.meta.url));
+      const filePath = join(__dirname, "react-refresh-runtime.mjs");
       return {
         code: fse.readFileSync(filePath, "utf-8"),
       };

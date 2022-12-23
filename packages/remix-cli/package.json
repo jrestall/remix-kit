@@ -1,8 +1,9 @@
 {
   "name": "@remix-kit/cli",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
+  "sideEffects": false,
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {

@@ -1,7 +1,6 @@
-import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'pathe';
 
-let _distDir = dirname(fileURLToPath(import.meta.url));
+let _distDir = __dirname;
 if (_distDir.match(/(chunks|shared)$/)) {
   _distDir = dirname(_distDir);
 }

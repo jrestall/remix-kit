@@ -1,10 +1,9 @@
 {
   "name": "@remix-kit/schema",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
   "sideEffects": false,
-  "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

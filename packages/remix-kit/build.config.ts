@@ -5,6 +5,7 @@ export default defineBuildConfig({
   entries: ['src/index'],
   externals: ['fsevents', '@remix-kit/schema', 'vite'],
   rollup: {
-    emitCJS: true
+    emitCJS: true,
+    cjsBridge: true,
   }
 });

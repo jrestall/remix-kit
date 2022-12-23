@@ -1,3 +1,4 @@
+import { mkdirSync, copyFileSync } from 'fs-extra';
 import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
@@ -5,21 +6,19 @@ export default defineBuildConfig({
   entries: [
     './src/index',
     './src/vite',
-    {
-      builder: 'mkdist',
-      input: './src/runtime/',
-      outDir: './dist/runtime/',
-      format: 'esm',
-    },
-    {
-      builder: 'mkdist',
-      input: './src/compiler/defaults/',
-      outDir: './dist/compiler/defaults/',
-      format: 'esm',
-    },
   ],
   externals: ['@remix-kit/schema', 'vite'],
   rollup: {
-    emitCJS: true,
+    cjsBridge: true,
+    emitCJS: true
+  },
+  hooks: {
+    'build:done': () => {
+      mkdirSync('dist/runtime/', { recursive: true });
+      copyFileSync('src/runtime/dev-entry.mjs', 'dist/runtime/dev-entry.mjs');
+
+      mkdirSync('dist/compiler/defaults/', { recursive: true });
+      copyFileSync('src/compiler/defaults/server-entry.mjs', 'dist/compiler/defaults/server-entry.mjs');
+    },
   },
 });

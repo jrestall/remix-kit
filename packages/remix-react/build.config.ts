@@ -8,6 +8,7 @@ export default defineBuildConfig({
   externals: ['@remix-kit/schema'],
   rollup: {
     emitCJS: true,
+    cjsBridge: true,
   },
   hooks: {
     'build:done': () => {

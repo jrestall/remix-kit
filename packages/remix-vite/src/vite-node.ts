@@ -116,7 +116,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
   removeExperimentalFetchWarnings();
   app.use(
     '/',
-    defineEventHandler((event) => {
+    defineEventHandler(async (event) => {
       logRequestInfo(event.node.req);
 
       if (!process.env.ORIGIN_SERVER || process.env.ORIGIN_SERVER === 'undefined') {
@@ -133,10 +133,10 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
         };
         throw createError({ data: errorData });
       }
-
-      return proxyRequest(event, process.env.ORIGIN_SERVER + event.path, {
+      console.log(process.env.ORIGIN_SERVER + event.node.req.url);
+      await proxyRequest(event, process.env.ORIGIN_SERVER + event.node.req.url, {
         fetch,
-        sendStream: true,
+        sendStream: event.node.req.method === "GET",
       }).catch((err) => {
         const errorData = {
           code: 'VITE_ERROR',
@@ -146,6 +146,12 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
         };
         throw createError({ data: errorData });
       });
+
+      // h3's proxyRequest doesn't end the proxy response 
+      // when there is no body for a 204 response.
+      if(event.node.res.statusCode === 204) {
+        event.node.res.end()
+      }
     })
   );
 
