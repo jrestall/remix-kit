@@ -1,6 +1,6 @@
 {
   "name": "@remix-kit/schema",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
   "sideEffects": false,

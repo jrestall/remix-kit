@@ -73,7 +73,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
   const app = createApp();
 
   app.use(
-    '/build/manifest-dev.js',
+    '/app/manifest-dev.js',
     defineEventHandler(async (event) => {
       event.node.res.setHeader('Content-Type', 'application/javascript');
       return `window.__remixManifest=${JSON.stringify(ctx.remix._assetsManifest)};`;

@@ -1,7 +1,8 @@
 import type { AssetsManifest, Remix, RemixOptions } from '@remix-kit/schema';
-import { join, resolve } from 'pathe';
+import { resolve, relative } from 'pathe';
 import { getRouteExports, createServerManifest, createEntryRoute } from '@remix-kit/kit';
 import type { ViteDevServer, Plugin } from 'vite';
+import { joinUrlSegments } from '../../utils/url';
 
 // Since @remix-run/dev/server-build looks like a normal non-virtual or '\0'
 // prefixed module, if we don't execute this plugin first as 'pre' to claim
@@ -9,10 +10,14 @@ import type { ViteDevServer, Plugin } from 'vite';
 export function devServerManifestPre(remix: Remix): Plugin {
   let virtualServerBuildId = '@remix-run/dev/server-build';
   const resolvedVirtualServerBuildId = '\0' + virtualServerBuildId;
+  let server: ViteDevServer;
   return {
     name: 'remix:server-manifest-dev-temp',
     enforce: 'pre',
     apply: 'serve',
+    configureServer(_server: ViteDevServer) {
+      server = _server;
+    },
     resolveId(id) {
       if (id === virtualServerBuildId) {
         return resolvedVirtualServerBuildId;
@@ -28,10 +33,14 @@ export function devServerManifestPre(remix: Remix): Plugin {
           const routes: AssetsManifest['routes'] = {};
           const remixRoutes = Object.entries(remix.options.routes);
           for (const [id, route] of remixRoutes) {
-            const routeModule = resolve(remix.options.appDirectory, route.file);
+            const routeModule = createUrl(remix.options, server.config.base, route.file);
             routes[id] = createEntryRoute(route, routeModule, []);
           }
-          remix._assetsManifest = createDevAssetsManifest(remix.options, routes);
+          remix._assetsManifest = createDevAssetsManifest(
+            remix.options,
+            server.config.base,
+            routes
+          );
         }
         return createServerManifest(remix.options, remix._assetsManifest);
       }
@@ -59,10 +68,12 @@ export function devServerManifest(remix: Remix): Plugin {
 
       const updatedExports = exports.map((e) => e.n);
       const existingRoute = remix._assetsManifest?.routes[route.id];
-      const routeModule = existingRoute?.module ?? resolve(remix.options.appDirectory, route.file);
+      const routeModule =
+        existingRoute?.module ?? createUrl(remix.options, server.config.base, route.file);
       const updatedRoute = createEntryRoute(route, routeModule, updatedExports);
 
-      remix._assetsManifest = remix._assetsManifest ?? createDevAssetsManifest(remix.options);
+      remix._assetsManifest =
+        remix._assetsManifest ?? createDevAssetsManifest(remix.options, server.config.base);
       remix._assetsManifest.routes[route.id] = updatedRoute;
 
       const serverBuildModule = server.moduleGraph.getModuleById(resolvedVirtualServerBuildId);
@@ -73,19 +84,22 @@ export function devServerManifest(remix: Remix): Plugin {
 
 export function createDevAssetsManifest(
   options: RemixOptions,
+  base: string,
   routes?: AssetsManifest['routes']
 ): AssetsManifest {
   return {
     version: 'dev',
     entry: {
-      module: resolve(options.appDirectory, options.entryClientFile),
+      module: createUrl(options, base, options.entryClientFile),
       imports: [],
     },
     routes: routes ?? {},
-    url: createUrl(options.publicPath, 'manifest-dev.js'),
+    url: createUrl(options, base, 'manifest-dev.js'),
   };
 }
 
-function createUrl(publicPath: string, file: string): string {
-  return join(publicPath, file);
+function createUrl(options: RemixOptions, base: string, file: string): string {
+  const absolutePath = resolve(options.appDirectory, file);
+  const relativePath = relative(options.rootDirectory, absolutePath);
+  return joinUrlSegments(base, relativePath);
 }
