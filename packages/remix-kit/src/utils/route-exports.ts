@@ -31,11 +31,11 @@ export async function removeRouteExports(
   source: string,
   exports: ReadonlyArray<ExportSpecifier>
 ): Promise<string> {
-    for (var i = exports.length - 1; i >= 0; i--) {
+  for (var i = exports.length - 1; i >= 0; i--) {
     const { s: start } = exports[i];
 
     // Find the nearest export declaration and remove it
-    
+
     // export async function loader() {
     const exportIndex = source.lastIndexOf('export', start);
     if (exportIndex) {
