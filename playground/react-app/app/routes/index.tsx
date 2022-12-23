@@ -1,13 +1,14 @@
 import { json } from '@remix-run/node';
 import { getServerData } from '../test';
-import { Link } from '@remix-run/react';
+import { Link, useLoaderData } from '@remix-run/react';
 
 export async function loader() {
-  const data = await getServerData();
+  let data = await getServerData();
   return json(data);
 }
 
 export default function Index() {
+  const data = useLoaderData<typeof loader>();
   return (
     <div className="leading-7 text-cyan-800">
       <h1 className="text-2xl">Welcome to RemixKit!</h1>
@@ -24,6 +25,7 @@ export default function Index() {
           </Link>
         </li>
       </ul>
+      Hey I'm loader data: {data}
     </div>
   );
 }
