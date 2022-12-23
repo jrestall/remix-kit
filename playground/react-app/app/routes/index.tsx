@@ -20,6 +20,9 @@ export default function Index() {
           <a href="/__inspect/">Vite Plugin Inspect</a>
         </li>
         <li>
+          <Link to="/blog">My Blog (from the referenced project)</Link>
+        </li>
+        <li>
           <Link to="/teams" prefetch="intent">
             Teams List (Prefetch On Hover)
           </Link>
