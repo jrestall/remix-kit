@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDeclarationOnly": false,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "paths": {
+      "~/*": ["./app/*"]
+    },
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
+    "outDir": "./dist"
+  },
+  "include": [".eslintrc.js", "remix.env.d.ts", "**/*"],
+  "exclude": [".cache", "build", "public"]
+}

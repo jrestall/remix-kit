@@ -1,8 +1,11 @@
 import type { AssetsManifest, Remix, RemixOptions } from '@remix-kit/schema';
-import { resolve, relative } from 'pathe';
-import { getRouteExports, createServerManifest, createEntryRoute } from '@remix-kit/kit';
+import {
+  getRouteExports,
+  createServerManifest,
+  createEntryRoute,
+  joinUrlSegments,
+} from '@remix-kit/kit';
 import type { ViteDevServer, Plugin } from 'vite';
-import { joinUrlSegments } from '../../utils/url';
 
 // Since @remix-run/dev/server-build looks like a normal non-virtual or '\0'
 // prefixed module, if we don't execute this plugin first as 'pre' to claim
@@ -33,7 +36,7 @@ export function devServerManifestPre(remix: Remix): Plugin {
           const routes: AssetsManifest['routes'] = {};
           const remixRoutes = Object.entries(remix.options.routes);
           for (const [id, route] of remixRoutes) {
-            const routeModule = createUrl(remix.options, server.config.base, route.file);
+            const routeModule = createUrl(remix.options, route.file, server.config.base);
             routes[id] = createEntryRoute(route, routeModule, []);
           }
           remix._assetsManifest = createDevAssetsManifest(
@@ -69,7 +72,7 @@ export function devServerManifest(remix: Remix): Plugin {
       const updatedExports = exports.map((e) => e.n);
       const existingRoute = remix._assetsManifest?.routes[route.id];
       const routeModule =
-        existingRoute?.module ?? createUrl(remix.options, server.config.base, route.file);
+        existingRoute?.module ?? createUrl(remix.options, route.file, server.config.base);
       const updatedRoute = createEntryRoute(route, routeModule, updatedExports);
 
       remix._assetsManifest =
@@ -90,16 +93,15 @@ export function createDevAssetsManifest(
   return {
     version: 'dev',
     entry: {
-      module: createUrl(options, base, options.entryClientFile),
+      module: createUrl(options, options.entryClientFile, base),
       imports: [],
     },
     routes: routes ?? {},
-    url: createUrl(options, base, 'manifest-dev.js'),
+    url: '/app/manifest-dev.js',
   };
 }
 
-function createUrl(options: RemixOptions, base: string, file: string): string {
-  const absolutePath = resolve(options.appDirectory, file);
-  const relativePath = relative(options.rootDirectory, absolutePath);
-  return joinUrlSegments(base, relativePath);
+function createUrl(options: RemixOptions, file: string, base: string): string {
+  let path = joinUrlSegments(options.appDirectory, file);
+  return joinUrlSegments(base, path);
 }

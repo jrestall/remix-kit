@@ -1,8 +1,9 @@
 import { logger, tryRequireModule } from '@remix-kit/kit';
 import { gray } from 'colorette';
 import shell from 'shelljs';
+import type { ChildProcess } from 'child_process';
 
-export async function startOriginServer(rootDir: string) {
+export async function startOriginServer(rootDir: string): Promise<ChildProcess | null> {
   const start = performance.now();
 
   // Get the package.json scripts for the remix app

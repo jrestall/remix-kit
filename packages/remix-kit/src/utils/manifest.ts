@@ -1,10 +1,10 @@
 import type { AssetsManifest, RemixOptions } from '@remix-kit/schema';
 import type { ConfigRoute } from '@remix-run/dev/dist/config/routes.js';
-import { resolve } from 'pathe';
+import { join } from 'pathe';
 
 export function createServerManifest(options: RemixOptions, manifest?: AssetsManifest): string {
   const routeImports = Object.values(options.routes).map((route, index) => {
-    return `import * as route${index} from "${resolve(options.appDirectory, route.file)}";`;
+    return `import * as route${index} from "${createPath(options, route.file)}";`;
   });
   const routes = Object.entries(options.routes).map(([routeId, route], index) => {
     return `${JSON.stringify(routeId)}: {
@@ -17,7 +17,7 @@ export function createServerManifest(options: RemixOptions, manifest?: AssetsMan
         }`;
   });
   return `
-      import * as entryServer from "${resolve(options.appDirectory, options.entryServerFile)}";
+      import * as entryServer from "${createPath(options, options.entryServerFile)}";
       ${routeImports.join('\n')}
       export const assetsBuildDirectory = ${JSON.stringify(options.relativeAssetsBuildDirectory)};
       export const future = ${JSON.stringify(options.future)};
@@ -49,4 +49,8 @@ export function createEntryRoute(
     hasCatchBoundary: routeExports.includes('CatchBoundary'),
     hasErrorBoundary: routeExports.includes('ErrorBoundary'),
   };
+}
+
+function createPath(options: RemixOptions, file: string): string {
+  return join("/", options.appDirectory, file);
 }

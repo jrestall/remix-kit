@@ -119,7 +119,7 @@ export class RemixKitRunner {
   }
 
   private async fetchModule(id: string, importer: any) {
-    return await this.devServerFetch('module/' + encodeURI(id)).catch((err: any) => {
+    return await this.devServerFetch('module/' + encodeURIComponent(id)).catch((err: any) => {
       const errorData = err?.data?.data;
       if (!errorData) {
         throw err;

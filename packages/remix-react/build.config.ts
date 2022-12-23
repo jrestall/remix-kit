@@ -1,19 +1,17 @@
+import fs from 'fs-extra';
 import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
   declaration: true,
-  entries: [
-    'src/index',
-    'src/setup',
-    {
-      builder: 'mkdist',
-      input: './src/plugins/',
-      outDir: './dist/',
-      format: 'esm',
-    },
-  ],
+  clean: true,
+  entries: ['src/index', 'src/setup'],
   externals: ['@remix-kit/schema'],
   rollup: {
     emitCJS: true,
+  },
+  hooks: {
+    'build:done': () => {
+      fs.copyFileSync('src/plugins/react-refresh-runtime.mjs', 'dist/react-refresh-runtime.mjs');
+    },
   },
 });

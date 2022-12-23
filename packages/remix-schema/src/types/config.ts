@@ -1,10 +1,10 @@
 import type { ConfigSchema } from '../../schema/config';
-import type {
-  ServerOptions as ViteServerOptions,
-  UserConfig as ViteUserConfig,
-} from 'vite';
+import type { ServerOptions as ViteServerOptions, UserConfig as ViteUserConfig } from 'vite';
 import type { Remix } from './remix';
-import type { RemixConfig as StandardRemixConfig } from "@remix-run/dev/dist/config.js";
+import type {
+  RemixConfig as StandardRemixConfig,
+  AppConfig as RemixAppConfig,
+} from '@remix-run/dev/dist/config.js';
 
 type DeepPartial<T> = T extends Function
   ? T
@@ -49,3 +49,5 @@ export interface ViteConfig extends ViteUserConfig {
    */
   server?: Omit<ViteServerOptions, 'port' | 'host'>;
 }
+
+export interface AppConfig extends ConfigSchema, RemixAppConfig {}

@@ -6,7 +6,7 @@ import type { Connect, ModuleNode, ViteDevServer } from 'vite';
 import { logger } from '@remix-kit/kit';
 import type { VitePlugin } from 'unplugin';
 import { removeExperimentalFetchWarnings } from './utils/node-patch';
-import { resolve as resolveModule } from 'mlly';
+import { fileURLToPath, resolve as resolveModule } from 'mlly';
 
 // Store the invalidates for the next rendering
 const invalidates = new Set<string>();
@@ -61,7 +61,8 @@ function createNodeServer(viteServer: ViteDevServer, ctx: ViteBuildContext) {
   node.shouldExternalize = async (id: string) => {
     let result = await isExternal(id);
     if (result?.external) {
-      return resolveModule(result.id, { url: ctx.remix.options.modulesDir });
+      const module = await resolveModule(result.id, { url: ctx.remix.options.modulesDir });
+      return fileURLToPath(module);
     }
     return false;
   };
@@ -92,7 +93,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
   app.use(
     '/__remix_dev_server__/module',
     defineEventHandler(async (event) => {
-      const moduleId = decodeURI(event.node.req.url!).substring(1);
+      const moduleId = decodeURIComponent(event.node.req.url!).substring(1);
       if (moduleId === '/') {
         throw createError({ statusCode: 400 });
       }

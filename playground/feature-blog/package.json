@@ -1,8 +1,16 @@
 {
-  "name": "feature-blog",
+  "name": "@remix-kit/feature-blog",
   "version": "0.0.8",
   "private": true,
   "sideEffects": false,
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
   "scripts": {
     "build": "remix-kit build",
     "build:server": "npx unbuild",

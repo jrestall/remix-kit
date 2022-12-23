@@ -15,6 +15,7 @@ import { defineRemixCommand } from './index';
 import { writeTypes } from '../utils/prepare';
 import { startOriginServer } from '../utils/origin';
 import { loading as loadingTemplate } from '../templates/loading';
+import type { ChildProcess } from 'child_process';
 
 export default defineRemixCommand({
   meta: {
@@ -64,6 +65,7 @@ export default defineRemixCommand({
         baseURL: withTrailingSlash(currentRemix?.options.app.baseURL) || '/',
       });
     };
+    let originServer: ChildProcess | null, shouldRestart: boolean;
     const load = async (isRestart: boolean, reason?: string) => {
       try {
         loadingMessage = `${reason ? reason + '. ' : ''}${
@@ -111,12 +113,28 @@ export default defineRemixCommand({
 
           process.env.ORIGIN_SERVER = args.origin || args.o || process.env.ORIGIN_SERVER;
 
-          await startOriginServer(currentRemix.options.rootDir);
+          const restart = (process: ChildProcess) => {
+            process.on('close', async () => {
+              if (shouldRestart) {
+                shouldRestart = false;
+                originServer = await startOriginServer(currentRemix.options.rootDir);
+                if (originServer) restart(originServer);
+              }
+            });
+          };
+
+          originServer = await startOriginServer(currentRemix.options.rootDir);
+          if (originServer) restart(originServer);
+        }
+
+        if (isRestart && originServer) {
+          shouldRestart = true;
+          originServer.kill();
         }
 
         currentHandler = toNodeListener(currentRemix.server);
       } catch (err) {
-        consola.error(`Cannot ${isRestart ? 'restart' : 'start'} Remix: `, err);
+        consola.error(`Cannot ${isRestart ? 'restart' : 'start'} Remix server: `, err);
         currentHandler = undefined;
         loadingMessage = 'Error while loading Remix. Please check console and fix errors.';
       }

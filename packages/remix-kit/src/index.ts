@@ -10,5 +10,6 @@ export * from './logger';
 export * from './resolve';
 export * from './build';
 export * from './utils/cjs';
+export * from './utils/url';
 export * from './utils/manifest';
 export * from './utils/route-exports';

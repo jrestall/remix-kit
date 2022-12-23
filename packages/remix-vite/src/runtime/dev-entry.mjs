@@ -3,6 +3,7 @@ export default async function executor(execute, mode) {
   try {
     build = await import('@remix-run/dev/server-build');
   } catch (err) {
+    console.log(err);
     execute({ build, mode, err: err.toString() });
   }
   return execute({ build, mode });
