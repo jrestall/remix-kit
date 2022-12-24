@@ -39,7 +39,11 @@ export function viteNodePlugin(ctx: ViteBuildContext): VitePlugin {
       });
     },
     handleHotUpdate({ file, server }) {
-      const mods = server.moduleGraph.getModulesByFile(file) || [];
+      let mods = ctx.ssrServer?.moduleGraph.getModulesByFile(file);
+      if (!mods) {
+        mods = server.moduleGraph.getModulesByFile(file);
+      }
+      if (!mods) return;
       for (const mod of mods) {
         markInvalidate(mod);
       }
@@ -136,7 +140,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
 
       await proxyRequest(event, process.env.ORIGIN_SERVER + event.node.req.url, {
         fetch,
-        sendStream: event.node.req.method === "GET",
+        sendStream: event.node.req.method === 'GET',
       }).catch((err) => {
         const errorData = {
           code: 'VITE_ERROR',
@@ -147,10 +151,10 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
         throw createError({ data: errorData });
       });
 
-      // h3's proxyRequest doesn't end the proxy response 
+      // h3's proxyRequest doesn't end the proxy response
       // when there is no body for a 204 response.
-      if(event.node.res.statusCode === 204) {
-        event.node.res.end()
+      if (event.node.res.statusCode === 204) {
+        event.node.res.end();
       }
     })
   );
