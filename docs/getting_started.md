@@ -74,6 +74,18 @@ import { ReactRefresh } from '@remix-kit/react';
 </head>
 ```
 
+## Importing CSS as URL
+When you import a CSS file, Vite will by [default](https://vitejs.dev/guide/features.html#css) return the CSS in the default export, rather than the URL that Remix does.
+
+To fix this you can add a `?url` [suffix](https://vitejs.dev/guide/assets.html#importing-asset-as-url) to the css file import as below.
+
+```tsx
+import tailwindStylesheetUrl from "./styles/tailwind.css?url";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
+};
+```
 ## Done
 
 Congrats! Now just run `npm run dev` to start both the development server and your Remix app.
