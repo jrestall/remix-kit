@@ -188,4 +188,7 @@ export async function initViteNodeServer(ctx: ViteBuildContext) {
   const node = createNodeServer(ctx.ssrServer!, ctx);
   const app = createDevServerApp(ctx, node);
   ctx.remix.server = app;
+
+  // Immediately start warming up the vite-node server cache
+  node.fetchModule('@remix-run/dev/server-build').catch(logger.error);
 }
