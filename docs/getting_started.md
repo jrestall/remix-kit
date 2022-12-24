@@ -87,6 +87,7 @@ export const links: LinksFunction = () => {
 };
 ```
 ## Gotchas
+- CommonJS server modules (server.js with require imports) are not currently supported. Please use an ES Module server.mjs with import syntax.
 - Please don't bundle your server.ts during development as there's an issue with both cjs and esm code being bundled. 
   - do this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build"`
   - not this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build --bundle"`
