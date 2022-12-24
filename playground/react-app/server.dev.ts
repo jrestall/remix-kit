@@ -20,7 +20,7 @@ app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 const runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
 app.all('*', (req, res, next) => {

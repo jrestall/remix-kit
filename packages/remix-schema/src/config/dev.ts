@@ -28,7 +28,7 @@ export default defineUntypedSchema({
     port:
       process.env.REMIX_PORT ||
       process.env.PORT ||
-      3000,
+      3005,
 
     /** Dev server listening host */
     host:
@@ -39,6 +39,6 @@ export default defineUntypedSchema({
     /**
      * Listening dev server url
      */
-    url: 'http://localhost:3000',
+    url: 'http://localhost:3005',
   },
 });

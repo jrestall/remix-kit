@@ -50,7 +50,7 @@ export default defineRemixCommand({
       showURL: false,
       clipboard: args.clipboard,
       open: args.open || args.o,
-      port: args.port || args.p || process.env.REMIX_PORT,
+      port: args.port || args.p || process.env.REMIX_PORT || 3005,
       hostname: args.host || args.h || process.env.REMIX_HOST,
       https: args.https && {
         cert: args['ssl-cert'],

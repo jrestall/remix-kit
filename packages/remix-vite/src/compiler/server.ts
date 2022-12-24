@@ -90,6 +90,7 @@ export async function buildServer(ctx: ViteBuildContext) {
       // https://github.com/vitest-dev/vitest/issues/229#issuecomment-1002685027
       preTransformRequests: false,
       hmr: false,
+      middlewareMode: true
     },
   } as ViteOptions);
 

@@ -133,7 +133,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
         };
         throw createError({ data: errorData });
       }
-      console.log(process.env.ORIGIN_SERVER + event.node.req.url);
+
       await proxyRequest(event, process.env.ORIGIN_SERVER + event.node.req.url, {
         fetch,
         sendStream: event.node.req.method === "GET",
