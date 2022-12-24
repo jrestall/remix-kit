@@ -86,6 +86,10 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
 };
 ```
+## Gotchas
+- Please don't bundle your server.ts during development as there's an issue with both cjs and esm code being bundled. 
+  - do this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build"`
+  - not this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build --bundle"`
 ## Done
 
 Congrats! Now just run `npm run dev` to start both the development server and your Remix app.
