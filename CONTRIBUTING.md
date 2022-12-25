@@ -20,7 +20,7 @@ To contribute to RemixKit, you need to set up a local environment.
 5. Check out a branch where you can work and commit your changes:
 `git checkout -b my-new-branch`
 
-6. Use the existing `playground/react-app` or setup your own website in the playground folder and execute CLI commands such as `pnpm run dev` or `pnpm runbuild` from there. 
+6. Use the existing `playground/react-app` or setup your own website in the playground folder and execute CLI commands such as `pnpm run dev` or `pnpm run build` from there. 
 
 7. For  `playground/react-app` you must run `pnpm run build:server` before `pnpm run dev`. If using stubs it doesn't currently work if the remix-react package has been stubbed, so you need to cd to `packages/remix-react` and run `pnpm run prepack` so that just that package isn't using jiti. 
 
