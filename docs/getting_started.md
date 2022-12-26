@@ -37,7 +37,7 @@ Without a "dev:server" script you will need to tell the development server where
 
 The Remix Kit development server uses a client/server architecture during development to support HMR and on-demand compilation for a fast experience. You must install the development client in your Remix server file to support these functionalities.
 
-An example for an express app would look like the below. Please see a full example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/server.ts).
+An example for an express app would look like the below. Please see a full example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/server.dev.ts).
 ```ts
 import { RemixKitRunner } from '@remix-kit/vite';
 
