@@ -12,6 +12,7 @@ import { buildClient } from './compiler/browser';
 import { buildServer } from './compiler/server';
 import { resolveCSSOptions } from './css';
 import { previewServer } from './compiler/plugins/preview-server';
+import type { RemixWebSocketServer } from './vite-server';
 // https://github.com/aleclarson/vite-tsconfig-paths/issues/75
 const tsConfigPaths = require('vite-tsconfig-paths');
 
@@ -25,6 +26,7 @@ export interface ViteBuildContext {
   serverEntry: string;
   clientServer?: vite.ViteDevServer;
   ssrServer?: vite.ViteDevServer;
+  wsServer?: RemixWebSocketServer;
 }
 
 export async function bundle(remix: Remix) {

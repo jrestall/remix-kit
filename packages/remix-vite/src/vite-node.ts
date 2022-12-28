@@ -1,12 +1,23 @@
-import { createApp, createError, defineEventHandler, fromNodeMiddleware, proxyRequest } from 'h3';
+import {
+  createApp,
+  createError,
+  defineEventHandler,
+  fromNodeMiddleware,
+  proxyRequest,
+  toNodeListener,
+} from 'h3';
 import { ViteNodeServer } from 'vite-node/server';
 import type { ViteBuildContext } from './vite';
 import { createIsExternal } from './utils/external';
 import type { Connect, ModuleNode, ViteDevServer } from 'vite';
 import { logger } from '@remix-kit/kit';
 import type { VitePlugin } from 'unplugin';
+import { writeFile } from 'fs-extra';
 import { removeExperimentalFetchWarnings } from './utils/node-patch';
 import { fileURLToPath, resolve as resolveModule } from 'mlly';
+import { resolve } from 'pathe';
+import { distDir } from './dirs';
+import { createWebSocketServer } from './vite-server';
 
 // Store the invalidates for the next rendering
 const invalidates = new Set<string>();
@@ -47,6 +58,7 @@ export function viteNodePlugin(ctx: ViteBuildContext): VitePlugin {
       for (const mod of mods) {
         markInvalidate(mod);
       }
+      if (ctx.wsServer) ctx.wsServer.handleUpdates(invalidates);
     },
   };
 }
@@ -176,18 +188,34 @@ function logRequestInfo(req: Connect.IncomingMessage) {
 }
 
 export async function initViteNodeServer(ctx: ViteBuildContext) {
+  if (!ctx.remix.options.serverEntryPoint) {
+    throw new Error(
+      "RemixKit doesn't currentlty support not using a custom server file. " +
+        "Please set a 'server' property value in remix.config.js"
+    );
+  }
+
   // Serialize and pass dev server options for the client runner
   // These will be passed as environment variables when we create the child process.
   const devServerOptions = {
     baseURL: `${ctx.remix.options.devServer.url}__remix_dev_server__/`,
     root: ctx.remix.options.srcDir,
     base: ctx.ssrServer!.config.base,
+    serverEntryPoint: resolve(ctx.remix.options.rootDir, ctx.remix.options.serverEntryPoint),
   };
   process.env.REMIX_DEV_SERVER_OPTIONS = JSON.stringify(devServerOptions);
 
   const node = createNodeServer(ctx.ssrServer!, ctx);
+  const wsServer = createWebSocketServer(node, devServerOptions.serverEntryPoint);
+  ctx.wsServer = wsServer;
+
   const app = createDevServerApp(ctx, node);
-  ctx.remix.server = app;
+  ctx.remix.server = toNodeListener(app);
+
+  const serverEntryPath = resolve(distDir, 'runtime/dev-server-entry.js');
+  const serverBuildPath = ctx.remix.options.serverBuildPath;
+
+  await writeFile(serverBuildPath, `module.exports = require(${JSON.stringify(serverEntryPath)});`);
 
   // Immediately start warming up the vite-node server cache
   node.fetchModule('@remix-run/dev/server-build').catch(logger.error);

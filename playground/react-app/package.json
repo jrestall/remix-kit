@@ -5,9 +5,8 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix-kit build",
-    "build:server": "npx unbuild",
-    "dev": "remix-kit dev",
-    "dev:server": "node ./build/server.dev.mjs",
+    "dev": "remix-kit dev --origin http://localhost:3000",
+    "dev:server": "node ./build/index.js",
     "start": "remix-kit preview"
   },
   "dependencies": {

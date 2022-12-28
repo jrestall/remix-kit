@@ -29,7 +29,6 @@ export default defineRemixCommand({
     overrideEnv('development');
 
     const { listen } = await import('listhen');
-    const { toNodeListener } = await import('h3');
     let currentHandler: RequestListener | undefined;
     let loadingMessage = 'Remix is starting...';
     const loadingHandler: RequestListener = async (_req, res) => {
@@ -102,6 +101,8 @@ export default defineRemixCommand({
           buildRemix(currentRemix),
         ]);
 
+        currentHandler = currentRemix.server;
+
         if (isRestart && args.clear !== false) {
           showBanner();
           showURL();
@@ -131,8 +132,6 @@ export default defineRemixCommand({
           shouldRestart = true;
           originServer.kill();
         }
-
-        currentHandler = toNodeListener(currentRemix.server);
       } catch (err) {
         consola.error(`Cannot ${isRestart ? 'restart' : 'start'} Remix server: `, err);
         currentHandler = undefined;
