@@ -18,6 +18,7 @@ import { resolve } from 'pathe';
 import { distDir } from './dirs';
 import { createWebSocketServer } from './vite-server';
 import fetch from 'node-fetch-native';
+import { removeExperimentalFetchWarnings } from './utils/node-patch';
 
 // Store the invalidates for the next rendering
 const invalidates = new Set<string>();
@@ -129,6 +130,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
   app.use(fromNodeMiddleware(ctx.clientServer!.middlewares));
 
   // Proxy all other requests through to the Remix application
+  removeExperimentalFetchWarnings();
   app.use(
     '/',
     defineEventHandler(async (event) => {
