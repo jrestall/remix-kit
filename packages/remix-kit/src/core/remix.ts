@@ -16,6 +16,7 @@ import { EmptyModule } from './plugins/empty-module';
 import { AssetsManifest } from './plugins/assets-manifest';
 import { ServerManifest } from './plugins/server-manifest';
 import { loadRenderer } from './renderer';
+import { CssImportUrl } from './plugins/css-import-url';
 
 export interface LoadRemixOptions extends LoadRemixConfigOptions {
   /** Load remix in development mode */
@@ -87,6 +88,10 @@ async function initRemix(remix: Remix) {
   // Generate browser asset manifest
   addVitePlugin(AssetsManifest.vite(remix), { server: false });
 
+  // Import CSS as URL by default. Added seperately to be added last in client/server plugins.
+  addVitePlugin(CssImportUrl.vite(remix), { client: false });
+  addVitePlugin(CssImportUrl.vite(remix), { server: false });
+  
   // Transpile layers within node_modules
   remix.options.build.transpile.push(
     ...remix.options._layers

@@ -14,17 +14,17 @@ export default function Index() {
       <h1 className="text-2xl">Welcome to RemixKit!</h1>
       <ul>
         <li>
-          <Link to="/teams">Teams List</Link>
-        </li>
-        <li>
           <a href="/__inspect/">Vite Plugin Inspect</a>
         </li>
         <li>
-          <Link to="/blog">My Blog (from the referenced project)</Link>
+          <Link to="/teams">Test Page</Link>
+        </li>
+        <li>
+          <Link to="/blog">A Test Blog (from the referenced project)</Link>
         </li>
         <li>
           <Link to="/teams" prefetch="intent">
-            Teams List (Prefetch On Hover)
+            Test Prefetch (Prefetch On Hover)
           </Link>
         </li>
       </ul>
