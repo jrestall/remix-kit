@@ -25,18 +25,18 @@ export default defineUntypedSchema({
    *
    * @type {'react' | 'vue' | { setup: (remix: typeof import('../src/types/remix').Remix) => Promise<void> }}
    */
-    renderer: {
-      $resolve: async (val, get) => {
-        if (typeof val === 'object') {
-          return val;
-        }
-        const map: Record<string, string> = {
-          react: '@remix-kit/react/setup',
-          vue: '@remix-kit/vue/setup',
-        };
-        return map[val] || val || map.react;
-      },
+  renderer: {
+    $resolve: async (val, get) => {
+      if (typeof val === 'object') {
+        return val;
+      }
+      const map: Record<string, string> = {
+        react: '@remix-kit/react/setup',
+        vue: '@remix-kit/vue/setup',
+      };
+      return map[val] || val || map.react;
     },
+  },
 
   /**
    * Whether to generate sourcemaps.
@@ -59,6 +59,12 @@ export default defineUntypedSchema({
    * Shared build configuration.
    */
   build: {
+    /**
+     * Whether CSS imports are replaced with their URL to match default Remix behaviour,
+     * rather than Vite's default which is to import the CSS content as an object.
+     */
+    importCssAsUrl: true,
+
     /**
      * If you want to transpile specific dependencies with Babel, you can add them here.
      * Each item in transpile can be a package name, a function, a string or regex object matching the
