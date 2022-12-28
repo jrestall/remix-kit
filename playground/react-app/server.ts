@@ -20,9 +20,11 @@ app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
-app.all('*', createRequestHandler({ build, mode: process.env.NODE_ENV }));
+app.all('*', (req, res, next) => {
+  return createRequestHandler({ build, mode: process.env.NODE_ENV })(req, res, next);
+});
 
 console.log(`Express server starting...`);
 app.listen(port, () => {

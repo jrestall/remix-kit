@@ -14,8 +14,8 @@ export async function startOriginServer(rootDir: string): Promise<ChildProcess |
   const command = scripts['dev:server'];
   if (!command) {
     // Just warn here as developer may want to start the remix server manually on a remote server.
-    logger.warn(
-      `Dev server couldn't find a 'dev:server' npm script to automatically start the remix server in the package.json at ${rootDir}`
+    logger.info(
+      `Can't automatically start Remix server as no 'dev:server' npm script found in package.json.`
     );
     return null;
   }
@@ -44,13 +44,16 @@ export async function startOriginServer(rootDir: string): Promise<ChildProcess |
     }
     child.stdout.on('data', (data: string) => {
       if (typeof data !== 'string') return;
+      if(data.indexOf("Remix server ready") >= 0) resolve();
       const prefix = 'Runner started on ';
       const index = data.indexOf(prefix);
       if (index >= 0) {
-        // Extracts the url from "Runner started on http://localhost:3001\n"
+        // Extracts the url from "Runner started on http://localhost:3000\n"
         const newlineIndex = data.indexOf('\n', index + prefix.length);
         const origin_server = data.substring(index + prefix.length, newlineIndex);
-        process.env.ORIGIN_SERVER = origin_server;
+        if(origin_server.length > 1) {
+          process.env.ORIGIN_SERVER = origin_server;
+        }
         resolve();
       }
     });

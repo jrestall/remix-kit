@@ -240,6 +240,7 @@ importers:
       '@rollup/plugin-node-resolve': ^15.0.1
       '@rollup/plugin-replace': ^5.0.1
       '@types/fs-extra': ^9.0.13
+      '@types/ws': ^8.5.3
       '@whatwg-node/server': ^0.4.17
       autoprefixer: ^10.4.13
       c12: ^1.1.0
@@ -276,6 +277,7 @@ importers:
       vite-node: ^0.25.7
       vite-plugin-checker: ^0.5.1
       vite-tsconfig-paths: ^4.0.3
+      ws: ^8.11.0
     dependencies:
       '@remix-kit/kit': link:../remix-kit
       '@remix-run/dev': 1.8.2_biqbaboplfbrettd7655fr4n2y
@@ -317,9 +319,11 @@ importers:
       vite-node: 0.25.8_@types+node@18.11.15
       vite-plugin-checker: 0.5.2_rftvpiefqgupx5rdsozqbqx3tq
       vite-tsconfig-paths: 4.0.3_rftvpiefqgupx5rdsozqbqx3tq
+      ws: 8.11.0
     devDependencies:
       '@remix-kit/schema': link:../remix-schema
       '@types/fs-extra': 9.0.13
+      '@types/ws': 8.5.3
       typescript: 4.9.4
       unbuild: 1.0.2
 
@@ -4053,6 +4057,12 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
+
+  /@types/ws/8.5.3:
+    resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
+    dependencies:
+      '@types/node': 18.11.15
+    dev: true
 
   /@types/yargs-parser/21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
@@ -14103,6 +14113,19 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  /ws/8.11.0:
+    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
 
   /xdm/2.1.0:
     resolution: {integrity: sha512-3LxxbxKcRogYY7cQSMy1tUuU1zKNK9YPqMT7/S0r7Cz2QpyF8O9yFySGD7caOZt+LWUOQioOIX+6ZzCoBCpcAA==}

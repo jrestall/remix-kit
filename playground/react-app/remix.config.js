@@ -1,10 +1,10 @@
 /** @type {import('@remix-kit/schema').AppConfig} */
 module.exports = {
   ignoredRouteFiles: ['**/.*'],
-  server: 'server.prod.ts',
+  server: 'server.ts',
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
-  serverBuildPath: 'build/index.mjs',
+  serverBuildPath: 'build/index.js',
   // publicPath: "/build/",
   routes: (defineRoutes) => {
     return defineRoutes((route) => {

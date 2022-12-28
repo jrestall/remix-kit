@@ -15,7 +15,7 @@ export function devServerManifestPre(remix: Remix): Plugin {
   const resolvedVirtualServerBuildId = '\0' + virtualServerBuildId;
   let server: ViteDevServer;
   return {
-    name: 'remix:server-manifest-dev-temp',
+    name: 'remix:server-manifest-dev-pre',
     enforce: 'pre',
     apply: 'serve',
     configureServer(_server: ViteDevServer) {
