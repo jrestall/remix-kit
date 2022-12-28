@@ -55,6 +55,7 @@
     "knitwork": "^1.0.0",
     "magic-string": "^0.27.0",
     "mlly": "^1.0.0",
+    "node-fetch-native": "^1.0.1",
     "ohash": "^1.0.0",
     "pathe": "^1.0.0",
     "perfect-debounce": "^0.1.3",
