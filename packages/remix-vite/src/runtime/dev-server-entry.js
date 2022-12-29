@@ -37,7 +37,15 @@ runner.executeId('\0@remix-run/dev/server-build').then(onInvalidate).then(execut
 const client = new DevClient(runner, onInvalidate);
 client.connect(devServerOptions.wssPort);
 
-module.exports.default = entry;
+module.exports = {
+  default: entry,
+  entry: undefined,
+  routes: undefined,
+  assetsBuildDirectory: undefined,
+  future: undefined,
+  publicPath: undefined,
+  assets: undefined
+}
 
 /* Polyfill node for Cloudflare's workerd etc
 const vm = require("vm");
@@ -52,7 +60,7 @@ function runInThisContext(code, _options) {
 
 async function devServerFetch(path) {
   const url = new URL(path, devServerOptions.baseURL).href;
-  const response = await fetch(url, this.fetchOptions);
+  const response = await fetch(url);
   const data = await response.text();
   return destr(data);
 }
