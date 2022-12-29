@@ -33,7 +33,7 @@ We require these three separate packages since Remix Kit's compiler and renderin
 
 ## Setup package.json
 
-Add the RemixKit CLI commands such as below. Use a prefix such as `vite:` to support both Remix and RemixKit development experiences in parallel. 
+Add the RemixKit CLI commands such as below. Use a prefix such as `vite:` to support both Remix and RemixKit development experiences in parallel.
 
 ```json
 "scripts": {
@@ -44,8 +44,8 @@ Add the RemixKit CLI commands such as below. Use a prefix such as `vite:` to sup
 }
 ```
 
- - A "dev:server" script is required to tell the dev server how to start the Remix app. 
- - An `--origin` flag is required to tell the dev server where your Remix app is hosted.
+- A "dev:server" script is required to tell the dev server how to start the Remix app.
+- An `--origin` flag is required to tell the dev server where your Remix app is hosted.
 
 ## Done
 

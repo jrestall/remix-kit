@@ -44,8 +44,8 @@ module.exports = {
   assetsBuildDirectory: undefined,
   future: undefined,
   publicPath: undefined,
-  assets: undefined
-}
+  assets: undefined,
+};
 
 /* Polyfill node for Cloudflare's workerd etc
 const vm = require("vm");

@@ -114,7 +114,9 @@ export default defineRemixCommand({
         await writePackageJSON(filename, pkg);
 
         consola.success(`Updated package.json npm scripts.\n`);
-        consola.success(`All done! Run '${packageManager} run vite:dev' after reviewing the above.`);
+        consola.success(
+          `All done! Run '${packageManager} run vite:dev' after reviewing the above.`
+        );
       }
     }
   },

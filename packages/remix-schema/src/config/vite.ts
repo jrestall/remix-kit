@@ -66,7 +66,7 @@ export default defineUntypedSchema({
     },
     preview: {
       port: 3000,
-      strictPort: true
-    }
+      strictPort: true,
+    },
   },
 });
