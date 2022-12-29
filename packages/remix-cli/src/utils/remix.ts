@@ -7,9 +7,8 @@ export async function cleanupRemixDirs(rootDir: string) {
 
   await rmRecursive(
     [
-      'build',
       'public/build',
-      //'node_modules/.vite',
+      'node_modules/.vite',
     ].map((dir) => resolve(rootDir, dir))
   );
 }

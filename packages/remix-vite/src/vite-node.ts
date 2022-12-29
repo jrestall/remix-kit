@@ -14,7 +14,7 @@ import { logger } from '@remix-kit/kit';
 import type { VitePlugin } from 'unplugin';
 import { writeFile } from 'fs-extra';
 import { fileURLToPath, resolve as resolveModule } from 'mlly';
-import { resolve } from 'pathe';
+import { join, resolve } from 'pathe';
 import { distDir } from './dirs';
 import { createWebSocketServer } from './vite-server';
 import fetch from 'node-fetch-native';
@@ -189,12 +189,10 @@ function logRequestInfo(req: Connect.IncomingMessage) {
 }
 
 export async function initViteNodeServer(ctx: ViteBuildContext) {
-  if (!ctx.remix.options.serverEntryPoint) {
-    throw new Error(
-      "RemixKit doesn't currentlty support not using a custom server file. " +
-        "Please set a 'server' property value in remix.config.js"
-    );
-  }
+  const defaultServerEntryPoint = join(distDir, 'compiler', 'defaults', 'server-entry.js');
+  const serverEntry = ctx.remix.options.serverEntryPoint
+    ? resolve(ctx.remix.options.rootDir, ctx.remix.options.serverEntryPoint)
+    : defaultServerEntryPoint;
 
   // Serialize and pass dev server options for the client runner
   // These will be passed as environment variables when we create the child process.
@@ -202,13 +200,15 @@ export async function initViteNodeServer(ctx: ViteBuildContext) {
     baseURL: `${ctx.remix.options.devServer.url}__remix_dev_server__/`,
     root: ctx.remix.options.srcDir,
     base: ctx.ssrServer!.config.base,
-    serverEntryPoint: resolve(ctx.remix.options.rootDir, ctx.remix.options.serverEntryPoint),
+    serverEntryPoint: serverEntry,
+    wssPort: 24688
   };
   process.env.REMIX_DEV_SERVER_OPTIONS = JSON.stringify(devServerOptions);
 
   const node = createNodeServer(ctx.ssrServer!, ctx);
-  const wsServer = createWebSocketServer(node, devServerOptions.serverEntryPoint);
+  const wsServer = await createWebSocketServer();
   ctx.wsServer = wsServer;
+  devServerOptions.wssPort = wsServer.port;
 
   const app = createDevServerApp(ctx, node);
   ctx.remix.server = toNodeListener(app);

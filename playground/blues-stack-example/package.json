@@ -7,7 +7,7 @@
     "build:css": "npm run generate:css -- --minify",
     "build:remix": "remix build",
     "build:server": "esbuild --platform=node ./server.ts --format=cjs --outdir=build",
-    "dev": "remix-kit dev --port 3005",
+    "dev": "pnpm run build:server && remix-kit dev --origin http://localhost:3000",
     "dev:build": "cross-env NODE_ENV=development npm run build:server",
     "dev:server": "node --inspect --require ./node_modules/dotenv/config --require ./mocks ./build/server.js",
     "docker": "docker-compose up -d",

@@ -21,7 +21,7 @@ export async function buildServer(ctx: ViteBuildContext) {
   if (options.serverEntryPoint) {
     entryPoint = options.serverEntryPoint;
   } else {
-    const defaultServerEntryPoint = join(distDir, 'compiler', 'defaults', 'server-entry.mjs');
+    const defaultServerEntryPoint = join(distDir, 'compiler', 'defaults', 'server-entry.js');
     entryPoint = defaultServerEntryPoint;
   }
 

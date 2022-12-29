@@ -1,16 +1,20 @@
-import type { ViteNodeServer } from 'vite-node/server';
+import { getPort } from 'get-port-please';
 import { WebSocketServer, WebSocket } from 'ws';
 
 export interface RemixWebSocketServer {
   wss: WebSocketServer;
   handleUpdates: (invalidates: Set<string>) => void;
+  port: number;
 }
 
-export function createWebSocketServer(
-  node: ViteNodeServer,
-  serverEntryPoint: string
-): RemixWebSocketServer {
-  const wss = new WebSocketServer({ port: 8080 });
+export async function createWebSocketServer(): Promise<RemixWebSocketServer> {
+  const serverPortDefault = 24688;
+  const serverPort = await getPort({
+    port: serverPortDefault,
+    ports: Array.from({ length: 20 }, (_, i) => serverPortDefault + 1 + i),
+  });
+  
+  const wss = new WebSocketServer({ port: serverPort });
 
   wss.on('connection', async (ws, _request) => {
     ws.on('message', (message) => {
@@ -29,5 +33,6 @@ export function createWebSocketServer(
   return {
     wss,
     handleUpdates,
+    port: serverPort
   };
 }
