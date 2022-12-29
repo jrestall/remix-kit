@@ -1,103 +1,51 @@
 # Getting Started
 
+Add RemixKit alongside your existing Remix dev experience in minutes by having the CLI install dependencies and add npm scripts to your package.json.
+
+```shell
+> cd ./your-remix-app
+> npx remix-kit@latest install
+```
+
+All Done!
+
+```shell
+> npm run vite:dev
+```
+
+### Tips
+
+- A `dev:server` package.json npm script is important so that the RemixKit dev server knows how to start your Remix app.
+- An `--origin` flag should be passed to `remix-kit dev`. This specifies the URL of your Remix app that the dev server will proxy requests through to.
+- You can remove any `purgeRequireCache` functions as they are no longer necessary.
+
+# Manual Install
+
 ## Install Remix Kit
 
-First step is to install the `@remix-kit/*` dependencies to your Remix project. You can use your preferred package manager, below we use npm.
+Install the RemixKit libraries as devDependencies to your existing Remix project. You can use your preferred package manager, below we use pnpm.
 
-`npm i @remix-kit/cli --save-dev`
-
-`npm i @remix-kit/vite`
-
-`npm i @remix-kit/react`
+```shell
+pnpm i -D remix-kit @remix-kit/vite @remix-kit/react
+```
 
 We require these three separate packages since Remix Kit's compiler and rendering library is extensible and you could replace with other options.
 
 ## Setup package.json
 
-Replace the Remix CLI commands with the Remix Kit CLI commands such as below.
-**Important: A "dev:server" script is required if you want the Remix Kit Development Server to automatically start your Remix Server App.**
+Add the RemixKit CLI commands such as below. Use a prefix such as `vite:` to support both Remix and RemixKit development experiences in parallel. 
 
 ```json
 "scripts": {
-  "build": "remix-kit build",
-  "dev": "remix-kit dev",
-  "dev:server": "node ./server.js",
-  "start": "remix-kit preview"
-}
-```
-
-Without a "dev:server" script you will need to tell the development server where your Remix app is hosted by passing the `--origin` flag to the dev command.
-
-```json
-"scripts": {
-  "build": "remix-kit build",
   "dev": "remix-kit dev --origin http://localhost:3000",
+  "dev:server": "node ./server.js",
+  "start": "remix-kit preview",
+  "build": "remix-kit build"
 }
 ```
 
-## Setup server file
-
-The Remix Kit development server uses a client/server architecture during development to support HMR and on-demand compilation for a fast experience. You must install the development client in your Remix server file to support these functionalities.
-
-An example for an express app would look like the below. Please see a full example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/server.dev.ts).
-
-```ts
-import { RemixKitRunner } from '@remix-kit/vite';
-
-const runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
-app.all('*', (req, res, next) => {
-  runner.execute(({ build, mode, err }) => {
-    if (err) res.end(err);
-    if (build) createRequestHandler({ build, mode })(req, res, next);
-  });
-});
-
-console.log(`Express server starting...`);
-app.listen(port, () => {
-  console.log(`Express server listening on port ${port}`);
-  runner.ready(`http://localhost:${port}`);
-});
-```
-
-- Please note the `runner.ready('http://localhost:${port}');` on the last line which is important to notify the development server that your app has started and the host it should proxy requests to.
-- Please remove any purgeRequireCache functions you may have as they are no longer necessary.
-- If you wish to only use Remix Kit in development (recommended during alpha), then please see the example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/) of having a prod and dev server file.
-- Other nodejs based environments are also supported, environments such as Cloudflare's wrangler are unlikely to work.
-
-## Root.tsx route setup
-
-- Please remove the LiveReload component and add the ReactRefresh component to the head as shown [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/app/root.tsx).
-
-```tsx
-import { ReactRefresh } from '@remix-kit/react';
-...
-<head>
-  <Meta />
-  <ReactRefresh />
-  <Links />
-</head>
-```
-
-## Importing CSS as URL
-
-When you import a CSS file, Vite will by [default](https://vitejs.dev/guide/features.html#css) return the CSS in the default export, rather than the URL that Remix does.
-
-To fix this you can add a `?url` [suffix](https://vitejs.dev/guide/assets.html#importing-asset-as-url) to the css file import as below.
-
-```tsx
-import tailwindStylesheetUrl from './styles/tailwind.css?url';
-
-export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: tailwindStylesheetUrl }];
-};
-```
-
-## Gotchas
-
-- CommonJS server modules (server.js with require imports) are not currently supported. Please use an ES Module server.mjs with import syntax.
-- Please don't bundle your server.ts during development as there's an issue with both cjs and esm code being bundled.
-  - do this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build"`
-  - not this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build --bundle"`
+ - A "dev:server" script is required to tell the dev server how to start the Remix app. 
+ - An `--origin` flag is required to tell the dev server where your Remix app is hosted.
 
 ## Done
 

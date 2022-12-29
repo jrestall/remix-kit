@@ -9,7 +9,7 @@ export async function previewServer(remix: Remix): Promise<Plugin> {
   const build = await import(remix.options.serverBuildPath);
 
   try {
-    await waitUntil(() => build.routes, { timeout: 8000, intervalBetweenAttempts: 500 });
+    await waitUntil(() => build.routes, { timeout: 6000, intervalBetweenAttempts: 30 });
   } catch (err: unknown) {
     logger.error(
       `Couldn't find exported server build from ${remix.options.serverBuildPath}.\n` +

@@ -17,7 +17,14 @@ An alternative dev server and compiler for the awesome <a href="https://remix.ru
 
 ### Setup
 
-Please see the [getting started](./docs/getting_started.md) guide.
+```shell
+> cd ./your-remix-app
+> npx remix-kit@latest install
+
+> npm run vite:dev
+```
+
+Please see the [getting started](./docs/getting_started.md) guide for details.
 
 ### Features
 
@@ -38,11 +45,6 @@ Please see the [getting started](./docs/getting_started.md) guide.
   <img src="./docs/assets/console.png" />
 </p>
 
-#### Future Roadmap
-
-- Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
-- Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
-
 ### Status
 
 - **Alpha.** Use to streamline your development but not recommended for production bundling use. Please help test and it can get there though.
@@ -52,7 +54,7 @@ Please see the [getting started](./docs/getting_started.md) guide.
 
 | Package                                    | Changelog                                       |
 | ------------------------------------------ | ----------------------------------------------- |
-| [@remix-kit/cli](packages/remix-cli)       | [Changelog](packages/remix-cli/CHANGELOG.md)    |
+| [remix-kit](packages/remix-cli)            | [Changelog](packages/remix-cli/CHANGELOG.md)    |
 | [@remix-kit/kit](packages/remix-kit)       | [Changelog](packages/remix-kit/CHANGELOG.md)    |
 | [@remix-kit/react](packages/remix-react)   | [Changelog](packages/remix-react/CHANGELOG.md)  |
 | [@remix-kit/schema](packages/remix-schema) | [Changelog](packages/remix-schema/CHANGELOG.md) |
@@ -68,7 +70,7 @@ RemixKit is an MIT-licensed open source project with its ongoing development mad
 
 ## Credit
 
-This project was bootstrapped using code from [Nuxt](https://github.com/nuxt). Their MIT license can be found [here](./COPYRIGHTS.md). In addition it benefits greatly from a large number of libraries from the [UnJS](https://github.com/unjs) ecosystem. [Vite](https://vitejs.dev/) and [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node#readme) provide most of the core functionality and their usage is based on the approach pioneered by [@pi0](https://github.com/pi0) and described in detail by [@antfu](https://github.com/antfu) at [antfu.me](https://antfu.me/posts/dev-ssr-on-nuxt#approach-3-vite-node).
+This project was bootstrapped using code from [Nuxt](https://github.com/nuxt). Their MIT license can be found [here](./COPYRIGHTS.md) and [here](./LICENSE). In addition it benefits greatly from a large number of libraries from the [UnJS](https://github.com/unjs) ecosystem. [Vite](https://vitejs.dev/) and [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node#readme) provide most of the core functionality and their usage is based on the approach pioneered by [@pi0](https://github.com/pi0) and described in detail by [@antfu](https://github.com/antfu) at [antfu.me](https://antfu.me/posts/dev-ssr-on-nuxt#approach-3-vite-node).
 
 ## License
 

@@ -9,7 +9,7 @@
     "preinstall": "only-allow pnpm",
     "setup": "pnpm install",
     "build": "pnpm -r run prepack",
-    "build:stub": "pnpm -r --filter '@remix-kit/*' run prepack --stub",
+    "build:stub": "pnpm -r run prepack --stub",
     "release": "git push --follow-tags && pnpm run -r release --access public",
     "changelog": "echo 'generate master changelog' && conventional-changelog -p react -i CHANGELOG.md -s && git add CHANGELOG.md",
     "changeset": "changeset",
