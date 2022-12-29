@@ -33,8 +33,6 @@
   ],
   "dependencies": {
     "@prisma/client": "^4.5.0",
-    "@remix-kit/react": "workspace: *",
-    "@remix-kit/vite": "workspace: *",
     "@remix-run/express": "^1.9.0",
     "@remix-run/node": "^1.9.0",
     "@remix-run/react": "^1.9.0",
@@ -52,7 +50,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@remix-kit/cli": "workspace: *",
+    "@remix-kit/react": "workspace:*",
+    "@remix-kit/vite": "workspace:*",
     "@remix-run/dev": "^1.9.0",
     "@remix-run/eslint-config": "^1.9.0",
     "@testing-library/cypress": "^9.0.0",
@@ -86,6 +85,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "prisma": "^4.5.0",
+    "remix-kit": "workspace:*",
     "start-server-and-test": "^1.14.0",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",

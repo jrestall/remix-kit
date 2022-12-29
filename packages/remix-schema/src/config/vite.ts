@@ -6,7 +6,7 @@ export default defineUntypedSchema({
    * Configuration that will be passed directly to Vite.
    *
    * See https://vitejs.dev/config for more information.
-   * Please note that not all vite options are supported in Remix.
+   * Please note that not all vite options are supported in RemixKit.
    *
    * @type {typeof import('../src/types/config').ViteConfig}
    */
@@ -63,6 +63,10 @@ export default defineUntypedSchema({
           ],
         },
       },
+    },
+    preview: {
+      port: 3000,
+      strictPort: true,
     },
   },
 });

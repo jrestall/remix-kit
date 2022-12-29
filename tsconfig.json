@@ -15,8 +15,8 @@
     "resolveJsonModule": true,
     "types": ["node"],
     "paths": {
+      "remix-kit": ["./packages/remix-cli/src/cli"],
       "@remix-kit/kit": ["./packages/remix-kit/src/index"],
-      "@remix-kit/cli": ["./packages/remix-cli/src/cli"],
       "@remix-kit/react": ["./packages/remix-react/src/index"],
       "@remix-kit/react/setup": ["./packages/remix-react/src/setup"],
       "@remix-kit/schema": ["./packages/remix-schema/src/index"],

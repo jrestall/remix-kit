@@ -26,7 +26,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@remix-kit/cli": "workspace:*",
+    "remix-kit": "workspace:*",
     "@remix-kit/react": "workspace:*",
     "@remix-kit/vite": "workspace:*",
     "@remix-run/dev": "^1.9.0",
