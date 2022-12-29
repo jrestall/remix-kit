@@ -1,5 +1,5 @@
 {
-  "name": "@remix-kit/cli",
+  "name": "remix-kit",
   "version": "0.1.2",
   "repository": "https://github.com/jrestall/remix-kit",
   "license": "MIT",
