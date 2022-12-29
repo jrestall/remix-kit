@@ -6,8 +6,8 @@ import { getBuilder, loadRemix } from '@remix-kit/kit'
 export default defineRemixCommand({
   meta: {
     name: 'preview',
-    usage: 'npx remix preview|start [--dotenv] [rootDir]',
-    description: 'Launches a server for local testing after `remix build`.'
+    usage: 'npx remix-kit preview|start [--dotenv] [rootDir]',
+    description: 'Launches a server for local testing after `remix-kit build`.'
   },
   async invoke (args) {
     process.env.NODE_ENV = process.env.NODE_ENV || 'production';

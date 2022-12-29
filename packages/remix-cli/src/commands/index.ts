@@ -5,6 +5,7 @@ const _rDefault = (r: any) => r.default || r;
 export const commands = {
   dev: () => import('./dev').then(_rDefault),
   build: () => import('./build').then(_rDefault),
+  install: () => import('./install').then(_rDefault),
   preview: () => import('./preview').then(_rDefault),
   typecheck: () => import('./typecheck').then(_rDefault),
   usage: () => import('./usage').then(_rDefault),

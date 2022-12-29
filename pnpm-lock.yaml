@@ -577,8 +577,6 @@ importers:
       vite-plugin-inspect: ^0.7.10
     dependencies:
       '@remix-kit/feature-blog': link:../feature-blog
-      '@remix-kit/react': link:../../packages/remix-react
-      '@remix-kit/vite': link:../../packages/remix-vite
       '@remix-run/express': 1.8.2_cwk4saenierp7pa7l5cpbeswge
       '@remix-run/node': 1.8.2_biqbaboplfbrettd7655fr4n2y
       '@remix-run/react': 1.8.2_biqbaboplfbrettd7655fr4n2y
@@ -591,6 +589,8 @@ importers:
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
       '@remix-kit/cli': link:../../packages/remix-cli
+      '@remix-kit/react': link:../../packages/remix-react
+      '@remix-kit/vite': link:../../packages/remix-vite
       '@remix-run/dev': 1.8.2_biqbaboplfbrettd7655fr4n2y
       '@remix-run/eslint-config': 1.8.2_tn6ozhzi5twwqsvqh5iimryhr4
       '@types/compression': 1.7.2
