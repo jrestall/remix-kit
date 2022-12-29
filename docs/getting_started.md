@@ -15,6 +15,7 @@ All Done!
 
 ### Tips
 
+- See the [status](https://github.com/jrestall/remix-kit#status) section for any additional setup steps if using a standard `create-remix` template.
 - A `dev:server` package.json npm script is important so that the RemixKit dev server knows how to start your Remix app.
 - An `--origin` flag should be passed to `remix-kit dev`. This specifies the URL of your Remix app that the dev server will proxy requests through to.
 - You can remove any `purgeRequireCache` functions as they are no longer necessary.
