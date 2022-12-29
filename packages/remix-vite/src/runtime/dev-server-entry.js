@@ -27,16 +27,18 @@ function entry(props) {
   });
 }
 
+function onInvalidate(build) {
+  Object.assign(serverBuildStub, build);
+  Object.assign(module.exports, build)
+}
+
 runner
   .executeId('\0@remix-run/dev/server-build')
-  .then((build) => {
-    console.log(build);
-    Object.assign(serverBuildStub, build);
-  })
+  .then(onInvalidate)
   .then(executeEntry);
 
-const client = new DevClient(runner, serverBuildStub);
-client.connect();
+const client = new DevClient(runner, onInvalidate);
+client.connect(devServerOptions.wssPort);
 
 module.exports.default = entry;
 

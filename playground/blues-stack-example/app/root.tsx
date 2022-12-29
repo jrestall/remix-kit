@@ -9,7 +9,6 @@ import {
 } from "@remix-run/react";
 import { getUser } from "./session.server";
 import tailwindStylesheetUrl from "./styles/tailwind.css?url";
-import { ReactRefresh } from '@remix-kit/react';
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
@@ -32,7 +31,6 @@ export default function App() {
     <html lang="en" className="h-full">
       <head>
         <Meta />
-        <ReactRefresh />
         <Links />
       </head>
       <body className="h-full">

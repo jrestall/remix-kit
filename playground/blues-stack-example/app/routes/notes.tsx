@@ -45,7 +45,7 @@ export default function NotesPage() {
             <p className="p-4">No notes yet</p>
           ) : (
             <ol>
-              {data.noteListItems.map((note) => (
+              {data.noteListItems.map((note: any) => (
                 <li key={note.id}>
                   <NavLink
                     className={({ isActive }) =>

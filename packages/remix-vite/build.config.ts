@@ -18,7 +18,7 @@ export default defineBuildConfig({
       copyFileSync('src/runtime/dev-entry.mjs', 'dist/runtime/dev-entry.mjs');
 
       mkdirSync('dist/compiler/defaults/', { recursive: true });
-      copyFileSync('src/compiler/defaults/server-entry.mjs', 'dist/compiler/defaults/server-entry.mjs');
+      copyFileSync('src/compiler/defaults/server-entry.js', 'dist/compiler/defaults/server-entry.js');
     },
   },
 });

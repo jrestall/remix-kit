@@ -1,8 +1,8 @@
+import path from "path";
 import express from "express";
 import compression from "compression";
 import morgan from "morgan";
 import { createRequestHandler } from "@remix-run/express";
-import { RemixKitRunner } from "@remix-kit/vite";
 
 const app = express();
 
@@ -65,17 +65,26 @@ app.use(express.static("public", { maxAge: "1h" }));
 
 app.use(morgan("tiny"));
 
-const runner = new RemixKitRunner({ mode: process.env.NODE_ENV });
-app.all('*', (req, res, next) => {
-  runner.execute(({ build, mode, err }) => {
-    if (err) res.end(err);
-    if (build) createRequestHandler({ build, mode })(req, res, next);
-  });
-});
+const MODE = process.env.NODE_ENV;
+const BUILD_DIR = path.join(process.cwd(), "build");
 
-const port = process.env.PORT || 3003;
+app.all(
+  "*",
+  MODE === "production"
+    ? createRequestHandler({ build: require(BUILD_DIR) })
+    : (...args) => {
+        const requestHandler = createRequestHandler({
+          build: require(BUILD_DIR),
+          mode: MODE,
+        });
+        return requestHandler(...args);
+      }
+);
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
+  // require the built app so we're ready when the first request comes in
+  require(BUILD_DIR);
   console.log(`✅ app ready: http://localhost:${port}`);
-  runner.ready(`http://localhost:${port}`);
 });
