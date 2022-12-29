@@ -11,7 +11,7 @@ import type { ViteDevServer, Plugin } from 'vite';
 // prefixed module, if we don't execute this plugin first as 'pre' to claim
 // the module then the core plugins will.
 export function devServerManifestPre(remix: Remix): Plugin {
-  let virtualServerBuildId = '@remix-run/dev/server-build';
+  const virtualServerBuildId = '@remix-run/dev/server-build';
   const resolvedVirtualServerBuildId = '\0' + virtualServerBuildId;
   let server: ViteDevServer;
   return {
@@ -52,7 +52,7 @@ export function devServerManifestPre(remix: Remix): Plugin {
 }
 
 export function devServerManifest(remix: Remix): Plugin {
-  let virtualServerBuildId = '@remix-run/dev/server-build';
+  const virtualServerBuildId = '@remix-run/dev/server-build';
   const resolvedVirtualServerBuildId = '\0' + virtualServerBuildId;
   let server: ViteDevServer;
   return {
@@ -62,7 +62,7 @@ export function devServerManifest(remix: Remix): Plugin {
       server = _server;
     },
     async transform(code, id) {
-      let routes = Object.values(remix.options.routes);
+      const routes = Object.values(remix.options.routes);
       const route = routes.find((r) => id.endsWith(r.file));
       if (!route) return;
 
@@ -102,6 +102,6 @@ export function createDevAssetsManifest(
 }
 
 function createUrl(options: RemixOptions, file: string, base: string): string {
-  let path = joinUrlSegments(options.appDirectory, file);
+  const path = joinUrlSegments(options.appDirectory, file);
   return joinUrlSegments(base, path);
 }

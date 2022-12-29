@@ -25,10 +25,10 @@ export async function buildServer(ctx: ViteBuildContext) {
     entryPoint = defaultServerEntryPoint;
   }
 
-  let isCloudflareRuntime = ['cloudflare-pages', 'cloudflare-workers'].includes(
+  const isCloudflareRuntime = ['cloudflare-pages', 'cloudflare-workers'].includes(
     options.serverBuildTarget ?? ''
   );
-  let isDenoRuntime = options.serverBuildTarget === 'deno';
+  const isDenoRuntime = options.serverBuildTarget === 'deno';
 
   const serverConfig: vite.InlineConfig = vite.mergeConfig(ctx.config, {
     define: {

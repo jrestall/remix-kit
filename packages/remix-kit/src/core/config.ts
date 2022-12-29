@@ -7,7 +7,7 @@ import { RemixConfigSchema } from '@remix-kit/schema';
 import { readConfig } from '@remix-run/dev/dist/config.js';
 import type { RemixConfig as StandardRemixConfig } from '@remix-run/dev/dist/config.js';
 
-export interface LoadRemixConfigOptions extends LoadConfigOptions<RemixConfig> {}
+export type LoadRemixConfigOptions = LoadConfigOptions<RemixConfig>
 
 export async function loadRemixConfig(opts: LoadRemixConfigOptions): Promise<RemixOptions> {
   (globalThis as any).defineRemixConfig = (c: any) => c;
@@ -59,6 +59,6 @@ export async function loadRemixConfig(opts: LoadRemixConfigOptions): Promise<Rem
 }
 
 async function mergeStandardRemixConfig(config: RemixOptions): Promise<RemixOptions> {
-  let remixConfig: StandardRemixConfig = await readConfig();
+  const remixConfig: StandardRemixConfig = await readConfig();
   return { ...config, ...remixConfig };
 }

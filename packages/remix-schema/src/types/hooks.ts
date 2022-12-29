@@ -14,7 +14,7 @@ export type TSReference = { types: string } | { path: string };
 
 export type WatchEvent = 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir';
 
-export interface ImportPresetWithDeprecation extends InlinePreset {}
+export type ImportPresetWithDeprecation = InlinePreset
 
 export interface RemixHooks {
   // Remix
