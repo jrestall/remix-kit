@@ -33,7 +33,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@remix-kit/cli": "workspace:*",
+    "remix-kit": "workspace:*",
     "@remix-run/dev": "^1.9.0",
     "@remix-run/eslint-config": "^1.9.0",
     "@types/compression": "^1.7.2",

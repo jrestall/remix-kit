@@ -56,7 +56,7 @@ export default defineRemixCommand({
     execSync(
       `${packageManager} ${
         packageManager === 'yarn' ? 'add' : 'install'
-      } -D @remix-kit/cli @remix-kit/vite @remix-kit/react`,
+      } -D remix-kit @remix-kit/vite @remix-kit/react`,
       { stdio: 'inherit', cwd: rootDir }
     );
 
@@ -92,7 +92,7 @@ export default defineRemixCommand({
         if (!pkg.scripts['vite:dev']) {
           pkg.scripts['vite:dev'] = 'remix-kit dev --origin http://localhost:3000';
           consola.info(`Added "vite:dev": "${pkg.scripts['vite:dev']}"`);
-          consola.warn(`Update the --origin flag based on your Remix App Server setup.`);
+          consola.warn(`Update the --origin flag based on your Remix App Server URL.`);
         }
 
         if (!pkg.scripts['vite:build']) {
@@ -108,12 +108,13 @@ export default defineRemixCommand({
         if (!pkg.scripts['dev:server']) {
           pkg.scripts['dev:server'] = 'remix-kit preview';
           consola.info(`Added a stub "dev:server": "${pkg.scripts['dev:server']}"`);
-          consola.warn(`Update with a command to start your Remix App server.`);
+          consola.warn(`Update 'dev:server' script with a command to start your Remix App server.`);
         }
 
         await writePackageJSON(filename, pkg);
 
-        consola.success(`Updated package.json npm scripts.`);
+        consola.success(`Updated package.json npm scripts.\n`);
+        consola.success(`All done! Run '${packageManager} run vite:dev' after reviewing the above.`);
       }
     }
   },

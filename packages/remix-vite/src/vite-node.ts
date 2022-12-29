@@ -205,11 +205,13 @@ export async function initViteNodeServer(ctx: ViteBuildContext) {
   };
   process.env.REMIX_DEV_SERVER_OPTIONS = JSON.stringify(devServerOptions);
 
-  const node = createNodeServer(ctx.ssrServer!, ctx);
-  const wsServer = await createWebSocketServer();
-  ctx.wsServer = wsServer;
-  devServerOptions.wssPort = wsServer.port;
+  if (!ctx.wsServer) {
+    const wsServer = await createWebSocketServer();
+    devServerOptions.wssPort = wsServer.port;
+    ctx.wsServer = wsServer;
+  }
 
+  const node = createNodeServer(ctx.ssrServer!, ctx);
   const app = createDevServerApp(ctx, node);
   ctx.remix.server = toNodeListener(app);
 
