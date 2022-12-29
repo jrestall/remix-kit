@@ -2,7 +2,7 @@ const consola = require('consola');
 const destr = require('destr');
 const { createError } = require('h3');
 const { fetch } = require('@remix-run/web-fetch');
-const { ViteNodeRunner } = require('vite-node/client');
+const { ViteNodeRunner, DEFAULT_REQUEST_STUBS } = require('vite-node/client');
 const { DevClient } = require('./dev-client');
 
 const devServerOptions = JSON.parse(process.env.REMIX_DEV_SERVER_OPTIONS || '{}');
@@ -65,6 +65,7 @@ function createRunner() {
     base: devServerOptions.base,
     requestStubs: {
       '@remix-run/dev/server-build': serverBuildStub,
+      ...DEFAULT_REQUEST_STUBS
     },
     resolveId(id, importer) {
       _importers.set(id, importer);
