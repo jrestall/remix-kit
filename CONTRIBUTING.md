@@ -23,8 +23,6 @@ To contribute to RemixKit, you need to set up a local environment.
 
 6. Use the existing `playground/react-app` or setup your own website in the playground folder and execute CLI commands such as `pnpm run dev` or `pnpm run build` from there.
 
-7. For `playground/react-app` you must run `pnpm run build:server` before `pnpm run dev`. If using stubs it doesn't currently work if the remix-react package has been stubbed, so you need to cd to `packages/remix-react` and run `pnpm run prepack` so that just that package isn't using jiti.
-
 _TIP:_ Visiting the `/playground/react-app`'s url at `http://localhost:3005/__inspect/` is useful when testing plugin changes as it will show you the vite plugin inspector's output.
 
 ## Debugging
