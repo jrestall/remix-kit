@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { promises as fsp } from 'node:fs';
 import { dirname } from 'pathe';
 import consola from 'consola';

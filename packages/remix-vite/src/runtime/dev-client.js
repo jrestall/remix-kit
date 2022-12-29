@@ -19,15 +19,15 @@ class DevClient {
   async createWebSocketServer(host) {
     let socket = new WebSocket(`ws://${host}`);
 
-    const that = this;
+    const devClient = this;
     socket.onmessage = function (event) {
       const message = JSON.parse(event.data);
       if (message.type === 'invalidates') {
         const start = Date.now();
         const invalidated = new Set();
-        const removed = that.runner.moduleCache.invalidateDepTree(message.invalidates, invalidated);
-        that.runner.executeId('\0@remix-run/dev/server-build').then((build) => {
-          if (that.onInvalidate) that.onInvalidate(build);
+        const removed = devClient.runner.moduleCache.invalidateDepTree(message.invalidates, invalidated);
+        devClient.runner.executeId('\0@remix-run/dev/server-build').then((build) => {
+          if (devClient.onInvalidate) devClient.onInvalidate(build);
           const time = Date.now() - start;
           console.log(`Dev server hmr ${removed.size} file(s)`, time ? `in ${time}ms` : '');
         });

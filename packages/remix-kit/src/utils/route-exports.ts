@@ -15,7 +15,7 @@ export async function getRouteExports(source: string): Promise<RouteExports> {
   try {
     // parseImports is super quick and takes ~0.4ms
     [imports, exports] = parseImports(source);
-  } catch (e: any) {
+  } catch (e) {
     logger.error(
       `Failed to parse source for development route tree-shaking analysis because the content ` +
         `contains invalid JS syntax. `,

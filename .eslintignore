@@ -1,5 +1,7 @@
 dist
+build
 node_modules
 schema
 docs
 .github
+playground
