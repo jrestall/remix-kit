@@ -28,7 +28,7 @@ export interface ExtendConfigOptions {
   client?: boolean;
 }
 
-export type ExtendViteConfigOptions = ExtendConfigOptions
+export type ExtendViteConfigOptions = ExtendConfigOptions;
 
 /**
  * Extend Vite config
