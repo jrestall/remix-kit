@@ -12,7 +12,7 @@ An alternative dev server and compiler for the awesome <a href="https://remix.ru
 </p>
 <p align="center">
   <a href="https://github.com/jrestall/remix-kit/releases"><img src="https://img.shields.io/badge/stability-alpha-f4d03f.svg"></a>
-  <a href="https://www.npmjs.com/package/@remix-kit/cli"><img src="https://img.shields.io/npm/v/@remix-kit/cli?color=FCC72B&label="></a>
+  <a href="https://www.npmjs.com/package/remix-kit"><img src="https://img.shields.io/npm/v/remix-kit?color=FCC72B&label="></a>
 </p>
 
 ### Setup
