@@ -2,7 +2,7 @@ import { resolve } from 'pathe';
 import { applyDefaults } from 'untyped';
 import type { LoadConfigOptions } from 'c12';
 import { loadConfig } from 'c12';
-import type { RemixOptions, RemixConfig} from '@remix-kit/schema';
+import type { RemixOptions, RemixConfig } from '@remix-kit/schema';
 import { RemixConfigSchema } from '@remix-kit/schema';
 import { readConfig } from '@remix-run/dev/dist/config.js';
 import type { RemixConfig as StandardRemixConfig } from '@remix-run/dev/dist/config.js';
@@ -37,7 +37,9 @@ export async function loadRemixConfig(opts: LoadRemixConfigOptions): Promise<Rem
   }
 
   // Filter layers
-  const _layers = layers.filter((layer) => layer.configFile && !layer.configFile.endsWith('.remixrc'));
+  const _layers = layers.filter(
+    (layer) => layer.configFile && !layer.configFile.endsWith('.remixrc')
+  );
   (remixConfig as any)._layers = _layers;
 
   // Ensure at least one layer remains (without remix.config)

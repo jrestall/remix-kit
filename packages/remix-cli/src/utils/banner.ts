@@ -15,9 +15,5 @@ export function showVersions(cwd: string) {
     return tryRequireModule(`${pkg}/package.json`, cwd)?.version || '';
   };
   const remixVersion = getPkgVersion('@remix-run/server-runtime') || getPkgVersion('remix');
-  console.log(
-    gray(
-      green(`Remix ${bold(remixVersion)}`)
-    )
-  );
+  console.log(gray(green(`Remix ${bold(remixVersion)}`)));
 }

@@ -14,9 +14,7 @@ export function showHelp(meta?: Partial<RemixCommandMeta>) {
     }
   }
 
-  sections.push(
-    `Use ${cyan('npx remix [command] --help')} to see help for each command`
-  );
+  sections.push(`Use ${cyan('npx remix [command] --help')} to see help for each command`);
 
   console.log(sections.join('\n\n') + '\n');
 }

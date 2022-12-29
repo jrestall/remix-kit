@@ -16,6 +16,7 @@ We require these three separate packages since Remix Kit's compiler and renderin
 
 Replace the Remix CLI commands with the Remix Kit CLI commands such as below.
 **Important: A "dev:server" script is required if you want the Remix Kit Development Server to automatically start your Remix Server App.**
+
 ```json
 "scripts": {
   "build": "remix-kit build",
@@ -26,6 +27,7 @@ Replace the Remix CLI commands with the Remix Kit CLI commands such as below.
 ```
 
 Without a "dev:server" script you will need to tell the development server where your Remix app is hosted by passing the `--origin` flag to the dev command.
+
 ```json
 "scripts": {
   "build": "remix-kit build",
@@ -38,6 +40,7 @@ Without a "dev:server" script you will need to tell the development server where
 The Remix Kit development server uses a client/server architecture during development to support HMR and on-demand compilation for a fast experience. You must install the development client in your Remix server file to support these functionalities.
 
 An example for an express app would look like the below. Please see a full example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/server.dev.ts).
+
 ```ts
 import { RemixKitRunner } from '@remix-kit/vite';
 
@@ -55,10 +58,11 @@ app.listen(port, () => {
   runner.ready(`http://localhost:${port}`);
 });
 ```
- - Please note the `runner.ready('http://localhost:${port}');` on the last line which is important to notify the development server that your app has started and the host it should proxy requests to. 
- - Please remove any purgeRequireCache functions you may have as they are no longer necessary.
- - If you wish to only use Remix Kit in development (recommended during alpha), then please see the example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/) of having a prod and dev server file.
- - Other nodejs based environments are also supported, environments such as Cloudflare's wrangler are unlikely to work.
+
+- Please note the `runner.ready('http://localhost:${port}');` on the last line which is important to notify the development server that your app has started and the host it should proxy requests to.
+- Please remove any purgeRequireCache functions you may have as they are no longer necessary.
+- If you wish to only use Remix Kit in development (recommended during alpha), then please see the example [here](https://github.com/jrestall/remix-kit/blob/main/playground/react-app/) of having a prod and dev server file.
+- Other nodejs based environments are also supported, environments such as Cloudflare's wrangler are unlikely to work.
 
 ## Root.tsx route setup
 
@@ -75,23 +79,26 @@ import { ReactRefresh } from '@remix-kit/react';
 ```
 
 ## Importing CSS as URL
+
 When you import a CSS file, Vite will by [default](https://vitejs.dev/guide/features.html#css) return the CSS in the default export, rather than the URL that Remix does.
 
 To fix this you can add a `?url` [suffix](https://vitejs.dev/guide/assets.html#importing-asset-as-url) to the css file import as below.
 
 ```tsx
-import tailwindStylesheetUrl from "./styles/tailwind.css?url";
+import tailwindStylesheetUrl from './styles/tailwind.css?url';
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
+  return [{ rel: 'stylesheet', href: tailwindStylesheetUrl }];
 };
 ```
+
 ## Gotchas
+
 - CommonJS server modules (server.js with require imports) are not currently supported. Please use an ES Module server.mjs with import syntax.
-- Please don't bundle your server.ts during development as there's an issue with both cjs and esm code being bundled. 
+- Please don't bundle your server.ts during development as there's an issue with both cjs and esm code being bundled.
   - do this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build"`
   - not this `"build:server": "esbuild --platform=node --format=cjs ./server.ts --outdir=build --bundle"`
+
 ## Done
 
 Congrats! Now just run `npm run dev` to start both the development server and your Remix app.
-

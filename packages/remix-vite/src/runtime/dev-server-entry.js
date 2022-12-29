@@ -29,13 +29,10 @@ function entry(props) {
 
 function onInvalidate(build) {
   Object.assign(serverBuildStub, build);
-  Object.assign(module.exports, build)
+  Object.assign(module.exports, build);
 }
 
-runner
-  .executeId('\0@remix-run/dev/server-build')
-  .then(onInvalidate)
-  .then(executeEntry);
+runner.executeId('\0@remix-run/dev/server-build').then(onInvalidate).then(executeEntry);
 
 const client = new DevClient(runner, onInvalidate);
 client.connect(devServerOptions.wssPort);
@@ -67,7 +64,7 @@ function createRunner() {
     base: devServerOptions.base,
     requestStubs: {
       '@remix-run/dev/server-build': serverBuildStub,
-      ...DEFAULT_REQUEST_STUBS
+      ...DEFAULT_REQUEST_STUBS,
     },
     resolveId(id, importer) {
       _importers.set(id, importer);

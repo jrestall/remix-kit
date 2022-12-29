@@ -1,2 +1,2 @@
-export * from './run'
-export * from './cli'
+export * from './run';
+export * from './cli';

@@ -201,7 +201,7 @@ export async function initViteNodeServer(ctx: ViteBuildContext) {
     root: ctx.remix.options.srcDir,
     base: ctx.ssrServer!.config.base,
     serverEntryPoint: serverEntry,
-    wssPort: 24688
+    wssPort: 24688,
   };
   process.env.REMIX_DEV_SERVER_OPTIONS = JSON.stringify(devServerOptions);
 

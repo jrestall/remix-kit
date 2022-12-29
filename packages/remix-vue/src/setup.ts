@@ -1,17 +1,17 @@
 import type { Remix } from '@remix-kit/schema';
 import { bold, green } from 'colorette';
 import vuePlugin from '@vitejs/plugin-vue';
-import type { Options as VuePluginOptions } from '@vitejs/plugin-vue'
+import type { Options as VuePluginOptions } from '@vitejs/plugin-vue';
 import viteJsxPlugin from '@vitejs/plugin-vue-jsx';
 import { tryRequireModule } from '@remix-kit/kit';
-import type { UserConfig as ViteUserConfig } from 'vite'
+import type { UserConfig as ViteUserConfig } from 'vite';
 
 interface ViteConfig extends ViteUserConfig {
   /**
    * Options passed to @vitejs/plugin-vue
    * @see https://github.com/vitejs/vite/tree/main/packages/plugin-vue
    */
-   vue?: VuePluginOptions
+  vue?: VuePluginOptions;
 }
 
 export function setup(remix: Remix) {

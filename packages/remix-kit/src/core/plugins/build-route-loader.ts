@@ -17,7 +17,7 @@ const BROWSER_EXPORTS = [
   'links',
   'meta',
   'unstable_shouldReload',
-  'shouldRevalidate'
+  'shouldRevalidate',
 ] as const;
 
 export const BuildRouteLoader = createUnplugin(function (remix: Remix) {

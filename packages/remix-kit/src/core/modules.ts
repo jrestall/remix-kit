@@ -1,4 +1,4 @@
-import { useRemix } from "../context";
+import { useRemix } from '../context';
 
 export interface AddModuleTranspilesOptions {
   additionalModules?: string[];
@@ -25,8 +25,7 @@ export const addModuleTranspiles = (opts: AddModuleTranspilesOptions = {}) => {
   function isTranspilePresent(mod: string) {
     return remix.options.build.transpile.some(
       (t) =>
-        !(t instanceof Function) &&
-        (t instanceof RegExp ? t.test(mod) : new RegExp(t).test(mod))
+        !(t instanceof Function) && (t instanceof RegExp ? t.test(mod) : new RegExp(t).test(mod))
     );
   }
 

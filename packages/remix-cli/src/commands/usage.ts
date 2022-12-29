@@ -11,9 +11,7 @@ export default defineRemixCommand({
   invoke(_args) {
     const sections: string[] = [];
 
-    sections.push(
-      `Usage: ${cyan(`npx remix ${Object.keys(commands).join('|')} [args]`)}`
-    );
+    sections.push(`Usage: ${cyan(`npx remix ${Object.keys(commands).join('|')} [args]`)}`);
 
     console.log(sections.join('\n\n') + '\n');
 

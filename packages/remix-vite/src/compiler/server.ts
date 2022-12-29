@@ -55,7 +55,7 @@ export async function buildServer(ctx: ViteBuildContext) {
     },
     esbuild: {
       platform: options.serverPlatform,
-      format: "esm",
+      format: 'esm',
       target: 'node14',
     },
     build: {
@@ -69,7 +69,7 @@ export async function buildServer(ctx: ViteBuildContext) {
           generatedCode: {
             constBindings: true,
           },
-          entryFileNames: basename(options.serverBuildPath)
+          entryFileNames: basename(options.serverBuildPath),
         },
         onwarn(warning, rollupWarn) {
           if (warning.code && ['UNUSED_EXTERNAL_IMPORT'].includes(warning.code)) {
@@ -89,7 +89,7 @@ export async function buildServer(ctx: ViteBuildContext) {
     server: {
       // https://github.com/vitest-dev/vitest/issues/229#issuecomment-1002685027
       preTransformRequests: false,
-      hmr: false
+      hmr: false,
     },
   } as ViteOptions);
 

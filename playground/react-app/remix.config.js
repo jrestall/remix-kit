@@ -11,7 +11,7 @@ module.exports = {
       // file is relative to the /app folder
       route('/blog', '../../feature-blog/app/routes/blog.tsx');
     });
-  }, 
+  },
   // inline postcss configuration example
   // postcss: {
   //   plugins: {

@@ -64,12 +64,8 @@ const wrapReporter = (reporter: ConsolaReporter) =>
 // @ts-expect-error
 consola._reporters = consola._reporters.map(wrapReporter);
 
-process.on('unhandledRejection', (err) =>
-  consola.error('[unhandledRejection]', err)
-);
-process.on('uncaughtException', (err) =>
-  consola.error('[uncaughtException]', err)
-);
+process.on('unhandledRejection', (err) => consola.error('[unhandledRejection]', err));
+process.on('uncaughtException', (err) => consola.error('[uncaughtException]', err));
 
 export function main() {
   _main()

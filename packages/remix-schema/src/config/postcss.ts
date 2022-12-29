@@ -1,6 +1,6 @@
-import { defu } from 'defu'
-import createResolver from 'postcss-import-resolver'
-import { defineUntypedSchema } from 'untyped'
+import { defu } from 'defu';
+import createResolver from 'postcss-import-resolver';
+import { defineUntypedSchema } from 'untyped';
 
 export default defineUntypedSchema({
   postcss: {
@@ -15,16 +15,19 @@ export default defineUntypedSchema({
        * https://github.com/postcss/postcss-import
        */
       'postcss-import': {
-        $resolve: async (val, get) => val !== false ? defu(val || {}, {
-          resolve: createResolver({
-            alias: { ...(await get('alias')) },
-            modules: [
-              await get('srcDir'),
-              await get('rootDir'),
-              ...(await get('modulesDir'))
-            ]
-          })
-        }) : val,
+        $resolve: async (val, get) =>
+          val !== false
+            ? defu(val || {}, {
+                resolve: createResolver({
+                  alias: { ...(await get('alias')) },
+                  modules: [
+                    await get('srcDir'),
+                    await get('rootDir'),
+                    ...(await get('modulesDir')),
+                  ],
+                }),
+              })
+            : val,
       },
 
       /**
@@ -38,13 +41,20 @@ export default defineUntypedSchema({
       autoprefixer: {},
 
       cssnano: {
-        $resolve: async (val, get) => val ?? !(await get('dev') && {
-          preset: ['default', {
-            // Keep quotes in font values to prevent from HEX conversion
-            minifyFontValues: { removeQuotes: false }
-          }]
-        })
-      }
-    }
-  }
-})
+        $resolve: async (val, get) =>
+          val ??
+          !(
+            (await get('dev')) && {
+              preset: [
+                'default',
+                {
+                  // Keep quotes in font values to prevent from HEX conversion
+                  minifyFontValues: { removeQuotes: false },
+                },
+              ],
+            }
+          ),
+      },
+    },
+  },
+});

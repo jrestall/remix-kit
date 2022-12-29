@@ -18,7 +18,8 @@
     "publish": "pnpm publish -r",
     "ci:version": "pnpm changelog && pnpx changeset version && pnpm install --no-frozen-lockfile && git add .",
     "ci:publish": "pnpm build && git status && pnpm publish -r",
-    "changeset-publish": "changeset publish"
+    "changeset-publish": "changeset publish",
+    "format": "npx prettier --write ."
   },
   "dependencies": {
     "@remix-run/node": "^1.9.0",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^18.0.10",
     "conventional-changelog-cli": "^2.2.2",
     "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
     "nx": "15.4.2",
     "only-allow": "^1.0.0",
     "prettier": "^2.7.1",

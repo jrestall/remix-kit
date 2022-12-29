@@ -3,12 +3,7 @@ import { pathToFileURL } from 'node:url';
 import { normalize, dirname } from 'pathe';
 
 export function getModulePaths(paths?: string | string[]): string[] {
-  return ([] as Array<string | undefined>)
-    .concat(
-      paths,
-      process.cwd(),
-    )
-    .filter(Boolean) as string[];
+  return ([] as Array<string | undefined>).concat(paths, process.cwd()).filter(Boolean) as string[];
 }
 
 const _require = createRequire(process.cwd());

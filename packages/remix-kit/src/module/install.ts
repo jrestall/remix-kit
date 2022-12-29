@@ -11,10 +11,7 @@ export async function installModule(
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const remix = useRemix();
-  const { remixModule, inlineOptions } = await normalizeModule(
-    moduleToInstall,
-    _inlineOptions
-  );
+  const { remixModule, inlineOptions } = await normalizeModule(moduleToInstall, _inlineOptions);
 
   // Call module
   await remixModule(inlineOptions, remix);
@@ -26,19 +23,13 @@ export async function installModule(
   remix.options._installedModules = remix.options._installedModules || [];
   remix.options._installedModules.push({
     meta: await remixModule.getMeta?.(),
-    entryPath:
-      typeof moduleToInstall === 'string'
-        ? resolveAlias(moduleToInstall)
-        : undefined,
+    entryPath: typeof moduleToInstall === 'string' ? resolveAlias(moduleToInstall) : undefined,
   });
 }
 
 // --- Internal ---
 
-async function normalizeModule(
-  remixModule: string | RemixModule,
-  inlineOptions?: any
-) {
+async function normalizeModule(remixModule: string | RemixModule, inlineOptions?: any) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const remix = useRemix();
 

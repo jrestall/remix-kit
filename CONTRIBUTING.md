@@ -13,18 +13,19 @@ To contribute to RemixKit, you need to set up a local environment.
 1. Fork the remix-kit repository to your own GitHub account and then clone it to your local device.
 
 2. Run `pnpm install` to install the dependencies.
+
 - If you are adding a dependency, please use pnpm add. The pnpm-lock.yaml file is the source of truth for all RemixKit dependencies.
 
 4. Run `pnpm build:stub` to activate the passive development system. This uses [jiti](https://github.com/unjs/jiti) to execute your Typescript without the need for a build step or file watcher. Stubbing needs to be done just once. More details [here](https://antfu.me/posts/publish-esm-and-cjs#stubbing).
 
 5. Check out a branch where you can work and commit your changes:
-`git checkout -b my-new-branch`
+   `git checkout -b my-new-branch`
 
-6. Use the existing `playground/react-app` or setup your own website in the playground folder and execute CLI commands such as `pnpm run dev` or `pnpm run build` from there. 
+6. Use the existing `playground/react-app` or setup your own website in the playground folder and execute CLI commands such as `pnpm run dev` or `pnpm run build` from there.
 
-7. For  `playground/react-app` you must run `pnpm run build:server` before `pnpm run dev`. If using stubs it doesn't currently work if the remix-react package has been stubbed, so you need to cd to `packages/remix-react` and run `pnpm run prepack` so that just that package isn't using jiti. 
+7. For `playground/react-app` you must run `pnpm run build:server` before `pnpm run dev`. If using stubs it doesn't currently work if the remix-react package has been stubbed, so you need to cd to `packages/remix-react` and run `pnpm run prepack` so that just that package isn't using jiti.
 
-*TIP:* Visiting the `/playground/react-app`'s url at `http://localhost:3005/__inspect/` is useful when testing plugin changes as it will show you the vite plugin inspector's output.
+_TIP:_ Visiting the `/playground/react-app`'s url at `http://localhost:3005/__inspect/` is useful when testing plugin changes as it will show you the vite plugin inspector's output.
 
 ## Debugging
 
