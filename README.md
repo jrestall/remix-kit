@@ -50,16 +50,16 @@ Please see the [status](#status) section and [getting started](./docs/getting_st
 **(Alpha)** Use to streamline your development but not recommended for production bundling use. Please help test and it can get there though.
 
 Legend: ✅ (Tested),❓ (Untested), ⏳ (Not Supported)
-| Remix Template                             | Status | Install Notes  |
+| Remix Template | Status | Install Notes |
 | :----------------------------------------: | :----: | :--------------|
-| [Remix App Server](https://github.com/remix-run/remix/tree/main/templates/remix)     | ✅   | No changes required after install. Use the default `remix-kit preview` for the dev:server.
-| [Express](https://github.com/remix-run/remix/tree/main/templates/express)              |  ✅  |  Rename the `dev:node` npm script to `dev:server` and delete the duplicate `dev:server` script. Add a `require(BUILD_DIR);` in the app.listen callback otherwise the first request will fail due to the dev client asynchronously initializing.
-| [Fly](https://github.com/remix-run/remix/tree/main/templates/fly)   | ❓   |
-| [Netlify](https://github.com/remix-run/remix/tree/main/templates/netlify) | ❓   |
-| [Vercel](https://github.com/remix-run/remix/tree/main/templates/vercel)     |  ❓  |
-| [Deno](https://github.com/remix-run/remix/tree/main/templates/deno)     |  ❓  |
-| [Cloudflare Workers](https://github.com/remix-run/remix/tree/main/templates/cloudflare-workers)     | ⏳   |
-| [Cloudflare Pages](https://github.com/remix-run/remix/tree/main/templates/cloudflare-pages)     |  ⏳  |
+| [Remix App Server](https://github.com/remix-run/remix/tree/main/templates/remix) | ✅ | No changes required after install. Use the default `remix-kit preview` for the dev:server.
+| [Express](https://github.com/remix-run/remix/tree/main/templates/express) | ✅ | Rename the `dev:node` npm script to `dev:server` and delete the duplicate `dev:server` script. Add a `require(BUILD_DIR);` in the app.listen callback otherwise the first request will fail due to the dev client asynchronously initializing.
+| [Fly](https://github.com/remix-run/remix/tree/main/templates/fly) | ❓ |
+| [Netlify](https://github.com/remix-run/remix/tree/main/templates/netlify) | ❓ |
+| [Vercel](https://github.com/remix-run/remix/tree/main/templates/vercel) | ❓ |
+| [Deno](https://github.com/remix-run/remix/tree/main/templates/deno) | ❓ |
+| [Cloudflare Workers](https://github.com/remix-run/remix/tree/main/templates/cloudflare-workers) | ⏳ |
+| [Cloudflare Pages](https://github.com/remix-run/remix/tree/main/templates/cloudflare-pages) | ⏳ |
 
 ### Packages
 
