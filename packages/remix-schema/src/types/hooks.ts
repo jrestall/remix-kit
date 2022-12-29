@@ -14,7 +14,7 @@ export type TSReference = { types: string } | { path: string };
 
 export type WatchEvent = 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir';
 
-export interface ImportPresetWithDeprecation extends InlinePreset {}
+export type ImportPresetWithDeprecation = InlinePreset;
 
 export interface RemixHooks {
   // Remix
@@ -45,16 +45,10 @@ export interface RemixHooks {
     declarations: string[];
     tsConfig: TSConfig;
   }) => HookResult;
-  listen: (
-    listenerServer: HttpServer | HttpsServer,
-    listener: any
-  ) => HookResult;
+  listen: (listenerServer: HttpServer | HttpsServer, listener: any) => HookResult;
 
   // Vite
-  'vite:extend': (viteBuildContext: {
-    remix: Remix;
-    config: ViteInlineConfig;
-  }) => HookResult;
+  'vite:extend': (viteBuildContext: { remix: Remix; config: ViteInlineConfig }) => HookResult;
   'vite:extendConfig': (
     viteInlineConfig: ViteInlineConfig,
     env: { isClient: boolean; isServer: boolean }

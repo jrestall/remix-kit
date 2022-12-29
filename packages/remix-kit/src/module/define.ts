@@ -28,9 +28,7 @@ export function defineRemixModule<OptionsT extends ModuleOptions>(
   async function getOptions(inlineOptions?: OptionsT, remix: Remix = useRemix()) {
     const configKey = definition.meta!.configKey || definition.meta!.name!;
     const _defaults =
-      definition.defaults instanceof Function
-        ? definition.defaults(remix)
-        : definition.defaults;
+      definition.defaults instanceof Function ? definition.defaults(remix) : definition.defaults;
     let _options = defu(
       inlineOptions,
       remix.options[configKey as keyof RemixOptions],
@@ -43,11 +41,7 @@ export function defineRemixModule<OptionsT extends ModuleOptions>(
   }
 
   // Module format is always a simple function
-  async function normalizedModule(
-    this: any,
-    inlineOptions: OptionsT,
-    remix: Remix
-  ) {
+  async function normalizedModule(this: any, inlineOptions: OptionsT, remix: Remix) {
     if (!remix) {
       remix = tryUseRemix() || this.remix;
     }

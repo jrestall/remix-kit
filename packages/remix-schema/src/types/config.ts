@@ -6,6 +6,7 @@ import type {
   AppConfig as RemixAppConfig,
 } from '@remix-run/dev/dist/config.js';
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type DeepPartial<T> = T extends Function
   ? T
   : T extends Record<string, any>

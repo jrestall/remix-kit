@@ -44,14 +44,14 @@ export async function startOriginServer(rootDir: string): Promise<ChildProcess |
     }
     child.stdout.on('data', (data: string) => {
       if (typeof data !== 'string') return;
-      if(data.indexOf("Remix server ready") >= 0) resolve();
+      if (data.indexOf('Remix server ready') >= 0) resolve();
       const prefix = 'Runner started on ';
       const index = data.indexOf(prefix);
       if (index >= 0) {
         // Extracts the url from "Runner started on http://localhost:3000\n"
         const newlineIndex = data.indexOf('\n', index + prefix.length);
         const origin_server = data.substring(index + prefix.length, newlineIndex);
-        if(origin_server.length > 1) {
+        if (origin_server.length > 1) {
           process.env.ORIGIN_SERVER = origin_server;
         }
         resolve();

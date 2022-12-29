@@ -7,7 +7,7 @@ import { loadConfig } from 'c12';
 type PostCSS = NonNullable<Exclude<NonNullable<ViteOptions['css']>['postcss'], string>>;
 
 export async function resolveCSSOptions(remix: Remix): Promise<ViteOptions['css']> {
-  let css: ViteOptions['css'] & {
+  const css: ViteOptions['css'] & {
     postcss: PostCSS;
   } = {
     postcss: {

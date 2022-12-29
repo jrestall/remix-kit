@@ -14,7 +14,7 @@ export const EmptyModule = createUnplugin(function (options: EmptyModulePluginOp
       return id.includes(options.target);
     },
     load(id) {
-      logger.debug(`[EmptyModule Vite Plugin] Made module ${id} empty.`)
+      logger.debug(`[EmptyModule Vite Plugin] Made module ${id} empty.`);
       return {
         code: 'export default {}',
         map: { mappings: '' },

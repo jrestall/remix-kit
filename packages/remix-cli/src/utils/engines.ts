@@ -2,8 +2,8 @@ import { engines } from '../../package.json';
 
 export async function checkEngines() {
   const satisfies = await import('semver/functions/satisfies.js').then(
-    (r) =>
-      r.default || (r as any as typeof import('semver/functions/satisfies.js'))
+    // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+    (r) => r.default || (r as any as typeof import('semver/functions/satisfies.js'))
   ); // npm/node-semver#381
   const currentNode = process.versions.node;
   const nodeRange = engines.node;

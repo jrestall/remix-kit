@@ -16,14 +16,16 @@ An alternative dev server and compiler for the awesome <a href="https://remix.ru
 </p>
 
 ### Setup
+
 Please see the [getting started](./docs/getting_started.md) guide.
 
 ### Features
+
 - [Hot Module Replacement (HMR)](https://vitejs.dev/guide/features.html#hot-module-replacement) for **instant, precise updates** on the browser and server without reloading the page or blowing away application state.
-- Instant development server startup, **no pre-bundling required**, scales to any project size. 
+- Instant development server startup, **no pre-bundling required**, scales to any project size.
 - [Vite](https://vitejs.dev/) for development and build bundling. Includes [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node) for extremely fast targeted server code replacement. No purgeRequireCache needed, keep objects in-memory between requests to match production behavior.
 - Fully **configurable** & easily **extensible**
-  - An extensible compiler and hooks system gives you complete control. 
+  - An extensible compiler and hooks system gives you complete control.
   - Use [hooks](packages/remix-schema/src/types/hooks.ts) from your own `plugin modules` to extend any part of the build process.
   - Benefit from the large ecosystem of vite plugins.
 - Easy to use CLI `remix-kit` for development, build, previews and more.
@@ -37,22 +39,24 @@ Please see the [getting started](./docs/getting_started.md) guide.
 </p>
 
 #### Future Roadmap
+
 - Module federation DX enhancements with built-in async entry points for use with [gioboa/vite-module-federation](https://github.com/gioboa/vite-module-federation) or [originjs/vite-module-federation](https://github.com/originjs/vite-plugin-federation).
 - Library compilation mode. Bundle your entire website functionality as modules for npm distribution and easy inclusion in other Remix websites.
 
 ### Status
+
 - **Alpha.** Use to streamline your development but not recommended for production bundling use. Please help test and it can get there though.
 - **NodeJS server support only**. No Cloudflare workers.
 
 ### Packages
 
-| Package                                                                     | Changelog                                                   |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------|
-| [@remix-kit/cli](packages/remix-cli)                                        | [Changelog](packages/remix-cli/CHANGELOG.md)                |
-| [@remix-kit/kit](packages/remix-kit)                                        | [Changelog](packages/remix-kit/CHANGELOG.md)                |
-| [@remix-kit/react](packages/remix-react)                                    | [Changelog](packages/remix-react/CHANGELOG.md)              |
-| [@remix-kit/schema](packages/remix-schema)                                  | [Changelog](packages/remix-schema/CHANGELOG.md)             | 
-| [@remix-kit/vite](packages/remix-vite)                                      | [Changelog](packages/remix-vite/CHANGELOG.md)               |
+| Package                                    | Changelog                                       |
+| ------------------------------------------ | ----------------------------------------------- |
+| [@remix-kit/cli](packages/remix-cli)       | [Changelog](packages/remix-cli/CHANGELOG.md)    |
+| [@remix-kit/kit](packages/remix-kit)       | [Changelog](packages/remix-kit/CHANGELOG.md)    |
+| [@remix-kit/react](packages/remix-react)   | [Changelog](packages/remix-react/CHANGELOG.md)  |
+| [@remix-kit/schema](packages/remix-schema) | [Changelog](packages/remix-schema/CHANGELOG.md) |
+| [@remix-kit/vite](packages/remix-vite)     | [Changelog](packages/remix-vite/CHANGELOG.md)   |
 
 ## Contributing
 
@@ -60,7 +64,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for information on how to develop Remix
 
 ## Supporting RemixKit
 
-RemixKit is an MIT-licensed open source project with its ongoing development made possible entirely by volunteer time. If you'd like to support this effort, please consider [sponsoring](https://github.com/sponsors/jrestall). 
+RemixKit is an MIT-licensed open source project with its ongoing development made possible entirely by volunteer time. If you'd like to support this effort, please consider [sponsoring](https://github.com/sponsors/jrestall).
 
 ## Credit
 

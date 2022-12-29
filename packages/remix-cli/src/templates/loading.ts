@@ -1,5 +1,5 @@
 export function loading(loading: string) {
-    return `
+  return `
         <!DOCTYPE html>
         <html>
         <head>

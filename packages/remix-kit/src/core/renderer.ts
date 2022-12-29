@@ -11,7 +11,9 @@ export async function getRenderer(remix: Remix): Promise<RemixRenderer> {
 
     if (error.toString().includes("Cannot find module '@remix-kit/react'")) {
       throw new Error(
-        ['Could not load `@remix-kit/react`. You may need to add it to your project dependencies.'].join('\n')
+        [
+          'Could not load `@remix-kit/react`. You may need to add it to your project dependencies.',
+        ].join('\n')
       );
     }
 

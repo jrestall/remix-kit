@@ -60,7 +60,7 @@ export class RemixKitRunner {
     // Remix server file no longer controls the build import as this is simpler but also
     // lets us modify the build dynamically per request such as for lib support in the future.
     if (this.options.mode !== 'development') {
-      let build = await import('@remix-run/dev/server-build');
+      const build = await import('@remix-run/dev/server-build');
       return execute({ build, mode: this.options.mode });
     }
 

@@ -29,10 +29,7 @@ export function analyzePlugin(ctx: ViteBuildContext): Plugin[] {
     visualizer({
       ...(ctx.remix.options.build.analyze as any),
       // @ts-ignore
-      filename: ctx.remix.options.build.analyze.filename.replace(
-        '{name}',
-        'client'
-      ),
+      filename: ctx.remix.options.build.analyze.filename.replace('{name}', 'client'),
       title: 'Client bundle stats',
       gzipSize: true,
     }),

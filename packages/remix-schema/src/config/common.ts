@@ -41,9 +41,7 @@ export default defineUntypedSchema({
     $resolve: async (val, get) =>
       val
         ? resolve(await get('rootDir'), val)
-        : await findWorkspaceDir(await get('rootDir')).catch(() =>
-            get('rootDir')
-          ),
+        : await findWorkspaceDir(await get('rootDir')).catch(() => get('rootDir')),
   },
 
   /**
@@ -102,9 +100,7 @@ export default defineUntypedSchema({
   modulesDir: {
     $default: ['node_modules'],
     $resolve: async (val, get) => [
-      ...(await Promise.all(
-        val.map(async (dir: string) => resolve(await get('rootDir'), dir))
-      )),
+      ...(await Promise.all(val.map(async (dir: string) => resolve(await get('rootDir'), dir)))),
       resolve(process.cwd(), 'node_modules'),
     ],
   },
@@ -175,8 +171,7 @@ export default defineUntypedSchema({
      * The directory containing your static files, which will be directly accessible via the Remix server.
      */
     public: {
-      $resolve: async (val, get) =>
-        val || (await get('dir.static')) || 'public',
+      $resolve: async (val, get) => val || (await get('dir.static')) || 'public',
     },
   },
 
@@ -184,8 +179,7 @@ export default defineUntypedSchema({
    * The extensions that should be resolved by the Remix resolver.
    */
   extensions: {
-    $resolve: (val) =>
-      ['.js', '.jsx', '.mjs', '.ts', '.tsx'].concat(val).filter(Boolean),
+    $resolve: (val) => ['.js', '.jsx', '.mjs', '.ts', '.tsx'].concat(val).filter(Boolean),
   },
 
   /**
@@ -234,14 +228,8 @@ export default defineUntypedSchema({
       '@@': await get('rootDir'),
       '~': await get('srcDir'),
       '@': await get('srcDir'),
-      [await get('dir.assets')]: join(
-        await get('srcDir'),
-        await get('dir.assets')
-      ),
-      [await get('dir.public')]: join(
-        await get('srcDir'),
-        await get('dir.public')
-      ),
+      [await get('dir.assets')]: join(await get('srcDir'), await get('dir.assets')),
+      [await get('dir.public')]: join(await get('srcDir'), await get('dir.public')),
       ...val,
     }),
   },

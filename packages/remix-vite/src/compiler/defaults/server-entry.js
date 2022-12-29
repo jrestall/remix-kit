@@ -1,1 +1,1 @@
-export * from "@remix-run/dev/server-build"
+export * from '@remix-run/dev/server-build';

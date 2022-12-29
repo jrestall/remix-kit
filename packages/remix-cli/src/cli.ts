@@ -13,7 +13,6 @@ async function _main() {
   const args = mri(_argv, {
     boolean: ['no-clear'],
   });
-  // @ts-ignore
   const command = args._.shift() || 'usage';
 
   showBanner(command === 'dev' && args.clear !== false && !args.help);
@@ -27,10 +26,10 @@ async function _main() {
 
   // Check Node.js version in background
   setTimeout(() => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     checkEngines().catch(() => {});
   }, 1000);
 
-  // @ts-ignore
   const cmd = (await commands[command as Command]()) as RemixCommand;
   if (args.h || args.help) {
     showHelp(cmd.meta);
@@ -46,6 +45,7 @@ consola.wrapAll();
 // Filter out unwanted logs
 // TODO: Use better API from consola for intercepting logs
 const wrapReporter = (reporter: ConsolaReporter) =>
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   <ConsolaReporter>{
     log(logObj, ctx) {
       if (!logObj.args || !logObj.args.length) {
@@ -64,12 +64,8 @@ const wrapReporter = (reporter: ConsolaReporter) =>
 // @ts-expect-error
 consola._reporters = consola._reporters.map(wrapReporter);
 
-process.on('unhandledRejection', (err) =>
-  consola.error('[unhandledRejection]', err)
-);
-process.on('uncaughtException', (err) =>
-  consola.error('[uncaughtException]', err)
-);
+process.on('unhandledRejection', (err) => consola.error('[unhandledRejection]', err));
+process.on('uncaughtException', (err) => consola.error('[uncaughtException]', err));
 
 export function main() {
   _main()

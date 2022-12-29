@@ -91,7 +91,7 @@ async function initRemix(remix: Remix) {
   // Import CSS as URL by default. Added seperately to be added last in client/server plugins.
   addVitePlugin(CssImportUrl.vite(remix), { client: false });
   addVitePlugin(CssImportUrl.vite(remix), { server: false });
-  
+
   // Transpile layers within node_modules
   remix.options.build.transpile.push(
     ...remix.options._layers

@@ -23,6 +23,6 @@
   "references": [
     {
       "path": "../feature-blog"
-    },
+    }
   ]
 }

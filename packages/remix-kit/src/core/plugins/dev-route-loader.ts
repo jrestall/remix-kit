@@ -23,10 +23,10 @@ const SERVER_EXPORTS = ['action', 'loader', 'headers'];
 export const DevRouteLoader = createUnplugin(function (remix: Remix) {
   return {
     name: 'remix:dev-route-loader',
-    apply: "serve",
+    apply: 'serve',
     async transform(code, id) {
       // Determine if this is a route module
-      let routes = Object.values(remix.options.routes);
+      const routes = Object.values(remix.options.routes);
       const route = routes.find((r) => id.endsWith(r.file));
       if (!route) return;
 
@@ -59,7 +59,7 @@ export const DevRouteLoader = createUnplugin(function (remix: Remix) {
 
       // Remove all static imports from the code
       // Loop backwards through the imports so that their statement indexes remain accurate as we modify the source.
-      for (var i = parsedImports.length - 1; i >= 0; i--) {
+      for (let i = parsedImports.length - 1; i >= 0; i--) {
         const parsedImport = parsedImports[i];
         source = removeImport(source, parsedImport.spec);
       }

@@ -5,7 +5,7 @@ import { join } from 'pathe';
 export function createServerManifest(options: RemixOptions, manifest?: AssetsManifest): string {
   const routeImports = Object.values(options.routes).map((route, index) => {
     // unbuild's cjsBridge import matching finds this code string incorrectly, so we break it up to not match.
-    // https://github.com/unjs/unbuild/blob/973b144978134ca7b78eb4c7da9f5e0b49e7ae3f/src/builder/plugins/cjs.ts#L36 
+    // https://github.com/unjs/unbuild/blob/973b144978134ca7b78eb4c7da9f5e0b49e7ae3f/src/builder/plugins/cjs.ts#L36
     // eslint-disable-next-line no-useless-concat
     return `import * as route${index} from ` + `"${createPath(options, route.file)}";`;
   });
@@ -20,7 +20,9 @@ export function createServerManifest(options: RemixOptions, manifest?: AssetsMan
         }`;
   });
   // eslint-disable-next-line no-useless-concat
-  return `import * as entryServer from ` + `"${createPath(options, options.entryServerFile)}";
+  return (
+    `import * as entryServer from ` +
+    `"${createPath(options, options.entryServerFile)}";
       ${routeImports.join('\n')}
       export const assetsBuildDirectory = ${JSON.stringify(options.relativeAssetsBuildDirectory)};
       export const future = ${JSON.stringify(options.future)};
@@ -30,14 +32,15 @@ export function createServerManifest(options: RemixOptions, manifest?: AssetsMan
         ${routes.join(',\n  ')}
       };
       export const assets = ${JSON.stringify(manifest)};
-    `;
+    `
+  );
 }
 
 export function createEntryRoute(
   route: ConfigRoute,
   routeModule: string,
   routeExports: string[],
-  routeImports?: string[],
+  routeImports?: string[]
 ) {
   return {
     id: route.id,
@@ -55,5 +58,5 @@ export function createEntryRoute(
 }
 
 function createPath(options: RemixOptions, file: string): string {
-  return join("/", options.appDirectory, file);
+  return join('/', options.appDirectory, file);
 }

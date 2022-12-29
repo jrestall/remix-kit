@@ -13,7 +13,7 @@ export async function createWebSocketServer(): Promise<RemixWebSocketServer> {
     port: serverPortDefault,
     ports: Array.from({ length: 20 }, (_, i) => serverPortDefault + 1 + i),
   });
-  
+
   const wss = new WebSocketServer({ port: serverPort });
 
   wss.on('connection', async (ws, _request) => {
@@ -33,6 +33,6 @@ export async function createWebSocketServer(): Promise<RemixWebSocketServer> {
   return {
     wss,
     handleUpdates,
-    port: serverPort
+    port: serverPort,
   };
 }

@@ -14,7 +14,9 @@ export async function getBuilder(remix: Remix): Promise<RemixBuilder> {
 
     if (error.toString().includes("Cannot find module '@remix-kit/vite'")) {
       throw new Error(
-        ['Could not load `@remix-kit/vite`. You may need to add it to your project dependencies.'].join('\n')
+        [
+          'Could not load `@remix-kit/vite`. You may need to add it to your project dependencies.',
+        ].join('\n')
       );
     }
 
@@ -38,12 +40,15 @@ export async function buildRemix(remix: Remix) {
 }
 
 function watch(remix: Remix) {
-  const watcher = chokidar.watch(remix.options._layers.map((i) => i.config.srcDir as string).filter(Boolean), {
-    ...remix.options.watchers.chokidar,
-    cwd: remix.options.srcDir,
-    ignoreInitial: true,
-    ignored: [isIgnored, '.cache', 'node_modules'],
-  });
+  const watcher = chokidar.watch(
+    remix.options._layers.map((i) => i.config.srcDir as string).filter(Boolean),
+    {
+      ...remix.options.watchers.chokidar,
+      cwd: remix.options.srcDir,
+      ignoreInitial: true,
+      ignored: [isIgnored, '.cache', 'node_modules'],
+    }
+  );
 
   watcher.on('all', (event, path) => remix.callHook('builder:watch', event, normalize(path)));
   remix.hook('close', () => watcher.close());

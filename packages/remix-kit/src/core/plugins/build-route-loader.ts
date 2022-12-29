@@ -17,7 +17,7 @@ const BROWSER_EXPORTS = [
   'links',
   'meta',
   'unstable_shouldReload',
-  'shouldRevalidate'
+  'shouldRevalidate',
 ] as const;
 
 export const BuildRouteLoader = createUnplugin(function (remix: Remix) {
@@ -27,12 +27,12 @@ export const BuildRouteLoader = createUnplugin(function (remix: Remix) {
     vite: {
       apply: 'build',
       buildStart(this, options) {
-        let input = options.input;
+        const input = options.input;
         // Make all browser route entries virtual so they can be proxied and tree shaken.
         if (input && typeof input === 'object' && !Array.isArray(input)) {
-          let routeIds = Object.keys(remix.options.routes);
+          const routeIds = Object.keys(remix.options.routes);
 
-          for (let alias in input) {
+          for (const alias in input) {
             if (routeIds.includes(alias)) {
               input[alias] = VIRTUAL_PREFIX + input[alias];
             }

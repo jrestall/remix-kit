@@ -76,7 +76,7 @@ function createNodeServer(viteServer: ViteDevServer, ctx: ViteBuildContext) {
   });
   const isExternal = createIsExternal(viteServer, ctx.remix.options.rootDir);
   node.shouldExternalize = async (id: string) => {
-    let result = await isExternal(id);
+    const result = await isExternal(id);
     if (result?.external) {
       const module = await resolveModule(result.id, { url: ctx.remix.options.modulesDir });
       return fileURLToPath(module);
@@ -201,7 +201,7 @@ export async function initViteNodeServer(ctx: ViteBuildContext) {
     root: ctx.remix.options.srcDir,
     base: ctx.ssrServer!.config.base,
     serverEntryPoint: serverEntry,
-    wssPort: 24688
+    wssPort: 24688,
   };
   process.env.REMIX_DEV_SERVER_OPTIONS = JSON.stringify(devServerOptions);
 

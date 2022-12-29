@@ -7,7 +7,7 @@
 export function removeExperimentalFetchWarnings() {
   const originalEmit = process.emit;
   // @ts-expect-error - TS complains about the return type of originalEmit.apply
-  process.emit = function (name, data: any, ...args) {
+  process.emit = function (name, data: any, ...rest) {
     if (
       name === `warning` &&
       typeof data === `object` &&
@@ -16,6 +16,6 @@ export function removeExperimentalFetchWarnings() {
     )
       return false;
 
-    return originalEmit.apply(process, arguments as unknown as Parameters<typeof process.emit>);
+    return originalEmit.apply(process, rest as unknown as Parameters<typeof process.emit>);
   };
 }

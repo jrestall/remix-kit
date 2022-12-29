@@ -8,25 +8,26 @@ export default defineRemixCommand({
   meta: {
     name: 'typecheck',
     usage: 'npx remix-kit typecheck [rootDir]',
-    description: 'Runs `tsc` to check types throughout your app.'
+    description: 'Runs `tsc` to check types throughout your app.',
   },
-  async invoke (args) {
+  async invoke(args) {
     process.env.NODE_ENV = process.env.NODE_ENV || 'production';
     const cwd = resolve(args._[0] || '.');
 
     const remix = await loadRemix({ cwd });
 
     // Generate types and build remix instance
-    await writeTypes(remix)
+    await writeTypes(remix);
     await buildRemix(remix);
     await remix.close();
 
     // Prefer local install if possible
-    const hasLocalInstall = tryResolveModule('typescript', cwd) && tryResolveModule('tsc/package.json', cwd);
+    const hasLocalInstall =
+      tryResolveModule('typescript', cwd) && tryResolveModule('tsc/package.json', cwd);
     if (hasLocalInstall) {
       await execa('tsc', ['--noEmit'], { preferLocal: true, stdio: 'inherit', cwd });
     } else {
       await execa('npx', '-p tsc -p typescript tsc --noEmit'.split(' '), { stdio: 'inherit', cwd });
     }
-  }
-})
+  },
+});

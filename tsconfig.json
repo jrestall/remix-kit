@@ -13,35 +13,16 @@
     "noEmit": true,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "paths": {
-        "@remix-kit/kit": [
-          "./packages/remix-kit/src/index"
-        ],
-        "@remix-kit/cli": [
-          "./packages/remix-cli/src/cli"
-        ],
-        "@remix-kit/react": [
-          "./packages/remix-react/src/index"
-        ],
-        "@remix-kit/react/setup": [
-          "./packages/remix-react/src/setup"
-        ],
-        "@remix-kit/schema": [
-          "./packages/remix-schema/src/index"
-        ],
-        "@remix-kit/vite": [
-          "./packages/remix-vite/src/index"
-        ],
-        "@remix-kit/vue": [
-          "./packages/remix-vue/src/index"
-        ],
+      "@remix-kit/kit": ["./packages/remix-kit/src/index"],
+      "@remix-kit/cli": ["./packages/remix-cli/src/cli"],
+      "@remix-kit/react": ["./packages/remix-react/src/index"],
+      "@remix-kit/react/setup": ["./packages/remix-react/src/setup"],
+      "@remix-kit/schema": ["./packages/remix-schema/src/index"],
+      "@remix-kit/vite": ["./packages/remix-vite/src/index"],
+      "@remix-kit/vue": ["./packages/remix-vue/src/index"]
     }
   },
-  "exclude": [
-    "**/dist/**",
-    "**/docs/**",
-  ]
+  "exclude": ["**/dist/**", "**/docs/**"]
 }

@@ -28,7 +28,7 @@ export interface ExtendConfigOptions {
   client?: boolean;
 }
 
-export interface ExtendViteConfigOptions extends ExtendConfigOptions {}
+export type ExtendViteConfigOptions = ExtendConfigOptions;
 
 /**
  * Extend Vite config
@@ -49,23 +49,17 @@ export function extendViteConfig(
 
   if (options.server !== false && options.client !== false) {
     // Call fn() only once
-    return remix.hook(
-      'vite:extend',
-      ({ config }: { config: ViteConfig }): void => fn(config)
-    );
+    return remix.hook('vite:extend', ({ config }: { config: ViteConfig }): void => fn(config));
   }
 
-  remix.hook(
-    'vite:extendConfig',
-    (config: ViteConfig, { isClient, isServer }: any) => {
-      if (options.server !== false && isServer) {
-        return fn(config);
-      }
-      if (options.client !== false && isClient) {
-        return fn(config);
-      }
+  remix.hook('vite:extendConfig', (config: ViteConfig, { isClient, isServer }: any) => {
+    if (options.server !== false && isServer) {
+      return fn(config);
     }
-  );
+    if (options.client !== false && isClient) {
+      return fn(config);
+    }
+  });
 }
 
 /**

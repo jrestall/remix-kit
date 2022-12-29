@@ -29,7 +29,7 @@ export default defineRemixCommand({
 
     await clearDir(remix.options.buildDir);
 
-    await writeTypes(remix)
+    await writeTypes(remix);
 
     remix.hook('build:error', (err: any) => {
       consola.error('Remix Build Error:', err);
