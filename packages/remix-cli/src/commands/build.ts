@@ -10,7 +10,7 @@ import { writeTypes } from '../utils/prepare';
 export default defineRemixCommand({
   meta: {
     name: 'build',
-    usage: 'npx remix build [--dotenv] [rootDir]',
+    usage: 'npx remix-kit build [--dotenv] [rootDir]',
     description: 'Build remix for production deployment',
   },
   async invoke(args) {

@@ -6,16 +6,17 @@
   "scripts": {
     "build": "remix-kit build",
     "dev": "remix-kit dev --origin http://localhost:3000",
-    "dev:server": "node ./build/index.js",
-    "start": "remix-kit preview"
+    "start": "remix-kit preview",
+    "vite:dev": "remix-kit dev --origin http://localhost:3000",
+    "vite:build": "remix-kit build",
+    "vite:preview": "remix-kit preview",
+    "dev:server": "node ./build/index.js"
   },
   "dependencies": {
     "@remix-kit/feature-blog": "workspace: *",
     "@remix-run/express": "^1.8.2",
     "@remix-run/node": "^1.8.2",
     "@remix-run/react": "^1.8.2",
-    "@remix-kit/react": "workspace:*",
-    "@remix-kit/vite": "workspace:*",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "express": "^4.18.2",
@@ -26,6 +27,8 @@
   },
   "devDependencies": {
     "@remix-kit/cli": "workspace:*",
+    "@remix-kit/react": "workspace:*",
+    "@remix-kit/vite": "workspace:*",
     "@remix-run/dev": "^1.8.2",
     "@remix-run/eslint-config": "^1.8.2",
     "@types/compression": "^1.7.2",

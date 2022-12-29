@@ -21,8 +21,8 @@ export default defineRemixCommand({
   meta: {
     name: 'dev',
     usage:
-      'npx remix dev [rootDir] [--dotenv] [--clipboard] [--open, -o] [--port, -p] [--host, -h] [--https] [--ssl-cert] [--ssl-key] [--origin, -o]',
-    description: 'Run remix development server',
+      'npx remix-kit dev [rootDir] [--dotenv] [--clipboard] [--open, -o] [--port, -p] [--host, -h] [--https] [--ssl-cert] [--ssl-key] [--origin, -o]',
+    description: 'Run remix-kit development server',
   },
   async invoke(args) {
     const start = performance.now();

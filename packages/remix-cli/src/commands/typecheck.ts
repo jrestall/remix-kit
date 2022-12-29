@@ -7,7 +7,7 @@ import { writeTypes } from '../utils/prepare';
 export default defineRemixCommand({
   meta: {
     name: 'typecheck',
-    usage: 'npx remix typecheck [rootDir]',
+    usage: 'npx remix-kit typecheck [rootDir]',
     description: 'Runs `tsc` to check types throughout your app.'
   },
   async invoke (args) {
