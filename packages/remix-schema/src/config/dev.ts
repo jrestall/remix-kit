@@ -25,20 +25,19 @@ export default defineUntypedSchema({
     https: false,
 
     /** Dev server listening port */
-    port:
-      process.env.REMIX_PORT ||
-      process.env.PORT ||
-      3005,
+    port: process.env.REMIX_PORT || process.env.PORT || 3005,
 
     /** Dev server listening host */
-    host:
-      process.env.REMIX_HOST ||
-      process.env.HOST ||
-      'localhost',
+    host: process.env.REMIX_HOST || process.env.HOST || 'localhost',
 
     /**
      * Listening dev server url
      */
     url: 'http://localhost:3005',
+
+    /**
+     * Whether to automatically inject the HMR refresh component e.g. <ReactRefresh />.
+     */
+    injectRefresh: true,
   },
 });

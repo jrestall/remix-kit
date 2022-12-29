@@ -2,18 +2,9 @@ import express from "express";
 import compression from "compression";
 import morgan from "morgan";
 import { createRequestHandler } from "@remix-run/express";
-import prom from "express-prometheus-middleware";
 import { RemixKitRunner } from "@remix-kit/vite";
 
 const app = express();
-const metricsApp = express();
-app.use(
-  prom({
-    metricsPath: "/metrics",
-    collectDefaultMetrics: true,
-    metricsApp,
-  })
-);
 
 app.use((req, res, next) => {
   // helpful headers:
@@ -87,10 +78,4 @@ const port = process.env.PORT || 3003;
 app.listen(port, () => {
   console.log(`✅ app ready: http://localhost:${port}`);
   runner.ready(`http://localhost:${port}`);
-});
-
-const metricsPort = process.env.METRICS_PORT || 3004;
-
-metricsApp.listen(metricsPort, () => {
-  console.log(`✅ metrics ready: http://localhost:${metricsPort}/metrics`);
 });

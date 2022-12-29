@@ -1,6 +1,6 @@
 import type { MetaFunction } from '@remix-run/node';
-import { Links, Meta, Outlet, Scripts, useLoaderData } from '@remix-run/react';
-import { ReactRefresh } from '@remix-kit/react';
+import { Links, LiveReload, Meta, Outlet, Scripts, useLoaderData } from '@remix-run/react';
+
 import React from 'react';
 import stylesUrl from './styles/tailwind.css';
 import { json } from '@remix-run/node';
@@ -25,11 +25,11 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
-        <ReactRefresh />
         <Links />
       </head>
       <body>
         <Outlet />
+        <LiveReload />
         <Scripts />
         {data.test}
       </body>
