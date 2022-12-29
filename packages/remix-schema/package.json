@@ -27,11 +27,11 @@
     "@types/semver": "^7",
     "@unhead/schema": "^1.0.14",
     "@vitejs/plugin-react": "^3.0.0",
-    "unbuild": "latest",
-    "vite": "4.0.3"
+    "unbuild": "^1.0.2",
+    "vite": "^4.0.3"
   },
   "dependencies": {
-    "c12": "^1.0.1",
+    "c12": "^1.1.0",
     "create-require": "^1.1.1",
     "defu": "^6.1.1",
     "h3": "^1.0.2",
