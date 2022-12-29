@@ -138,6 +138,7 @@ importers:
       c12: ^1.1.0
       chokidar: ^3.5.3
       consola: ^2.15.3
+      defu: ^6.1.1
       es-module-lexer: ^1.1.0
       esbuild: ^0.16.12
       fs-extra: ^11.1.0
@@ -157,6 +158,7 @@ importers:
       c12: 1.1.0
       chokidar: 3.5.3
       consola: 2.15.3
+      defu: 6.1.1
       es-module-lexer: 1.1.0
       esbuild: 0.16.12
       fs-extra: 11.1.0

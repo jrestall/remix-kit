@@ -41,6 +41,9 @@ jobs:
       - name: Install Node.js dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Revert changes into the pnpm-lock.yaml file
+        run: git checkout -- pnpm-lock.yaml
+
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
