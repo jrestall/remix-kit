@@ -8,6 +8,7 @@ import type { ViteBuildContext, ViteOptions } from '../vite';
 import type { Remix } from '@remix-kit/schema';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { viteNodePlugin } from '../vite-node';
+import { isRelative } from 'ufo';
 
 export async function buildClient(ctx: ViteBuildContext) {
   // TODO: async entry support for module federation
@@ -82,7 +83,10 @@ export async function buildClient(ctx: ViteBuildContext) {
 
   if (ctx.remix.options.dev) {
     // Dev
-    await ctx.remix.callHook('vite:serverCreating', clientConfig, { isClient: true, isServer: false });
+    await ctx.remix.callHook('vite:serverCreating', clientConfig, {
+      isClient: true,
+      isServer: false,
+    });
     const viteServer = await vite.createServer(clientConfig);
     await ctx.remix.callHook('vite:serverCreated', viteServer, { isClient: true, isServer: false });
     ctx.clientServer = viteServer;
@@ -100,8 +104,11 @@ export async function buildClient(ctx: ViteBuildContext) {
 }
 
 function getRemixRoutes(remix: Remix) {
-  return Object.entries(remix.options.routes).map(([id, route]) => [
-    id,
-    resolve(remix.options.appDirectory, dirname(route.file), basename(route.file)),
-  ]);
+  return Object.entries(remix.options.routes).map(([id, route]) => {
+    const routeId = isRelative(id) ? 'routes' + id.split('routes')[1] : id;
+    return [
+      routeId,
+      resolve(remix.options.appDirectory, dirname(route.file), basename(route.file)),
+    ];
+  });
 }

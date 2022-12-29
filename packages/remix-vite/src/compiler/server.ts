@@ -1,4 +1,4 @@
-import { dirname, join } from 'pathe';
+import { basename, dirname, join } from 'pathe';
 import * as vite from 'vite';
 import { logger } from '@remix-kit/kit';
 import type { ViteBuildContext, ViteOptions } from '../vite';
@@ -69,7 +69,7 @@ export async function buildServer(ctx: ViteBuildContext) {
           generatedCode: {
             constBindings: true,
           },
-          entryFileNames: "[name].mjs"
+          entryFileNames: basename(options.serverBuildPath)
         },
         onwarn(warning, rollupWarn) {
           if (warning.code && ['UNUSED_EXTERNAL_IMPORT'].includes(warning.code)) {
