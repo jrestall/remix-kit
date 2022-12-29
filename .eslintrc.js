@@ -16,6 +16,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     'react-hooks/rules-of-hooks': 'off',
-    '@typescript-eslint/no-this-alias': 'off'
+    '@typescript-eslint/no-this-alias': 'off',
   },
 };

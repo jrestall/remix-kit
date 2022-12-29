@@ -25,7 +25,10 @@ class DevClient {
       if (message.type === 'invalidates') {
         const start = Date.now();
         const invalidated = new Set();
-        const removed = devClient.runner.moduleCache.invalidateDepTree(message.invalidates, invalidated);
+        const removed = devClient.runner.moduleCache.invalidateDepTree(
+          message.invalidates,
+          invalidated
+        );
         devClient.runner.executeId('\0@remix-run/dev/server-build').then((build) => {
           if (devClient.onInvalidate) devClient.onInvalidate(build);
           const time = Date.now() - start;
