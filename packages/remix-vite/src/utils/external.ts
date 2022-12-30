@@ -3,6 +3,9 @@ import { ExternalsDefaults, isExternal } from 'externality';
 import type { ViteDevServer } from 'vite';
 
 export function createIsExternal(viteServer: ViteDevServer, rootDir: string) {
+  const noExternal = Array.isArray(viteServer.config.ssr.noExternal)
+    ? viteServer.config.ssr.noExternal
+    : [];
   const externalOpts: ExternalsOptions = {
     inline: [
       /isbot/,
@@ -12,7 +15,7 @@ export function createIsExternal(viteServer: ViteDevServer, rootDir: string) {
       /\.ts$/,
       /\.tsx$/,
       ...(ExternalsDefaults.inline || []),
-      ...(viteServer.config.ssr.noExternal as string[]),
+      ...(noExternal as string[]),
     ],
     external: [...(viteServer.config.ssr.external || []), /node_modules/],
     resolve: {

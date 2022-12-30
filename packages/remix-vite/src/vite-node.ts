@@ -17,7 +17,7 @@ import { fileURLToPath, resolve as resolveModule } from 'mlly';
 import { join, resolve } from 'pathe';
 import { distDir } from './dirs';
 import { createWebSocketServer } from './vite-server';
-import fetch from 'node-fetch-native';
+import nodeFetch from 'node-fetch-native';
 import { removeExperimentalFetchWarnings } from './utils/node-patch';
 
 // Store the invalidates for the next rendering
@@ -152,7 +152,7 @@ function createDevServerApp(ctx: ViteBuildContext, node: ViteNodeServer) {
       }
 
       await proxyRequest(event, process.env.ORIGIN_SERVER + event.node.req.url, {
-        fetch,
+        fetch: nodeFetch,
         sendStream: event.node.req.method === 'GET',
       }).catch((err) => {
         const errorData = {
