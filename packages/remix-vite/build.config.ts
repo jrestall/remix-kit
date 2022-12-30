@@ -13,6 +13,8 @@ export default defineBuildConfig({
     'build:done': () => {
       mkdirSync('dist/runtime/', { recursive: true });
       copyFileSync('src/runtime/dev-entry.mjs', 'dist/runtime/dev-entry.mjs');
+      copyFileSync('src/runtime/dev-server-entry.js', 'dist/runtime/dev-server-entry.js');
+      copyFileSync('src/runtime/dev-client.js', 'dist/runtime/dev-client.js');
 
       mkdirSync('dist/compiler/defaults/', { recursive: true });
       copyFileSync(
