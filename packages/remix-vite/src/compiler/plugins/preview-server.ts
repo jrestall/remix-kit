@@ -18,8 +18,9 @@ export async function previewServer(remix: Remix): Promise<Plugin> {
     );
   }
 
-  const requestHandler = createRequestHandler(build, process.env.NODE_ENV);
-  const nodeServerAdapter = createServerAdapter(requestHandler);
+  const nodeServerAdapter = createServerAdapter((req) => {
+    return createRequestHandler(build, process.env.NODE_ENV)(req);
+  });
 
   return {
     name: 'remix:preview-server',
