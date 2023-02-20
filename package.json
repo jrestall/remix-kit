@@ -44,7 +44,7 @@
     "conventional-changelog-cli": "^2.2.2",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
-    "nx": "15.4.5",
+    "nx": "15.7.2",
     "only-allow": "^1.0.0",
     "prettier": "^2.7.1",
     "syncpack": "^8.4.11",
