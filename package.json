@@ -48,7 +48,7 @@
     "only-allow": "^1.0.0",
     "prettier": "^2.7.1",
     "syncpack": "^8.4.11",
-    "typescript": "^4.9.4",
+    "typescript": "^5.0.2",
     "unbuild": "^1.0.2",
     "vite": "^4.0.3"
   },
